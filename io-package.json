@@ -1,0 +1,34 @@
+{
+    "common": {
+        "name":                     "vis-timeandweather",
+        "version": "0.0.1",
+        "title":                    "ioBroker Visualisation - time and weather Widgets",
+        "desc": {
+            "en":                   "Time and weather widgets for ioBroker.vis",
+            "de":                   "Zeit und Wetter Widgets für ioBroker.vis",
+            "ru":                   "Widgets времени и погоды для ioBroker.vis"
+        },
+        "platform":                 "Javascript/Node.js",
+        "loglevel":                 "info",
+        "icon":                     "timeandweather.png",
+        "enabled":                  true,
+        "mode":                     "once",
+        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.png",
+        "keywords":                 ["timeandweather", "vis", "GUI", "graphical", "scada"],
+        "readme":                   "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/README.md",
+        "authors": [
+            "bluefox <dogafox@gmail.com>"
+        ],
+        "localLink":                "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+        "license":                  "MIT",
+        "dependencies":             ["vis"],
+        "onlyWWW":                  true,
+        "singleton":                true,
+        "type":                     "vis",
+		"restartAdapters":          ["vis"]
+    },
+    "native": {
+    },
+    "instanceObjects": [
+    ]
+}
