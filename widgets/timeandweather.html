@@ -1,3 +1,10 @@
+<!--
+    ioBroker.vis time and weather Widget-Set
+
+    version: "0.0.2"
+
+    Copyright 2013-2015 bluefox<dogafox@gmail.com>
+-->
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/flipclock.css" />
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/jquery.jdigiclock.css" />
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/yahoo.css" />
@@ -8,9 +15,6 @@
 <script type="text/javascript" src="widgets/timeandweather/js/coolclock.js"></script>
 <script type="text/javascript" src="widgets/timeandweather/js/moreskins.js"></script>
 <script type="text/javascript" src="widgets/timeandweather/js/segment-display.js"></script>
-
-<!--script src="widgets/timeandweather/js/coolclock.js"></script>
-<script src="widgets/timeandweather/js/moreskins.js"></script-->
 
 <script language="javascript">
     "use strict";
@@ -88,7 +92,14 @@
     }
 
     vis.binds.timeandweather = {
-        startTime: function (view, elem, hideSeconds, blink, noClass, timerId) {
+ 	    version: "0.0.2",
+		showVersion: function () {
+			if (vis.binds.timeandweather.version) {
+				console.log('Version vis-timeandweather:' + vis.binds.timeandweather.version);
+				vis.binds.timeandweather.version = null;
+			}
+		},
+		startTime: function (view, elem, hideSeconds, blink, noClass, timerId) {
             var today = new Date();
             var h = today.getHours();
             var m = today.getMinutes();
@@ -238,6 +249,7 @@
             }
         },
         tplTwCoolClock: function (view, data) {
+ 			vis.binds.timeandweather.showVersion();
             var style;
             var wid = data.attr('wid');
             if (vis.views[view] &&
@@ -279,12 +291,14 @@
             CoolClock.findAndCreateClocks();
         },
         tplTwFlipClock: function (view, data) {
+ 			vis.binds.timeandweather.showVersion();
             var text = '<div class="vis-widget" style="width:500px; height: 110px" id="' + data.attr('wid') + '" data-vis-resizable=';
             text += "'" + '{"disabled":true}' + "'></div>";
             $('#visview_' + view).append(text);
             var clock = $('#' + data.attr('wid')).FlipClock({clockFace: 'TwentyFourHourClock'});
         },
         tplTwHtcWeather: function (view, data) {
+ 			vis.binds.timeandweather.showVersion();
             var text = '<div class="vis-widget" style="width:500px; height: 420px" id="' + data.attr('wid') + '" data-vis-resizable=';
             text += "'" + '{"disabled":true}' + "'></div>";
             $('#visview_' + view).append(text);
@@ -308,6 +322,7 @@
             });
         },
         tplTwYahooWeather: function (view, data) {
+ 			vis.binds.timeandweather.showVersion();
             var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width:250px; height: 500px; color: #ddd"></div>';
             $('#visview_' + view).append(text);
             var weoid = data.attr('weoid');
@@ -382,7 +397,6 @@
             return line;
         },
         createSvgClock: function (options, el) {
-
             var quadSize = options.quadSize || 60;
             var quadColor = options.quadColor || '#333';
             var quadTickColor = options.quadTickColor || '#333';
@@ -569,11 +583,15 @@
             init();
         },
         tplSvgClock: function (el, data) {
+ 			vis.binds.timeandweather.showVersion();
+
             setTimeout(function () {
                 vis.binds.timeandweather.createSvgClock(data, el[0]);
             }, 100);
         },
         tplSegmentClock: function (el, data) {
+ 			vis.binds.timeandweather.showVersion();
+
             function writeTime(_el, display) {
                 var d = new Date();
                 var h = d.getHours();
