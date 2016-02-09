@@ -17,10 +17,12 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 0.1.0 (2016-02-10)
+- (bluefox) fix typo with Dienstag=>Februar
 
 ### 0.0.1 (2015-10-04)
 - (bluefox) initial checkin
 
 ## License
- Copyright (c) 2013-2015 bluefox https://github.com/GermanBluefox
+ Copyright (c) 2013-2016 bluefox https://github.com/GermanBluefox
  MIT

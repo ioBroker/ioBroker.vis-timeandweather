@@ -1,9 +1,9 @@
 <!--
     ioBroker.vis time and weather Widget-Set
 
-    version: "0.0.2"
+    version: "0.1.0"
 
-    Copyright 2013-2015 bluefox<dogafox@gmail.com>
+    Copyright 2013-2016 bluefox<dogafox@gmail.com>
 -->
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/flipclock.css" />
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/jquery.jdigiclock.css" />
@@ -92,10 +92,10 @@
     }
 
     vis.binds.timeandweather = {
- 	    version: "0.0.2",
+ 	    version: "0.1.0",
 		showVersion: function () {
 			if (vis.binds.timeandweather.version) {
-				console.log('Version vis-timeandweather:' + vis.binds.timeandweather.version);
+				console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
 				vis.binds.timeandweather.version = null;
 			}
 		},
@@ -157,7 +157,7 @@
         },
         months: {
             1: {"en": "January",    "de": "Januar",     "ru": "Январь"},
-            2: {"en": "February",   "de": "Dienstag",   "ru": "Февраль"},
+            2: {"en": "February",   "de": "Februar",    "ru": "Февраль"},
             3: {"en": "March",      "de": "März",       "ru": "Март"},
             4: {"en": "April",      "de": "April",      "ru": "Апрель"},
             5: {"en": "May",        "de": "Mai",        "ru": "Май"},

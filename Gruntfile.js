@@ -113,7 +113,7 @@ module.exports = function (grunt) {
             var readmeStart = readme.substring(0, pos + '## Changelog\r\n'.length);
             var readmeEnd   = readme.substring(pos + '## Changelog\r\n'.length);
 
-            if (iopackage.common && readme.indexOf(iopackage.common.version) == -1) {
+            if (readme.indexOf(version) == -1) {
                 var timestamp = new Date();
                 var date = timestamp.getFullYear() + '-' +
                     ("0" + (timestamp.getMonth() + 1).toString(10)).slice(-2) + '-' +
@@ -130,7 +130,7 @@ module.exports = function (grunt) {
                     }
                 }
 
-                grunt.file.write('README.md', readmeStart + '### ' + iopackage.common.version + ' (' + date + ')\r\n' + (news ? news + '\r\n\r\n' : '\r\n') + readmeEnd);
+                grunt.file.write('README.md', readmeStart + '### ' + version + ' (' + date + ')\r\n' + (news ? news + '\r\n\r\n' : '\r\n') + readmeEnd);
             }
         }
     });
@@ -139,21 +139,19 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jscs');
     grunt.loadNpmTasks('grunt-http');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-compress');
-    grunt.loadNpmTasks('grunt-exec');
-    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('default', [
         'http',
-        'clean',
         'replace',
         'updateReadme',
         'jshint',
         'jscs'
     ]);
     grunt.registerTask('prepublish', [
-        'http',
-        'replace'
+        'replace',
+        'updateReadme'
+    ]);
+	grunt.registerTask('p', [
+        'prepublish'
     ]);
 };
