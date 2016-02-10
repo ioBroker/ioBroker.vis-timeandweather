@@ -2,6 +2,12 @@
 ioBroker.vis-timeandweather
 ============
 
+[![NPM version](http://img.shields.io/npm/v/iobroker.vis-timeandweather.svg)](https://www.npmjs.com/package/iobroker.vis-timeandweather)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.vis-timeandweather.svg)](https://www.npmjs.com/package/iobroker.vis-timeandweather)
+
+[![NPM](https://nodei.co/npm/iobroker.vis-timeandweather.png?downloads=true)](https://nodei.co/npm/iobroker.vis-timeandweather/)
+
+
 timeandweather - Time and weather widgets for ioBroker.vis.
 
 Used following packages:
