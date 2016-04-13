@@ -166,7 +166,7 @@
             _tt[33]   = {'en':'fair (night)',   'de': 'Sch&ouml;nwetter', 'ru': 'Прекрасная погода'};
             _tt[34]   = {'en':'fair (day)',     'de': 'Sch&ouml;nwetter', 'ru': 'Прекрасная погода'};
             _tt[35]   = {'en':'mixed rain and hail', 'de': 'Regen mit Hagel', 'ru': 'Снег с градом'};
-            _tt[36]   = {'en':'hot',            'de': 'Heiß', 'ru': 'Жарко'};
+            _tt[36]   = {'en':'hot',            'de': 'Hei&szlig', 'ru': 'Жарко'};
             _tt[37]   = {'en':'isolated thunderstorms', 'de': 'gebietsweise Gewitter', 'ru': 'Одиночные грозы'};
             _tt[38]   = {'en':'scattered thunderstorms', 'de': 'vereinzelte Gewitter', 'ru': 'Грозы'};
             _tt[39]   = {'en':'scattered thunderstorms', 'de': 'vereinzelte Gewitter', 'ru': 'Грозы'};
