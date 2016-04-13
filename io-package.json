@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "vis-timeandweather",
-        "version": "0.1.0",
+        "version": "1.0.0",
         "title":                    "ioBroker Visualisation - time and weather Widgets",
         "desc": {
             "en":                   "Time and weather widgets for ioBroker.vis",
