@@ -15,7 +15,7 @@ var jdigiclockCounter = 0;
 
 (function($) {
     $.fn.extend({
-        jdigiclock: function(options) {
+        jdigiclock: function (options) {
 
             var defaults = {
                 clockImagesPath:     'images/clock/',
@@ -55,30 +55,30 @@ var jdigiclockCounter = 0;
 
             return this.each(function() {
                 
-                var $this = $(this);
-                var o = options;
-                $this.o = o;
-                $this.clockImagesPath = o.clockImagesPath;
+                var $this               = $(this);
+                var o                   = options;
+                $this.o                 = o;
+                $this.clockImagesPath   = o.clockImagesPath;
                 $this.weatherImagesPath = o.weatherImagesPath;
-                $this.lang = regional[o.lang] == undefined ? regional['en'] : regional[o.lang];
-				$this.lang.lang = o.lang;
-                $this.am_pm = o.am_pm;
+                $this.lang              = regional[o.lang] == undefined ? regional['en'] : regional[o.lang];
+				$this.lang.lang         = o.lang;
+                $this.am_pm             = o.am_pm;
                 $this.weatherLocationCode = o.weatherLocationCode;
-                $this.weatherMetric = o.weatherMetric == 'C' ? 1 : 0;
-                $this.weatherUpdate = o.weatherUpdate;
-                $this.proxyType = o.proxyType;
-                $this.currDate = '';
-                $this.timeUpdate = '';
+                $this.weatherMetric     = o.weatherMetric == 'C' ? 1 : 0;
+                $this.weatherUpdate     = o.weatherUpdate;
+                $this.proxyType         = o.proxyType;
+                $this.currDate          = '';
+                $this.timeUpdate        = '';
 
 
-                var html = '<div id="plugin_cAntainer'+o.curID+'" class="dc_plugin_container">';
-                html    += '<p id="left_arrow'+o.curID+'" class="dc_left_arrow"><img src="'+o.clockImagesPath+'../icon_left.png" /></p>';
-                html    += '<p id="right_arrow'+o.curID+'" class="dc_right_arrow"><img src="'+o.clockImagesPath+'../icon_right.png" /></p>';
+                var html = '<div id="plugin_cAntainer' +o.curID+'" class="dc_plugin_container">';
+                html    += '<p id="left_arrow' +o.curID+'" class="dc_left_arrow"><img src="' + o.clockImagesPath + '../icon_left.png" /></p>';
+                html    += '<p id="right_arrow' +o.curID+'" class="dc_right_arrow"><img src="' + o.clockImagesPath + '../icon_right.png" /></p>';
                 html    += '<div id="digital_cAntainer'+o.curID+'" class="dc_digital_container">';
-                html    += '<div id="clock'+o.curID+'" class="dc_clock"></div>';
-                html    += '<div id="weather'+o.curID+'" class="dc_weather"></div>';
+                html    += '<div id="clock' +o.curID+'" class="dc_clock"></div>';
+                html    += '<div id="weather' +o.curID+'" class="dc_weather"></div>';
                 html    += '</div>';
-                html    += '<div id="forecast_cAntainer'+o.curID+'" class="dc_forecast_container"></div>';
+                html    += '<div id="forecast_cAntainer' +o.curID+'" class="dc_forecast_container"></div>';
                 html    += '</div>';
 
                 $this.html(html);
@@ -132,21 +132,23 @@ var jdigiclockCounter = 0;
     $.fn.displayClock = function(el) {
         $.fn.getTime(el);
         setTimeout(function() {$.fn.displayClock(el)}, $.fn.delay());
-    }
+    };
 
     $.fn.displayWeather = function(el) {
         $.fn.getWeather(el);
         if (el.weatherUpdate > 0) {
-            setTimeout(function() {$.fn.displayWeather(el)}, (el.weatherUpdate * 60 * 1000));
+            setTimeout(function() {
+                $.fn.displayWeather(el);
+            }, (el.weatherUpdate * 60 * 1000));
         }
-    }
+    };
 
     $.fn.delay = function() {
         var now = new Date();
         var delay = (60 - now.getSeconds()) * 1000;
         
         return delay;
-    }
+    };
 
     $.fn.getTime = function(el) {
         var now = new Date();
@@ -313,7 +315,7 @@ var jdigiclockCounter = 0;
             curr_img0 = el.weatherImagesPath + data.curr_icon + '.png';
 		else
 			curr_img0 = data.curr_icon;
-		var weather = '<div id="local'+el.o.curID+'" class="dc_local"><p class="dc_city_main">' + data.city + '</p><p>' + data.curr_text + '</p></div>';
+		var weather = '<div id="local'+el.o.curID+'" class="dc_local"><p class="dc_city_main">' + (data.cityname || data.city) + '</p><p>' + data.curr_text + '</p></div>';
 		weather += '<div id="temp'+el.o.curID+'" class="dc_temp"><p id="date'+el.o.curID+'" class="dc_date">' + el.currDate + '</p>' + curr_temp + '</div>';
 		weather += '<img id="img0_'+el.o.curID+'" src="'+curr_img0+'" style="position: absolute; top: 20px; left: 160px; width: 333px; height: 240px">';
 		el.find('#weather'+el.o.curID+'').html(weather);
@@ -375,9 +377,9 @@ var jdigiclockCounter = 0;
 
 		return r;
 	};	
-    $.fn.getWeather = function(el) {
+    $.fn.getWeather = function (el) {
 
-        el.find('#weather'+el.o.curID).html('<p class="dc_loading">Update Weather ...</p>');
+        el.find('#weather' + el.o.curID).html('<p class="dc_loading">Update Weather ...</p>');
         el.find('#forecast_cAntainer'+el.o.curID).html('<p class="dc_loading">Update Weather ...</p>');
         var proxy = '';
 
@@ -405,21 +407,27 @@ var jdigiclockCounter = 0;
 					context:  el,
 					success:  function(data) {
 						if (data.query) {
-							var modData = {};
+                            console.log('a');
+							var modData = {cityname: el.o.city};
 							var feed = data.query.results.channel;
                             if (feed.item.forecast === undefined) {
                                 return;
                             }
 							var wf = feed.item.forecast[0];
 							// Determine day or night image
-							wpd = feed.item.pubDate;
-							n = wpd.indexOf(":");
-							tpb =  $.fn._getTimeAsDate(wpd.substr(n-2,8));
-							tsr =  $.fn._getTimeAsDate(feed.astronomy.sunrise);
-							tss =  $.fn._getTimeAsDate(feed.astronomy.sunset);
+							var wpd = feed.item.pubDate;
+							var n = wpd.indexOf(':');
+							var tpb =  $.fn._getTimeAsDate(wpd.substr(n-2,8));
+							var tsr =  $.fn._getTimeAsDate(feed.astronomy.sunrise);
+							var tss =  $.fn._getTimeAsDate(feed.astronomy.sunset);
+                            var daynight;
 
 							// Get night or day
-							if (tpb>tsr && tpb<tss) { daynight = 'day'; } else { daynight = 'night'; }
+							if (tpb > tsr && tpb < tss) {
+                                daynight = 'day';
+                            } else {
+                                daynight = 'night';
+                            }
 									// Translation function
 
 							var _tt = []; {
@@ -478,7 +486,7 @@ var jdigiclockCounter = 0;
 							modData['curr_text'] = _tt[feed.item.condition.code][el.lang.lang];
 							modData['curr_temp'] = feed.item.condition.temp;
 							modData['curr_icon'] = 'http://l.yimg.com/a/i/us/nws/weather/gr/'+ feed.item.condition.code + daynight.substring(0,1) +'.png';
-							modData['forecast']    = [];
+							modData['forecast']  = [];
 							for (var i = 0; i < feed.item.forecast.length; i++)
 							{
 								modData['forecast'][i] = {};
@@ -495,7 +503,7 @@ var jdigiclockCounter = 0;
 							//if (options.showerror) $e.html('<p>Weather information unavailable</p>');
 						}
 					},
-					error: function(data) {
+					error: function (data) {
 						//if (options.showerror) $e.html('<p>Weather request failed</p>');
 					}
 				});

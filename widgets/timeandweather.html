@@ -1,7 +1,7 @@
 <!--
     ioBroker.vis time and weather Widget-Set
 
-    version: "1.0.0"
+    version: "1.1.0"
 
     Copyright 2013-2016 bluefox<dogafox@gmail.com>
 -->
@@ -35,7 +35,7 @@
                 "de":  "Aktiviere es, falls eigenen Stil oder Klasse wird angeandt",
                 "ru":  "Если установлены пользовательский класс или CSS свойства,\x0Aто нужно активировать, что бы они стали активными"
             },
-            "weoid"            : {"en": "City",                 "de": "Stadt",                  "ru": "Город"},
+            "woeid"            : {"en": "City",                 "de": "Stadt",                  "ru": "Город"},
             "shortWeekDay"     : {"en": "Short week day",       "de": "Kurzer Wochentag",       "ru": "Короткий день недели"},
             "shortYear"        : {"en": "Short year",           "de": "Kurzes Jahr",            "ru": "Короткий год"},
             "prependZero"      : {"en": "Prepend zero",         "de": "Null vorne",             "ru": "Ноль в начале"},
@@ -58,7 +58,8 @@
             "handsColorLine"   : {"en": "Hands color bulge",    "de": "Zeigerbeulefarbe",       "ru": "Цвет выемок на стрелках"},
             "handsSecColor"    : {"en": "Seconds hand color",   "de": "Skeundenzeigerfarbe",    "ru": "Цвет секундной стрелки"},
             "textFont"         : {"en": "Text font",            "de": "Textschrift",            "ru": "Шрифт"},
-
+            "cityName"         : {"en": "City name",            "de": "Stadtsname",             "ru": "Показывать имя города"},
+            "language"         : {"en": "Language",             "de": "Sprache",                "ru": "Язык"},
             "SymmetricCorner"   : {"en": "symmetric",           "de": "symmetrisch",            "ru": "симметричные"},
             "FlattenedCorner"   : {"en": "flattened",           "de": "abgeflacht",             "ru": "плоские"},
             "PointedCorner"     : {"en": "pointed",             "de": "spitzig",                "ru": "заострённые"},
@@ -87,12 +88,15 @@
             "digitDistance"     : {"en": "Digit distance",      "de": "Zeichenabstand",         "ru": "Расстояние между числами"},
             "segmentWidth"      : {"en": "Segment width",       "de": "Segmentbreite",          "ru": "Ширина секции"},
             "segmentDistance"   : {"en": "Segment distance",    "de": "Segmentdistanz",         "ru": "Расстояние между секциями"},
-            "cornerType"        : {"en": "Corners type",        "de": "Ecktyp",                 "ru": "Тип закруглений"}
+            "cornerType"        : {"en": "Corners type",        "de": "Ecktyp",                 "ru": "Тип закруглений"},
+            "en"                : {"en": "english",             "de": "englisch",               "ru": "английский"},
+            "de"                : {"en": "german",              "de": "deutsch",                "ru": "немецкий"},
+            "ru"                : {"en": "russian",             "de": "russisch",               "ru": "русский"}
         });
     }
 
     vis.binds.timeandweather = {
- 	    version: "1.0.0",
+ 	    version: "1.1.0",
 		showVersion: function () {
 			if (vis.binds.timeandweather.version) {
 				console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
@@ -302,50 +306,52 @@
             var text = '<div class="vis-widget" style="width:500px; height: 420px" id="' + data.attr('wid') + '" data-vis-resizable=';
             text += "'" + '{"disabled":true}' + "'></div>";
             $('#visview_' + view).append(text);
-            var weoid = data.attr('weoid');
-            if (weoid !== undefined && weoid !== null) {
-                var i = weoid.indexOf('[');
+            var woeid = data.attr('woeid') || data.attr('weoid');
+            if (woeid !== undefined && woeid !== null) {
+                var i = woeid.indexOf('[');
                 if (i != -1) {
-                    weoid = weoid.substring(i + 1);
-                    i = weoid.indexOf(']');
-                    weoid = weoid.substring(0, i);
+                    woeid = woeid.substring(i + 1);
+                    i     = woeid.indexOf(']');
+                    woeid = woeid.substring(0, i);
                 }
+            } else {
+                woeid = '664942';
             }
-            else
-                weoid = '664942';
 
             var clock = $('#' + data.attr('wid')).jdigiclock({
-                weatherLocationCode: weoid,
-                weatherUpdate: 5,
-                lang: vis.language,
-                clockImagesPath: 'widgets/timeandweather/img/clock/'
+                weatherLocationCode: woeid,
+                city:                data.attr('cityName'),
+                weatherUpdate:       5,
+                lang:                data.attr('language') || vis.language,
+                clockImagesPath:     'widgets/timeandweather/img/clock/'
             });
         },
         tplTwYahooWeather: function (view, data) {
  			vis.binds.timeandweather.showVersion();
             var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width:250px; height: 500px; color: #ddd"></div>';
             $('#visview_' + view).append(text);
-            var weoid = data.attr('weoid');
-            if (weoid !== undefined && weoid !== null) {
-                var i = weoid.indexOf('[');
+            var woeid = data.attr('woeid') || data.attr('weoid');
+            if (woeid !== undefined && woeid !== null) {
+                var i = woeid.indexOf('[');
                 if (i != -1) {
-                    weoid = weoid.substring(i + 1);
-                    i = weoid.indexOf(']');
-                    weoid = weoid.substring(0, i);
+                    woeid = woeid.substring(i + 1);
+                    i     = woeid.indexOf(']');
+                    woeid = woeid.substring(0, i);
                 }
             }
             else {
-                weoid = '664942';
+                woeid = '664942';
             }
 
-            $('#' + data.attr('wid')).weatherfeed([weoid], {
-                lang: vis.language,
-                woeid: true,
-                humidity: true,
-                forecast: true,
-                link: false,
-                resizable: false,
-                rendered: function () {
+            $('#' + data.attr('wid')).weatherfeed([woeid], {
+                lang:       data.attr('language') || vis.language,
+                woeid:      true,
+                city:       data.attr('cityName'),
+                humidity:   true,
+                forecast:   true,
+                link:       false,
+                resizable:  false,
+                rendered:   function () {
                     if (vis.editMode && vis.activeWidgets.indexOf(data.attr('wid')) != -1) {
                         vis.resizable($('#' + data.attr('wid')).resizable('destroy'));
                     }
@@ -765,7 +771,7 @@
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_HTCWeather.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="HtcWeather"
-        data-vis-attrs="weoid/custom,timeandweather.editWeather">
+        data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru">
     <% 
         vis.binds.timeandweather.tplTwHtcWeather(this.view, this.data);
     %>
@@ -777,7 +783,7 @@
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_YahooWeather.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="YahooWeather"
-        data-vis-attrs="weoid/custom,timeandweather.editWeather">
+        data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru">
     <% 
         vis.binds.timeandweather.tplTwYahooWeather(this.view, this.data);
     %>

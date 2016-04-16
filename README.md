@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.0 (2016-04-16)
+- (bluefox) add city name to display
+
 ### 0.1.0 (2016-02-10)
 - (bluefox) fix typo with Dienstag=>Februar
 
