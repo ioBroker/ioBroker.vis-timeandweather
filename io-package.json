@@ -1,7 +1,14 @@
 {
     "common": {
         "name":                     "vis-timeandweather",
-        "version": "1.1.0",
+        "version": "1.1.1",
+		"news": {
+			"1.1.1": {
+				"en": "fix the slide in htc weather",
+				"de": "fix the slide in htc weather",
+				"ru": "fix the slide in htc weather"
+			}
+		},
         "title":                    "ioBroker Visualisation - time and weather Widgets",
         "desc": {
             "en":                   "Time and weather widgets for ioBroker.vis",
@@ -25,6 +32,7 @@
         "onlyWWW":                  true,
         "singleton":                true,
         "type":                     "vis",
+		"noConfig":                 true,
 		"restartAdapters":          ["vis"]
     },
     "native": {

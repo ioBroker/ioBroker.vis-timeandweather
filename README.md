@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.1 (2016-05-31)
+- (bluefox) fix the slide in htc weather
+
 ### 1.1.0 (2016-04-16)
 - (bluefox) add city name to display
 
