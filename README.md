@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.2 (2016-06-02)
+- (bluefox) add weather custom widget
+
 ### 1.1.1 (2016-05-31)
 - (bluefox) fix the slide in htc weather
 

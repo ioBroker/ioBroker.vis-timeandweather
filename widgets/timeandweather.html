@@ -91,7 +91,48 @@
             "cornerType"        : {"en": "Corners type",        "de": "Ecktyp",                 "ru": "Тип закруглений"},
             "en"                : {"en": "english",             "de": "englisch",               "ru": "английский"},
             "de"                : {"en": "german",              "de": "deutsch",                "ru": "немецкий"},
-            "ru"                : {"en": "russian",             "de": "russisch",               "ru": "русский"}
+            "ru"                : {"en": "russian",             "de": "russisch",               "ru": "русский"},
+            "city":                     {"en": "City",              "de": "Stadt",              "ru": "Город"},
+            "group_now":                {"en": "Now",               "de": "Jetzt",              "ru": "Сейчас"},
+            "temperature-0-oid":        {"en": "Temperature ID",    "de": "Temperature ID",     "ru": "Температура ID"},
+            "condition-0-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "humidity-0-oid":           {"en": "Humidity ID",       "de": "Luftfeutigkeit ID",  "ru": "Влажность ID"},
+            "temperature-min-0-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура ID"},
+            "temperature-max-0-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура ID"},
+            "wind-speed-0-oid":         {"en": "Wind speed ID",     "de": "Windgeschwindigkeit", "ru": "Скорсть ветра ID"},
+            "wind-dir-0-oid":           {"en": "Wind direction ID", "de": "Windrichting",       "ru": "Направление ветра ID"},
+            "icon-0-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки"},
+            "group_tomorrow":           {"en": "Tomorrow",          "de": "Morgen",             "ru": "Завтра"},
+            "condition-1-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "temperature-max-1-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура ID"},
+            "temperature-min-1-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура ID"},
+            "icon-1-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки ID"},
+            "group_aftertomorrow":      {"en": "group_aftertomorrow", "de": "Übermorgen",       "ru": "Послезавтра"},
+            "condition-2-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "temperature-max-2-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура ID"},
+            "temperature-min-2-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура ID"},
+            "icon-2-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки ID"},
+            "group_in2days":            {"en": "In 2 days",         "de": "In 2 Tagen",         "ru": "Через 2 дня"},
+            "condition-3-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "temperature-max-3-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура"},
+            "temperature-min-3-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура"},
+            "icon-3-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки"},
+            "group_in3days":            {"en": "In 3 days",         "de": "In 3 Tagen",         "ru": "Через 3 дня"},
+            "condition-4-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "temperature-max-4-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура ID"},
+            "temperature-min-4-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура ID"},
+            "icon-4-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки ID"},
+            "group_in4days":            {"en": "In 4 days",         "de": "In 4 Tagen",         "ru": "Через 4 дня"},
+            "condition-5-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "temperature-max-5-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура ID"},
+            "temperature-min-5-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура ID"},
+            "icon-5-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки ID"},
+            "group_in5days":            {"en": "In 5 days",         "de": "In 5 Tagen",         "ru": "Через 5 дней"},
+            "condition-6-oid":          {"en": "Condition ID",      "de": "Text ID",            "ru": "Текст ID"},
+            "temperature-max-6-oid":    {"en": "Max temperature ID", "de": "Max Temperature ID", "ru": "Макс. температура ID"},
+            "temperature-min-6-oid":    {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура ID"},
+            "icon-6-oid":               {"en": "Icon URL ID",       "de": "Bild-URL ID",        "ru": "URL картинки ID"},
+            "units_speed":              {"en": "Speed units",       "de": "Geschw.Einheit",     "ru": "Единицы изм. скорости"}
         });
     }
 
@@ -110,15 +151,13 @@
             var s = today.getSeconds();
 
             // add a zero in front of numbers<10
-            m = (m < 10) ? ("0" + m) : m;
-            if (!hideSeconds) {
-                s = (s < 10) ? ("0" + s) : s;
-            }
-            h = (h < 10) ? ("0" + h) : h;
+            m = (m < 10) ? ('0' + m) : m;
+            if (!hideSeconds) s = (s < 10) ? ('0' + s) : s;
+            h = (h < 10) ? ('0' + h) : h;
             var hl = document.getElementById(elem);
-            if (hideSeconds === "false") {
-                hideSeconds = false;
-            }
+
+            if (hideSeconds === 'false') hideSeconds = false;
+
             if (!hl) {
                 $('#visview_' + view).append('<div class="vis-widget' + (noClass ? '' : ' clock') + '" id="' + elem + '" ></div>');
                 hl = document.getElementById(elem);
@@ -358,49 +397,200 @@
                 }
             });
         },
-        editWeather: function (wid_attr, options) {
-            var line = {
-                input: '<input type="text" id="inspect_' + wid_attr + '"/>',
-                init: function (_wid_attr, data) {
-                    $('#inspect_' + _wid_attr).autocomplete({
-                        source: function (req, callback) {
-                            console.log(req.term);
+        getValue: function (oidOrBinding) {
+            if (!oidOrBinding) return null;
 
-                            var query = 'select * from geo.places where text="' + req.term + '"';
-                            var api = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&format=json&callback=?';
-
-                            // Send request
-                            $.ajax({
-                                type: 'GET',
-                                url: api,
-                                dataType: 'json',
-                                success: function (data) {
-                                    if (data.query.count > 0) {
-                                        var arr = [];
-                                        for (var i = 0; i < data.query.count; i++) {
-                                            arr.push({
-                                                label: $.fn._getWeatherAddress(data.query.results.place[i]),
-                                                value: data.query.results.place.woeid
-                                            });
-                                        }
-                                        callback(arr);
-                                    } else {
-                                        callback([]);
-                                    }
-                                },
-                                error: function (data) {
-                                    callback([]);
-                                }
-                            });
+            if (oidOrBinding[0] === '{') {
+                return vis.formatBinding(oidOrBinding);
+            } else {
+                return vis.states.attr(oidOrBinding + '.val');
+            }
+        },
+        updateCustomWeather: function (data) {
+            var getValue = vis.binds.timeandweather.getValue;
+            var weather = {
+                units: {
+                    pressure:     data.units_pressure   || 'mb',
+                    speed:        data.units_speed      || 'km/h',
+                    temperature:  data.units_temp       || 'C'
+                },
+                location: {
+                    city: data.city || null
+                },
+                wind: {
+                    direction:  getValue(data['wind-dir-0-oid']),
+                    speed:      getValue(data['wind-speed-0-oid'])
+                },
+                atmosphere: {
+                    humidity: getValue(data['humidity-0-oid'])
+                },
+                image: {
+                    url: "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+                },
+                item: {
+                    condition: {
+                        temp: getValue(data['temperature-0-oid']),
+                        text: getValue(data['condition-0-oid']),
+                        icon: getValue(data['icon-0-oid'])
+                    },
+                    forecast: [
+                        {
+                            high: getValue(data['temperature-max-0-oid']),
+                            low:  getValue(data['temperature-min-0-oid']),
+                            text: getValue(data['condition-0-oid'])
                         },
-                        select: function (event, ui) {
-                            $(this).val(ui.item.value);
-                            $(this).trigger('change', ui.item.value);
+                        {
+                            high: getValue(data['temperature-max-1-oid']),
+                            low:  getValue(data['temperature-min-1-oid']),
+                            text: getValue(data['condition-1-oid'])
+                        },
+                        {
+                            high: getValue(data['temperature-max-2-oid']),
+                            low:  getValue(data['temperature-min-2-oid']),
+                            text: getValue(data['condition-2-oid'])
+                        },
+                        {
+                            high: getValue(data['temperature-max-3-oid']),
+                            low:  getValue(data['temperature-min-3-oid']),
+                            text: getValue(data['condition-3-oid'])
+                        },
+                        {
+                            high: getValue(data['temperature-max-4-oid']),
+                            low:  getValue(data['temperature-min-4-oid']),
+                            text: getValue(data['condition-4-oid'])
+                        },
+                        {
+                            high: getValue(data['temperature-max-5-oid']),
+                            low:  getValue(data['temperature-min-5-oid']),
+                            text: getValue(data['condition-5-oid'])
+                        },
+                        {
+                            high: getValue(data['temperature-max-6-oid']),
+                            low:  getValue(data['temperature-min-6-oid']),
+                            text: getValue(data['condition-6-oid'])
                         }
-                    });
+                    ]
                 }
             };
-            return line;
+            for (var i = 0; i < weather.item.forecast.length; i++) {
+                if (weather.item.forecast[i].high === null &&
+                    weather.item.forecast[i].low  === null &&
+                    weather.item.forecast[i].text === null) {
+                    weather.item.forecast.splice(i, weather.item.forecast.length - i);
+                    break;
+                }
+            }
+
+            $('#' + data.wid).weatherfeed('', 'update', weather);
+            /*$('#' + data.wid).weatherfeed('', 'update', {
+                "units": {
+                    "distance": "km",
+                            "pressure": "mb",
+                            "speed": "km/h",
+                            "temperature": "C"
+                },
+                "location": {
+                    "city": "Karlsruhe"
+                },
+                "wind": {
+                    "chill": "66",
+                    "direction": "255",
+                    "speed": "11.27"
+                },
+                "atmosphere": {
+                    "humidity": "71"
+                },
+                "image": {
+                    "url": "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+                },
+                "item": {
+                    "condition": {
+                        "code": "26",
+                                "temp": "19",
+                                "text": "Cloudy"
+                    },
+                    "forecast": [
+                        {
+                            "code": "12",
+                            "high": "20",
+                            "low": "14",
+                            "text": "Rain"
+                        },
+                        {
+                            "code": "39",
+                            "high": "21",
+                            "low": "13",
+                            "text": "Scattered Showers"
+                        },
+                        {
+                            "code": "4",
+                            "high": "22",
+                            "low": "15",
+                            "text": "Thunderstorms"
+                        },
+                        {
+                            "code": "28",
+                            "high": "23",
+                            "low": "13",
+                            "text": "Mostly Cloudy"
+                        },
+                        {
+                            "code": "4",
+                            "high": "24",
+                            "low": "15",
+                            "text": "Thunderstorms"
+                        },
+                        {
+                            "code": "47",
+                            "high": "23",
+                            "low": "16",
+                            "text": "Scattered Thunderstorms"
+                        },
+                        {
+                            "code": "30",
+                            "high": "23",
+                            "low": "16",
+                            "text": "Partly Cloudy"
+                        }
+                    ]
+                }
+            });*/
+        },
+        tplTwCustomWeather: function (view, data) {
+            vis.binds.timeandweather.showVersion();
+            var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width: 250px; height: 500px; color: #ddd"></div>';
+            $('#visview_' + view).append(text);
+
+            $('#' + data.attr('wid')).weatherfeed('', {
+                lang:       data.attr('language') || vis.language,
+                custom:     true,
+                city:       data.attr('city'),
+                humidity:   true,
+                forecast:   true,
+                link:       false,
+                resizable:  false
+            });
+
+            for (var attr in data) {
+                if (data.hasOwnProperty(attr)) {
+                    if (attr.match(/-oid$/) && data[attr]) {
+                        if (data[attr][0] === '{') {
+                            var oids = vis.extractBinding(data[attr]);
+                            for (var oid = 0; oid < oids.length; oid++) {
+                                vis.states.bind(oids[oid].visOid + '.val', function () {
+                                    vis.binds.timeandweather.updateCustomWeather(data);
+                                });
+                            }
+                        } else {
+                            vis.states.bind(data[attr] + '.val', function () {
+                                vis.binds.timeandweather.updateCustomWeather(data);
+                            });
+                        }
+                    }
+                }
+            }
+
+            vis.binds.timeandweather.updateCustomWeather(data);
         },
         createSvgClock: function (options, el) {
             var quadSize = options.quadSize || 60;
@@ -713,7 +903,53 @@
             });
         }
     };
+    if (vis.editMode) {
+        vis.binds.timeandweather.editWeather = function (wid_attr, options) {
+            var line = {
+                input: '<input type="text" id="inspect_' + wid_attr + '"/>',
+                init: function (_wid_attr, data) {
+                    $('#inspect_' + _wid_attr).autocomplete({
+                        source: function (req, callback) {
+                            console.log(req.term);
 
+                            var query = 'select * from geo.places where text="' + req.term + '"';
+                            var api = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&format=json&callback=?';
+
+                            // Send request
+                            $.ajax({
+                                type: 'GET',
+                                url: api,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.query.count > 0) {
+                                        var arr = [];
+                                        for (var i = 0; i < data.query.count; i++) {
+                                            arr.push({
+                                                label: $.fn._getWeatherAddress(data.query.results.place[i]),
+                                                value: data.query.results.place.woeid
+                                            });
+                                        }
+                                        callback(arr);
+                                    } else {
+                                        callback([]);
+                                    }
+                                },
+                                error: function (data) {
+                                    callback([]);
+                                }
+                            });
+                        },
+                        select: function (event, ui) {
+                            $(this).val(ui.item.value);
+                            $(this).trigger('change', ui.item.value);
+                        }
+                    });
+                }
+            };
+            return line;
+        };
+
+    }
 </script>
 <!-- startDate: function (view, elem, showWeekDay, noClass, timerId, shortWeekDay, shortYear, prependZero, monthWord, shortMonth, american) {
             -->
@@ -786,6 +1022,26 @@
         data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru">
     <% 
         vis.binds.timeandweather.tplTwYahooWeather(this.view, this.data);
+    %>
+</script>
+
+<script id="tplTwWeather"
+        type="text/ejs"
+        class="vis-tpl"
+        data-vis-prev='<img src="widgets/timeandweather/img/Prev_YahooWeather.png"></img>'
+        data-vis-set="timeandweather"
+        data-vis-name="WeatherCustom"
+        data-vis-attrs="city;language/select,,en,de,ru;units_speed;"
+        data-vis-attrs0="group.now;temperature-0-oid/id;condition-0-oid/id;humidity-0-oid/id;temperature-min-0-oid/id;temperature-max-0-oid/id;wind-speed-0-oid/id;wind-dir-0-oid/id;icon-0-oid/id;"
+        data-vis-attrs1="group.tomorrow;condition-1-oid/id;temperature-min-1-oid/id;temperature-max-1-oid/id;icon-1-oid/id;"
+        data-vis-attrs2="group.aftertomorrow;condition-2-oid/id;temperature-min-2-oid/id;temperature-max-2-oid/id;icon-2-oid/id;"
+        data-vis-attrs3="group.in2days;condition-3-oid/id;temperature-min-3-oid/id;temperature-max-3-oid/id;icon-3-oid/id;"
+        data-vis-attrs4="group.in3days;condition-4-oid/id;temperature-min-4-oid/id;temperature-max-4-oid/id;icon-4-oid/id;"
+        data-vis-attrs5="group.in4days;condition-5-oid/id;temperature-min-5-oid/id;temperature-max-5-oid/id;icon-5-oid/id;"
+        data-vis-attrs6="group.in5days;condition-6-oid/id;temperature-min-6-oid/id;temperature-max-6-oid/id;icon-6-oid/id;"
+    >
+    <%
+        vis.binds.timeandweather.tplTwCustomWeather(this.view, this.data);
     %>
 </script>
 
