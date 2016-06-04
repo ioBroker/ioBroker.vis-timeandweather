@@ -295,12 +295,10 @@
         var $e   = $(e);
         var row  = 'odd';
         var feed = $e[0].feed;
-        if (!options) {
-            options = $e.data('options');
-        }
+        if (!options) options = $e.data('options');
 
         $e.empty();
-        if (options.width)  $e.css ({width: options.width});
+        if (options.width)  $e.css ({width:  options.width});
         if (options.height) $e.css ({height: options.height});
 
         var isShort = (options.width < 100);
@@ -368,7 +366,7 @@
             var n   = wpd.indexOf(':');
             var tpb = _getTimeAsDate(wpd.substr(n - 2, 8));
             var tsr = feed.astronomy && feed.astronomy.sunrise ? _getTimeAsDate(feed.astronomy.sunrise) : null;
-            var tss = feed.astronomy && feed.astronomy.sunset ? _getTimeAsDate(feed.astronomy.sunset) : null;
+            var tss = feed.astronomy && feed.astronomy.sunset  ? _getTimeAsDate(feed.astronomy.sunset)  : null;
             var daynight;
 
             // Get night or day
@@ -414,16 +412,15 @@
 
             // Add optional data
             if (wf) {
-                if (wf.high                !== null && options.highlow && !isShort) html += '<div class="weatherRange">' + _translate('High', options.lang) + ': ' + wf.high + '&deg; ' + _translate('Low', options.lang) + ': ' + wf.low + '&deg;</div>';
-                if (wf.low                 !== null && options.highlow && isShort)  html += '<div class="weatherRange">' + wf.low + '&deg;-' + wf.high + '&deg;</div>';
+                if (wf.high !== null && options.highlow && !isShort) html += '<div class="weatherRange">' + _translate('High', options.lang) + ': ' + wf.high + '&deg; ' + _translate('Low', options.lang) + ': ' + wf.low + '&deg;</div>';
+                if (wf.low  !== null && options.highlow && isShort)  html += '<div class="weatherRange">' + wf.low + '&deg;-' + wf.high + '&deg;</div>';
             }
-            if (feed.wind.speed            !== null && options.wind     && !isShort) html += '<div class="weatherWind">'     + _translate('Wind', options.lang) + ': ' + wd + ' ' + feed.wind.speed + _translate(feed.units.speed) + '</div>';
-            if (feed.atmosphere && feed.atmosphere.humidity   !== null && options.humidity && !isShort) html += '<div class="weatherHumidity">' + _translate('Humidity', options.lang) + ': ' + feed.atmosphere.humidity + '%</div>';
-            if (feed.atmosphere && feed.atmosphere.humidity   !== null && options.humidity && isShort)  html += '<div class="weatherHumidity">' + feed.atmosphere.humidity + '%</div>';
-            if (feed.atmosphere && feed.atmosphere.visibility !== null && options.visibility) html += '<div class="weatherVisibility">' 		  + _translate('Visibility', options.lang) + ': ' + feed.atmosphere.visibility + '</div>';
-            if (feed.astronomy && feed.astronomy.sunrise     !== null && options.sunrise)    html += '<div class="weatherSunrise">'            + _translate('Sunrise', options.lang) + ': ' + feed.astronomy.sunrise + '</div>';
-            if (feed.astronomy && feed.astronomy.sunset      !== null && options.sunset)     html += '<div class="weatherSunset">'             + _translate('Sunset', options.lang) + ': ' + feed.astronomy.sunset + '</div>';
-
+            if (feed.wind.speed                               !== null && options.wind     && !isShort) html += '<div class="weatherWind">'       + _translate('Wind',       options.lang) + ': ' + wd + ' ' + feed.wind.speed + _translate(feed.units.speed) + '</div>';
+            if (feed.atmosphere && feed.atmosphere.humidity   !== null && options.humidity && !isShort) html += '<div class="weatherHumidity">'   + _translate('Humidity',   options.lang) + ': ' + feed.atmosphere.humidity + '%</div>';
+            if (feed.atmosphere && feed.atmosphere.humidity   !== null && options.humidity && isShort)  html += '<div class="weatherHumidity">'   + feed.atmosphere.humidity + '%</div>';
+            if (feed.atmosphere && feed.atmosphere.visibility !== null && options.visibility)           html += '<div class="weatherVisibility">' + _translate('Visibility', options.lang) + ': ' + feed.atmosphere.visibility + '</div>';
+            if (feed.astronomy  && feed.astronomy.sunrise     !== null && options.sunrise)              html += '<div class="weatherSunrise">'    + _translate('Sunrise',    options.lang) + ': ' + feed.astronomy.sunrise + '</div>';
+            if (feed.astronomy  && feed.astronomy.sunset      !== null && options.sunset)               html += '<div class="weatherSunset">'     + _translate('Sunset',     options.lang) + ': ' + feed.astronomy.sunset + '</div>';
 
             // Add item forecast data
             if (options.forecast && feed.item) {
@@ -433,6 +430,8 @@
                 var wfi = feed.item.forecast;
 
                 for (var i = 0; i < wfi.length; i++) {
+                    if (options.maxDays && (i + 1) > options.maxDays) break;
+
                     if (!wfi[i].date) {
                         var now = new Date();
                         now.setDate(now.getDate() + i);
@@ -455,7 +454,7 @@
                         html += '<div class="weatherForecastItem">';
                     }
 
-                    if (wfi[i].day)  html += '<div class="weatherForecastDay">'  + _translate(wfi[i].day, options.lang, isShort) + '</div>';
+                    if (wfi[i].day)  html += '<div class="weatherForecastDay">'  + _translate(wfi[i].day,  options.lang, isShort) + '</div>';
                     if (wfi[i].date) html += '<div class="weatherForecastDate">' + _translate(wfi[i].date, options.lang, isShort) + '</div>';
                     if (wfi[i].code !== null && _tt[wfi[i].code]) {
                         html += '<div class="weatherForecastText">' + (_tt[wfi[i].code][options.lang] || _tt[wfi[i].code]['en']) + '</div>';
@@ -470,6 +469,7 @@
                         if (wfi[i].low !== null) html += '<div class="weatherForecastRange">' + _translate('Temperature', options.lang) + ': '+ wfi[i].low + '&deg;-' + wfi[i].high + '&deg;</div>';
                     }
                     html += '</div>';
+
                 }
 
                 html += '</div>'
