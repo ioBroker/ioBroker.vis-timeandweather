@@ -440,13 +440,13 @@
                         wfi[i].date = wfi[i].date.substring(8, 11) + wfi[i].date.substring(4, 7) + wfi[i].date.substring(10);
                     }
                     if (wfi[i].code !== null && wfi[i].code !== undefined) {
-                        html += '<div class="weatherForecastItem" style="background-image: url(http://l.yimg.com/a/i/us/nws/weather/gr/'+ wfi[i].code +'s.png); background-repeat: no-repeat;">';
+                        html += '<div class="weatherForecastItem" style="background-image: url(http://l.yimg.com/a/i/us/nws/weather/gr/'+ wfi[i].code + 's.png); background-repeat: no-repeat;">';
                     } else if (wfi[i].icon) {
                         html += '<div class="weatherForecastItem" style="background-image: url(' + wfi[i].icon + '); background-repeat: no-repeat;">';
                     } else if (wfi[i].text) {
                         var code = findCode(wfi[i].text);
                         if (code !== null) {
-                            html += '<div class="weatherForecastItem" style="background-image: url(http://l.yimg.com/a/i/us/nws/weather/gr/' + code +'s.png); background-repeat: no-repeat;">';
+                            html += '<div class="weatherForecastItem" style="background-image: url(http://l.yimg.com/a/i/us/nws/weather/gr/' + code + 's.png); background-repeat: no-repeat;">';
                         } else {
                             html += '<div class="weatherForecastItem">';
                         }
@@ -580,7 +580,8 @@
 
                     // Create Yahoo Weather feed API address
                     var query = "select * from weather.forecast where " + queryType + " in (" + locationid + ") and u='" + options.unit + "'";
-                    var api = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() +'&format=json&callback=?';
+                   
+                    var api = window.location.protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() +'&format=json&callback=?';
 
                     // Send request
                     $.ajax({

@@ -1,7 +1,7 @@
 <!--
     ioBroker.vis time and weather Widget-Set
 
-    version: "1.1.0"
+    version: "1.1.3"
 
     Copyright 2013-2016 bluefox<dogafox@gmail.com>
 -->
@@ -138,7 +138,7 @@
     }
 
     vis.binds.timeandweather = {
- 	    version: "1.1.0",
+ 	    version: "1.1.3",
 		showVersion: function () {
 			if (vis.binds.timeandweather.version) {
 				console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
@@ -168,7 +168,7 @@
             }
             if (hl && (timerId === undefined || hl.dashId == timerId)) {
                 if (hideSeconds) {
-                    hl.innerHTML = h + '<span style="display:inline-block" id="' + elem + '_space">:</span>' + m;
+                    hl.innerHTML = h + '<span style="display: inline-block" id="' + elem + '_space">:</span>' + m;
                     if (blink && (s % 2)) {
                         var r = $('#' + elem + '_space');
                         var w = r.width();
@@ -248,7 +248,7 @@
 
                 if (monthWord) {
                     switch (vis.language) {
-                        case "en":
+                        case 'en':
                             switch (d) {
                                 case 1:
                                     d += 'st';
@@ -275,7 +275,7 @@
                     }
                 } else {
                     switch (vis.language) {
-                        case "en":
+                        case 'en':
                             if (american) {
                                 dateString += m + "/" + d + "/" + y;
                             } else {

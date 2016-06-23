@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.3 (2016-06-23)
+- (bluefox) enable widgets for https too
+
 ### 1.1.2 (2016-06-02)
 - (bluefox) add weather custom widget
 

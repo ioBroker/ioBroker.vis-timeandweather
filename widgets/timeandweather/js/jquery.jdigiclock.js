@@ -311,7 +311,7 @@ var jdigiclockCounter = 0;
 
 		var curr_temp = '<p class="">' + data.curr_temp + '&deg;<span class="dc_metric">' + metric + '</span></p>';
 		var curr_img0 = '';
-		if (data.curr_icon.indexOf("http://") == -1)
+		if (data.curr_icon.indexOf("http://") === -1 && data.curr_icon.indexOf("https://") === -1)
             curr_img0 = el.weatherImagesPath + data.curr_icon + '.png';
 		else
 			curr_img0 = data.curr_icon;
@@ -328,7 +328,7 @@ var jdigiclockCounter = 0;
 		curr_for    += '<p class="dc_text">' + data.forecast[0].day_text + '</p>';
 		
 		var curr_img = '';
-		if (data.forecast[0].day_icon.indexOf("http://") == -1)
+		if (data.forecast[0].day_icon.indexOf("http://") === -1 && data.forecast[0].day_icon.indexOf("https://") === -1)
 			curr_img = 'background: url(' + el.weatherImagesPath + data.forecast[0].day_icon + '.png) 50% 0 no-repeat';
 		else
 			curr_img = 'background: url('+data.forecast[0].day_icon + ') 100% 0 no-repeat; background-size: 80% auto';
@@ -346,7 +346,7 @@ var jdigiclockCounter = 0;
 			forecast    += '<p>' + day_name + '</p>';
 			forecast    += '<img src="';
 			
-			if (data.forecast[i].day_icon.indexOf('http://') === -1)
+			if (data.forecast[i].day_icon.indexOf('http://') === -1 && data.forecast[i].day_icon.indexOf('https://') === -1)
 				forecast += el.weatherImagesPath + data.forecast[i].day_icon + '.png';
 			else
 				forecast += data.forecast[i].day_icon;
@@ -392,9 +392,9 @@ var jdigiclockCounter = 0;
 			case 'yahoo':
 				var now = new Date();
 			    // Create Yahoo Weather feed API address
-				var query = "select * from weather.forecast where woeid in ('"+ el.weatherLocationCode +"') and u='"+ (el.weatherMetric ? 'c' : 'f') +"'";
-				var api = 'http://query.yahooapis.com/v1/public/yql?q='+ encodeURIComponent(query) +'&rnd='+ now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() +'&format=json&callback=?';
-				
+				var query = "select * from weather.forecast where woeid in ('"+ el.weatherLocationCode +"') and u='"+ (el.weatherMetric ? 'c' : 'f') + "'";
+                var api = window.location.protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() + '&format=json&callback=?';
+
 				// Send request
 				$.ajax({
 					type:     'GET',
@@ -424,7 +424,6 @@ var jdigiclockCounter = 0;
                                 daynight = 'night';
                             }
 							// Translation function
-
 							var _tt = []; {
                             _tt[0] = {'en': 'Tornado', 'de': 'Sitze Zuhause:)', 'ru': 'Торнадо - сиди дома!'};
                             _tt[1] = {'en': 'Tropical storm', 'de': 'Tropischer Sturm', 'ru': 'Тропический шторм'};
@@ -480,7 +479,7 @@ var jdigiclockCounter = 0;
                             modData['city']      = feed.location.city;
 							modData['curr_text'] = _tt[feed.item.condition.code][el.lang.lang];
 							modData['curr_temp'] = feed.item.condition.temp;
-							modData['curr_icon'] = 'http://l.yimg.com/a/i/us/nws/weather/gr/'+ feed.item.condition.code + daynight.substring(0,1) +'.png';
+							modData['curr_icon'] = 'http://l.yimg.com/a/i/us/nws/weather/gr/' + feed.item.condition.code + daynight.substring(0,1) + '.png';
 							modData['forecast']  = [];
 							for (var i = 0; i < feed.item.forecast.length && i < 5; i++)
 							{
@@ -488,7 +487,7 @@ var jdigiclockCounter = 0;
 								modData['forecast'][i]['day_htemp'] = feed.item.forecast[i].high;
 								modData['forecast'][i]['day_ltemp'] = feed.item.forecast[i].low;
 								modData['forecast'][i]['day_text']  = _tt[ feed.item.forecast[i].code][el.lang.lang];//feed.item.forecast[i].text;
-								modData['forecast'][i]['day_icon']  = 'http://l.yimg.com/a/i/us/nws/weather/gr/'+ feed.item.forecast[i].code + daynight.substring(0,1) +'.png';
+								modData['forecast'][i]['day_icon']  = 'http://l.yimg.com/a/i/us/nws/weather/gr/' + feed.item.forecast[i].code + daynight.substring(0,1) + '.png';
 								modData['forecast'][i]['day_date']  = feed.item.forecast[i].date;
 							}
 							
@@ -508,15 +507,19 @@ var jdigiclockCounter = 0;
 	
 	$.fn._getWeatherAddress = function (data) {
 
-		// Get address
-		var address = data.name;
-		if (data.admin2) address += ',\n' + data.admin2.content;
-		if (data.admin1) address += ',\n' + data.admin1.content;
-		address += ',\n' + data.country.content;
+        if (data) {
+            // Get address
+            var address = data.name;
+            if (data.admin2) address += ',\n' + data.admin2.content;
+            if (data.admin1) address += ',\n' + data.admin1.content;
+            address += ',\n' + data.country.content;
 
-		// Get WEOID
-		var woeid = data.woeid;
+            // Get WEOID
+            var woeid = data.woeid;
+            return address + '\n[' +  woeid + ']';
+        } else {
+            return '';
+        }
 
-		return address + '\n[' +  woeid + ']';
 	}
 })(jQuery);
