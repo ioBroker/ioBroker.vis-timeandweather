@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.4 (2016-06-28)
+- (jens-maus) improved german translation of weather terms
+
 ### 1.1.3 (2016-06-23)
 - (bluefox) enable widgets for https too
 
