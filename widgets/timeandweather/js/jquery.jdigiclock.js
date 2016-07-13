@@ -393,7 +393,9 @@ var jdigiclockCounter = 0;
 				var now = new Date();
 			    // Create Yahoo Weather feed API address
 				var query = "select * from weather.forecast where woeid in ('"+ el.weatherLocationCode +"') and u='"+ (el.weatherMetric ? 'c' : 'f') + "'";
-                var api = window.location.protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() + '&format=json&callback=?';
+				var protocol = window.location.protocol;
+				if (protocol !== 'http:' && protocol !== 'https:') protocol = 'https:';
+				var api = protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() + '&format=json&callback=?';
 
 				// Send request
 				$.ajax({

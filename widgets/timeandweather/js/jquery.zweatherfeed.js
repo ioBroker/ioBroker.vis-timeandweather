@@ -581,7 +581,9 @@
                     // Create Yahoo Weather feed API address
                     var query = "select * from weather.forecast where " + queryType + " in (" + locationid + ") and u='" + options.unit + "'";
                    
-                    var api = window.location.protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() +'&format=json&callback=?';
+					var protocol = window.location.protocol;
+					if (protocol !== 'http:' && protocol !== 'https:') protocol = 'https:';
+                    var api = protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() +'&format=json&callback=?';
 
                     // Send request
                     $.ajax({

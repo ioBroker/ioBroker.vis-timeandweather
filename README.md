@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.5 (2016-07-13)
+- (bluefox) support of vis APP
+
 ### 1.1.4 (2016-06-28)
 - (jens-maus) improved german translation of weather terms
 
