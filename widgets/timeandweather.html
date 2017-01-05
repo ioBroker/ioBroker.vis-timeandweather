@@ -3,7 +3,7 @@
 
     version: "1.1.7"
 
-    Copyright 2013-2016 bluefox<dogafox@gmail.com>
+    Copyright 2013-2017 bluefox<dogafox@gmail.com>
 -->
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/flipclock.css" />
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/jquery.jdigiclock.css" />
@@ -420,7 +420,8 @@
             } else {
                 var val = vis.states.attr(oidOrBinding + '.val');
                 if (val === undefined || val === null) return '';
-                return vis.states.attr(oidOrBinding + '.val');
+                if (val === 'null') return '';
+                return val;
             }
         },
         updateCustomWeather: function (data) {
@@ -489,6 +490,11 @@
                     ]
                 }
             };
+
+            if (weather.atmosphere.humidity === '' || weather.atmosphere.humidity === 'null') weather.atmosphere.humidity = null;
+            if (weather.wind.direction      === '' || weather.wind.direction      === 'null') weather.wind.direction      = null;
+            if (weather.wind.speed          === '' || weather.wind.speed          === 'null') weather.wind.speed          = null;
+
             for (var i = 0; i < weather.item.forecast.length; i++) {
                 if (weather.item.forecast[i].high === null &&
                     weather.item.forecast[i].low  === null &&

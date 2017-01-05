@@ -370,7 +370,7 @@
             var daynight;
 
             // Get night or day
-            if (tsr == null) {
+            if (tsr === null) {
                 var hh = new Date().getHours();
                 daynight = (hh > 20 || hh < 7) ? 'night' : 'day';
             } else {
@@ -591,8 +591,7 @@
                         url:      api,
                         dataType: 'json',
                         context:  $e,
-                        success:  function(data) {
-
+                        success:  function (data) {
                             if (data.query && data.query.results) {
 
                                 this[0].feed = data.query.results.channel;
@@ -612,10 +611,12 @@
                                 // Optional user callback function
                                 if ($.isFunction(fn)) fn.call(this,$e);
                             } else {
+                                console.error('Got answer: ' + JSON.stringify(data));
                                 if (options.showerror) $e.html('<p>Weather information unavailable</p>');
                             }
                         },
-                        error:    function(data) {
+                        error:    function (err) {
+                            console.error('Got error: ' + JSON.stringify(err));
                             if (options.showerror) $e.html('<p>Weather request failed</p>');
                         }
                     });
