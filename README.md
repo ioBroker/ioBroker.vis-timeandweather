@@ -23,6 +23,9 @@ Used following packages:
 ![Example](img/widgets.png)
 
 ## Changelog
+### 1.1.7 (2017-01-05)
+- (bluefox) add update interval for weather
+
 ### 1.1.6 (2016-07-13)
 - (bluefox) support of vis APP
 

@@ -1,7 +1,7 @@
 <!--
     ioBroker.vis time and weather Widget-Set
 
-    version: "1.1.5"
+    version: "1.1.7"
 
     Copyright 2013-2016 bluefox<dogafox@gmail.com>
 -->
@@ -94,6 +94,7 @@
             "ru"                : {"en": "russian",             "de": "russisch",               "ru": "русский"},
             "city":               {"en": "City",                "de": "Stadt",                  "ru": "Город"},
             "group_now":             {"en": "Now",                "de": "Jetzt",                "ru": "Сейчас"},
+            "updateInterval":        {"en": "Update interval[min]", "de": "Updateintervalle[min]", "ru": "Обновление в минутах"},
             "temperature-0-oid":     {"en": "Temperature ID",     "de": "Temperature ID",       "ru": "Температура ID"},
             "condition-0-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
             "humidity-0-oid":        {"en": "Humidity ID",        "de": "Luftfeutigkeit ID",    "ru": "Влажность ID"},
@@ -138,7 +139,7 @@
     }
 
     vis.binds.timeandweather = {
- 	    version: "1.1.5",
+ 	    version: "1.1.7",
 		showVersion: function () {
 			if (vis.binds.timeandweather.version) {
 				console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
@@ -336,14 +337,14 @@
         },
         tplTwFlipClock: function (view, data) {
  			vis.binds.timeandweather.showVersion();
-            var text = '<div class="vis-widget" style="width:500px; height: 110px" id="' + data.attr('wid') + '" data-vis-resizable=';
+            var text = '<div class="vis-widget" style="width: 500px; height: 110px" id="' + data.attr('wid') + '" data-vis-resizable=';
             text += "'" + '{"disabled":true}' + "'></div>";
             $('#visview_' + view).append(text);
             var clock = $('#' + data.attr('wid')).FlipClock({clockFace: 'TwentyFourHourClock'});
         },
         tplTwHtcWeather: function (view, data) {
  			vis.binds.timeandweather.showVersion();
-            var text = '<div class="vis-widget" style="width:500px; height: 420px" id="' + data.attr('wid') + '" data-vis-resizable=';
+            var text = '<div class="vis-widget" style="width: 500px; height: 420px" id="' + data.attr('wid') + '" data-vis-resizable=';
             text += "'" + '{"disabled":true}' + "'></div>";
             $('#visview_' + view).append(text);
             var woeid = data.attr('woeid') || data.attr('weoid');
@@ -357,11 +358,17 @@
             } else {
                 woeid = '664942';
             }
+            var updateInterval = data.attr('updateInterval');
+            if (updateInterval === '' || updateInterval === null || updateInterval === undefined) {
+                updateInterval = 180;
+            } else {
+                updateInterval = parseInt(data.attr('updateInterval'), 10);
+            }
 
             var clock = $('#' + data.attr('wid')).jdigiclock({
                 weatherLocationCode: woeid,
                 city:                data.attr('cityName'),
-                weatherUpdate:       5,
+                weatherUpdate:       updateInterval,
                 lang:                data.attr('language') || vis.language,
                 clockImagesPath:     'widgets/timeandweather/img/clock/'
             });
@@ -382,7 +389,12 @@
             else {
                 woeid = '664942';
             }
-
+            var updateInterval = data.attr('updateInterval');
+            if (updateInterval === '' || updateInterval === null || updateInterval === undefined) {
+                updateInterval = 180;
+            } else {
+                updateInterval = parseInt(data.attr('updateInterval'), 10);
+            }
             $('#' + data.attr('wid')).weatherfeed([woeid], {
                 lang:       data.attr('language') || vis.language,
                 woeid:      true,
@@ -391,6 +403,7 @@
                 forecast:   true,
                 link:       false,
                 maxDays:    data.attr('maxDays'),
+                update:     updateInterval,
                 resizable:  false,
                 rendered:   function () {
                     if (vis.editMode && vis.activeWidgets.indexOf(data.attr('wid')) != -1) {
@@ -400,11 +413,13 @@
             });
         },
         getValue: function (oidOrBinding) {
-            if (!oidOrBinding) return null;
+            if (!oidOrBinding) return '';
 
             if (oidOrBinding[0] === '{') {
                 return vis.formatBinding(oidOrBinding);
             } else {
+                var val = vis.states.attr(oidOrBinding + '.val');
+                if (val === undefined || val === null) return '';
                 return vis.states.attr(oidOrBinding + '.val');
             }
         },
@@ -417,7 +432,7 @@
                     temperature:  data.units_temp       || 'C'
                 },
                 location: {
-                    city: data.city || null
+                    city: data.city || ''
                 },
                 wind: {
                     direction:  getValue(data['wind-dir-0-oid']),
@@ -427,7 +442,7 @@
                     humidity: getValue(data['humidity-0-oid'])
                 },
                 image: {
-                    url: "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+                    url: 'http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif'
                 },
                 item: {
                     condition: {
@@ -478,6 +493,12 @@
                 if (weather.item.forecast[i].high === null &&
                     weather.item.forecast[i].low  === null &&
                     weather.item.forecast[i].text === null) {
+                    weather.item.forecast.splice(i, weather.item.forecast.length - i);
+                    break;
+                }
+                if (weather.item.forecast[i].high === '' &&
+                    weather.item.forecast[i].low  === '' &&
+                    weather.item.forecast[i].text === '') {
                     weather.item.forecast.splice(i, weather.item.forecast.length - i);
                     break;
                 }
@@ -595,18 +616,18 @@
             vis.binds.timeandweather.updateCustomWeather(data);
         },
         createSvgClock: function (options, el) {
-            var quadSize = options.quadSize || 60;
-            var quadColor = options.quadColor || '#333';
-            var quadTickColor = options.quadTickColor || '#333';
-            var textSize = options.textSize || 30;
-            var textColor = options.textColor || '#555';
-            var tickColor = options.tickColor || '#555';
-            var isSeconds = options.isSeconds || false;
-            var handsColor = options.handsColor || '#111';
+            var quadSize       = options.quadSize || 60;
+            var quadColor      = options.quadColor || '#333';
+            var quadTickColor  = options.quadTickColor || '#333';
+            var textSize       = options.textSize || 30;
+            var textColor      = options.textColor || '#555';
+            var tickColor      = options.tickColor || '#555';
+            var isSeconds      = options.isSeconds || false;
+            var handsColor     = options.handsColor || '#111';
             var handsColorLine = options.handsColorLine || '#666';
-            var handsSecColor = options.handsSecColor || '#be5639';
-            var textFont = options.textFont || 'verdana, sans-serif';
-            var $el = $(el);
+            var handsSecColor  = options.handsSecColor || '#be5639';
+            var textFont       = options.textFont || 'verdana, sans-serif';
+            var $el            = $(el);
 
             var html = '<svg viewbox="-450 -450 900 900" class="svg--clock" style="display: block;min-width: 5em;min-height: 5em;width: 100%;height: 100%;">';
             html += '  <defs>';
@@ -1009,7 +1030,7 @@
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_HTCWeather.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="HtcWeather"
-        data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru">
+        data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru;updateInterval[180]/slider,0,1440,10;">
     <% 
         vis.binds.timeandweather.tplTwHtcWeather(this.view, this.data);
     %>
@@ -1021,7 +1042,7 @@
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_YahooWeather.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="YahooWeather"
-        data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru;maxDays[7]/slider,0,8,1;">
+        data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru;maxDays[7]/slider,0,8,1;updateInterval[180]/slider,0,1440,10;">
     <% 
         vis.binds.timeandweather.tplTwYahooWeather(this.view, this.data);
     %>

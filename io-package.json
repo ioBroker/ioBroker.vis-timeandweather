@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "vis-timeandweather",
-        "version": "1.1.6",
+        "version": "1.1.7",
 		"news": {
+			"1.1.7": {
+				"en": "add update interval for weather",
+				"de": "Updateintervalle für Wetter hinzugefügt",
+				"ru": "Добавлен интервал обновления для погоды"
+			},
 			"1.1.6": {
 				"en": "support of vis APP",
 				"de": "support of vis APP",
