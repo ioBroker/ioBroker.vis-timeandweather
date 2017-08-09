@@ -193,7 +193,7 @@
             if (word == 'Sunset')
                 return 'Sonnenuntergang';
             if (word == 'City not found')
-                return 'Stadt ist nicht gefunden';
+                return 'Stadt nicht gefunden';
             if (word == 'Full forecast')
                 return 'Volle Vorhersage';
             if (word == 'Read full forecast')
@@ -212,6 +212,8 @@
                 return 'Samstag';
             if (word == 'Sun')
                 return 'Sonntag';
+            if (word == 'Temperature')
+                return 'Temperatur';
         }
         if (lang == 'ru') {
             // If date
