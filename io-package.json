@@ -1,67 +1,75 @@
 {
     "common": {
-        "name":                     "vis-timeandweather",
+        "name": "vis-timeandweather",
         "version": "1.1.7",
-		"news": {
-			"1.1.7": {
-				"en": "add update interval for weather",
-				"de": "Updateintervalle für Wetter hinzugefügt",
-				"ru": "Добавлен интервал обновления для погоды"
-			},
-			"1.1.6": {
-				"en": "support of vis APP",
-				"de": "support of vis APP",
-				"ru": "support of vis APP"
-			},
-			"1.1.4": {
-				"en": "better translations",
-				"de": "better translations",
-				"ru": "better translations"
-			},
-			"1.1.3": {
-				"en": "enable widgets for https too",
-				"de": "enable widgets for https too",
-				"ru": "enable widgets for https too"
-			},
-			"1.1.2": {
-				"en": "add weather custom widget",
-				"de": "add weather custom widget",
-				"ru": "add weather custom widget"
-			},
-			"1.1.1": {
-				"en": "fix the slide in htc weather",
-				"de": "fix the slide in htc weather",
-				"ru": "fix the slide in htc weather"
-			}
-		},
-        "title":                    "ioBroker Visualisation - time and weather Widgets",
-        "desc": {
-            "en":                   "Time and weather widgets for ioBroker.vis",
-            "de":                   "Zeit und Wetter Widgets für ioBroker.vis",
-            "ru":                   "Widgets времени и погоды для ioBroker.vis"
+        "news": {
+            "1.1.7": {
+                "en": "add update interval for weather",
+                "de": "Updateintervalle für Wetter hinzugefügt",
+                "ru": "Добавлен интервал обновления для погоды"
+            },
+            "1.1.6": {
+                "en": "support of vis APP",
+                "de": "support of vis APP",
+                "ru": "support of vis APP"
+            },
+            "1.1.4": {
+                "en": "better translations",
+                "de": "better translations",
+                "ru": "better translations"
+            },
+            "1.1.3": {
+                "en": "enable widgets for https too",
+                "de": "enable widgets for https too",
+                "ru": "enable widgets for https too"
+            },
+            "1.1.2": {
+                "en": "add weather custom widget",
+                "de": "add weather custom widget",
+                "ru": "add weather custom widget"
+            },
+            "1.1.1": {
+                "en": "fix the slide in htc weather",
+                "de": "fix the slide in htc weather",
+                "ru": "fix the slide in htc weather"
+            }
         },
-        "platform":                 "Javascript/Node.js",
-        "loglevel":                 "info",
-        "icon":                     "timeandweather.png",
-        "enabled":                  true,
-        "mode":                     "once",
-        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.png",
-        "keywords":                 ["timeandweather", "vis", "GUI", "graphical", "scada"],
-        "readme":                   "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/README.md",
+        "title": "ioBroker Visualisation - time and weather Widgets",
+        "desc": {
+            "en": "Time and weather widgets for ioBroker.vis",
+            "de": "Zeit und Wetter Widgets für ioBroker.vis",
+            "ru": "Widgets времени и погоды для ioBroker.vis"
+        },
+        "platform": "Javascript/Node.js",
+        "loglevel": "info",
+        "icon": "timeandweather.png",
+        "enabled": true,
+        "mode": "once",
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.png",
+        "keywords": [
+            "timeandweather",
+            "vis",
+            "GUI",
+            "graphical",
+            "scada"
+        ],
+        "readme": "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/README.md",
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
-        "localLink":                "%web_protocol%://%ip%:%web_port%/vis/edit.html",
-        "license":                  "MIT",
-        "dependencies":             ["vis"],
-        "onlyWWW":                  true,
-        "singleton":                true,
-        "type":                     "vis",
-		"noConfig":                 true,
-		"restartAdapters":          ["vis"]
+        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+        "license": "MIT",
+        "dependencies": [
+            "vis"
+        ],
+        "onlyWWW": true,
+        "singleton": true,
+        "type": "visualization-widgets",
+        "noConfig": true,
+        "restartAdapters": [
+            "vis"
+        ]
     },
-    "native": {
-    },
-    "instanceObjects": [
-    ]
+    "native": {},
+    "instanceObjects": []
 }
