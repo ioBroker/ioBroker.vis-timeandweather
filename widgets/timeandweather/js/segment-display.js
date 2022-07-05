@@ -7,7 +7,7 @@
  *
  * Date: 2012-02-14
  * Version: 1.0.0
- * 
+ *
  * Dokumentation: http://www.3quarks.com/de/Segmentanzeige
  * Documentation: http://www.3quarks.com/en/SegmentDisplay
  */
@@ -51,18 +51,18 @@ SegmentDisplay.prototype.draw = function() {
     if (context) {
       // clear canvas
       context.clearRect(0, 0, display.width, display.height);
-      
+
       // compute and check display width
       var width = 0;
       var first = true;
       if (this.pattern) {
         for (var i = 0; i < this.pattern.length; i++) {
           var c = this.pattern.charAt(i).toLowerCase();
-          if (c == '#') {
+          if (c === '#') {
             width += this.digitWidth;
-          } else if (c == '.' || c == ':') {
+          } else if (c === '.' || c === ':') {
             width += this.segmentWidth;
-          } else if (c != ' ') {
+          } else if (c !== ' ') {
             return;
           }
           width += first ? 0 : this.digitDistance;
@@ -72,18 +72,18 @@ SegmentDisplay.prototype.draw = function() {
       if (width <= 0) {
         return;
       }
-      
+
       // compute skew factor
       var angle = -1.0 * Math.max(-45.0, Math.min(45.0, this.displayAngle));
       var skew  = Math.tan((angle * Math.PI) / 180.0);
-      
+
       // compute scale factor
       var scale = Math.min(display.width / (width + Math.abs(skew * this.digitHeight)), display.height / this.digitHeight);
-      
+
       // compute display offset
       var offsetX = (display.width - (width + skew * this.digitHeight) * scale) / 2.0;
       var offsetY = (display.height - this.digitHeight * scale) / 2.0;
-      
+
       // context transformation
       context.save();
       context.translate(offsetX, offsetY);
@@ -110,7 +110,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
     case '#':
       var r = Math.sqrt(this.segmentWidth * this.segmentWidth / 2.0);
       var d = Math.sqrt(this.segmentDistance * this.segmentDistance / 2.0);
-      var e = d / 2.0; 
+      var e = d / 2.0;
       var f = (this.segmentWidth - d) * Math.sin((45.0 * Math.PI) / 180.0);
       var g = f / 2.0;
       var h = (this.digitHeight - 3.0 * this.segmentWidth) / 2.0;
@@ -142,7 +142,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + t - d - s, y + this.segmentWidth);
         context.lineTo(x + this.segmentWidth + d, y + this.segmentWidth);
         context.fill();
-        
+
         var x = xPos;
         var y = 0;
         context.fillStyle = this.getSegmentColor(c, null, '02356789abcdefgiopqrstz@');
@@ -165,7 +165,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
             context.quadraticCurveTo(x + this.digitWidth - this.segmentWidth + g, y, x + this.digitWidth - this.segmentWidth + f, y + this.segmentWidth - f - d);
         }
         context.fill();
-        
+
       } else {
         var x = xPos;
         var y = 0;
@@ -194,7 +194,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + this.segmentWidth + d, y + this.segmentWidth);
         context.fill();
       }
-      
+
       // draw segment b
       x = xPos + this.digitWidth - this.segmentWidth;
       y = 0;
@@ -218,7 +218,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
       context.lineTo(x, y + h + this.segmentWidth - d);
       context.lineTo(x, y + this.segmentWidth + d);
       context.fill();
-      
+
       // draw segment c
       x = xPos + this.digitWidth - this.segmentWidth;
       y = h + this.segmentWidth;
@@ -242,7 +242,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
           context.lineTo(x, y + h + this.segmentWidth - d);
       }
       context.fill();
-      
+
       // draw segment d (d1 and d2 for 16 segments)
       if (this.segmentCount == 16) {
         x = xPos;
@@ -321,7 +321,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         }
         context.fill();
       }
-      
+
       // draw segment e
       x = xPos;
       y = h + this.segmentWidth;
@@ -341,11 +341,11 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
           context.lineTo(x, y + h + this.segmentWidth);
           break;
         default:
-          context.lineTo(x + this.segmentWidth - f - d, y + h + this.segmentWidth + f); 
+          context.lineTo(x + this.segmentWidth - f - d, y + h + this.segmentWidth + f);
           context.quadraticCurveTo(x, y + h + this.segmentWidth + g, x, y + h + this.segmentWidth);
       }
       context.fill();
-      
+
       // draw segment f
       x = xPos;
       y = 0;
@@ -366,8 +366,8 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
           break;
         default:
           context.lineTo(x, y + this.segmentWidth);
-          context.quadraticCurveTo(x, y + this.segmentWidth - g, x + this.segmentWidth - f - d, y + this.segmentWidth - f); 
-          context.lineTo(x + this.segmentWidth - f - d, y + this.segmentWidth - f); 
+          context.quadraticCurveTo(x, y + this.segmentWidth - g, x + this.segmentWidth - f - d, y + this.segmentWidth - f);
+          context.lineTo(x + this.segmentWidth - f - d, y + this.segmentWidth - f);
       }
       context.fill();
 
@@ -385,7 +385,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + this.segmentWidth + d, y + this.segmentWidth);
         context.fill();
       }
-            
+
       // draw inner segments for the fourteen- and sixteen-segment-display
       if (this.segmentCount != 7) {
         // draw segment g1
@@ -400,7 +400,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + t - d - s, y + this.segmentWidth);
         context.lineTo(x + this.segmentWidth + d, y + this.segmentWidth);
         context.fill();
-        
+
         // draw segment g2
         x = xPos;
         y = (this.digitHeight - this.segmentWidth) / 2.0;
@@ -413,8 +413,8 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + this.digitWidth - this.segmentWidth - d, y + this.segmentWidth);
         context.lineTo(x + t + d + s, y + this.segmentWidth);
         context.fill();
-        
-        // draw segment j 
+
+        // draw segment j
         x = xPos + t - s;
         y = 0;
         context.fillStyle = this.getSegmentColor(c, null, 'bdit+*', '%');
@@ -431,7 +431,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + s, y + h + this.segmentWidth + s - d);
         context.lineTo(x, y + h + this.segmentWidth - d);
         context.fill();
-        
+
         // draw segment m
         x = xPos + t - s;
         y = this.digitHeight;
@@ -449,7 +449,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + s, y - h - this.segmentWidth - s + d);
         context.lineTo(x, y - h - this.segmentWidth + d);
         context.fill();
-        
+
         // draw segment h
         x = xPos + this.segmentWidth;
         y = this.segmentWidth;
@@ -462,7 +462,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + w - this.segmentDistance - r , y + h - this.segmentDistance);
         context.lineTo(x + this.segmentDistance, y + this.segmentDistance + r);
         context.fill();
-        
+
         // draw segment k
         x = xPos + w + 2.0 * this.segmentWidth;
         y = this.segmentWidth;
@@ -475,7 +475,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + this.segmentDistance, y + h - this.segmentDistance - r);
         context.lineTo(x + w - this.segmentDistance - r, y + this.segmentDistance);
         context.fill();
-        
+
         // draw segment l
         x = xPos + w + 2.0 * this.segmentWidth;
         y = h + 2.0 * this.segmentWidth;
@@ -488,7 +488,7 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + w - this.segmentDistance - r , y + h - this.segmentDistance);
         context.lineTo(x + this.segmentDistance, y + this.segmentDistance + r);
         context.fill();
-        
+
         // draw segment n
         x = xPos + this.segmentWidth;
         y = h + 2.0 * this.segmentWidth;
@@ -502,23 +502,23 @@ SegmentDisplay.prototype.drawDigit = function(context, xPos, mask, c) {
         context.lineTo(x + w - this.segmentDistance - r, y + this.segmentDistance);
         context.fill();
       }
-      
+
       return this.digitDistance + this.digitWidth;
-      
+
     case '.':
       context.fillStyle = (c == '#') || (c == '.') ? this.colorOn : this.colorOff;
       this.drawPoint(context, xPos, this.digitHeight - this.segmentWidth, this.segmentWidth);
       return this.digitDistance + this.segmentWidth;
-      
+
     case ':':
       context.fillStyle = (c == '#') || (c == ':') ? this.colorOn : this.colorOff;
       var y = (this.digitHeight - this.segmentWidth) / 2.0 - this.segmentWidth;
       this.drawPoint(context, xPos, y, this.segmentWidth);
       this.drawPoint(context, xPos, y + 2.0 * this.segmentWidth, this.segmentWidth);
       return this.digitDistance + this.segmentWidth;
-      
+
     default:
-      return this.digitDistance;    
+      return this.digitDistance;
   }
 };
 
@@ -526,7 +526,7 @@ SegmentDisplay.prototype.drawPoint = function(context, x1, y1, size) {
   var x2 = x1 + size;
   var y2 = y1 + size;
   var d  = size / 4.0;
-  
+
   context.beginPath();
   context.moveTo(x2 - d, y1);
   context.quadraticCurveTo(x2, y1, x2, y1 + d);
@@ -537,17 +537,17 @@ SegmentDisplay.prototype.drawPoint = function(context, x1, y1, size) {
   context.lineTo(x1, y1 + d);
   context.quadraticCurveTo(x1, y1, x1 + d, y1);
   context.fill();
-}; 
+};
 
 SegmentDisplay.prototype.getSegmentColor = function(c, charSet7, charSet14, charSet16) {
-  if (c == '#') {
+  if (c === '#') {
     return this.colorOn;
   } else {
     switch (this.segmentCount) {
-      case 7:  return (charSet7.indexOf(c) == -1) ? this.colorOff : this.colorOn;
-      case 14: return (charSet14.indexOf(c) == -1) ? this.colorOff : this.colorOn;
+      case 7:  return charSet7.indexOf(c) === -1 ? this.colorOff : this.colorOn;
+      case 14: return charSet14.indexOf(c) === -1 ? this.colorOff : this.colorOn;
       case 16: var pattern = charSet14 + (charSet16 === undefined ? '' : charSet16);
-               return (pattern.indexOf(c) == -1) ? this.colorOff : this.colorOn;
+               return pattern.indexOf(c) === -1 ? this.colorOff : this.colorOn;
       default: return this.colorOff;
     }
   }

@@ -14,12 +14,7 @@
     "type": "git",
     "url": "https://github.com/ioBroker/ioBroker.vis-timeandweather"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "keywords": [
     "ioBroker",
     "GUI",

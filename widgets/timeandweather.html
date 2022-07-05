@@ -1,9 +1,9 @@
 <!--
     ioBroker.vis time and weather Widget-Set
 
-    version: "1.1.7"
+    version: "1.2.1"
 
-    Copyright 2013-2017 bluefox<dogafox@gmail.com>
+    Copyright 2013-2022 bluefox<dogafox@gmail.com>
 -->
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/flipclock.css" />
 <link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/jquery.jdigiclock.css" />
@@ -16,8 +16,8 @@
 <script type="text/javascript" src="widgets/timeandweather/js/moreskins.js"></script>
 <script type="text/javascript" src="widgets/timeandweather/js/segment-display.js"></script>
 
-<script language="javascript">
-    "use strict";
+<script>
+    'use strict';
 
 	// Add words for bars
     if (vis.editMode) {
@@ -139,7 +139,7 @@
     }
 
     vis.binds.timeandweather = {
- 	    version: "1.1.7",
+ 	    version: "1.2.1",
 		showVersion: function () {
 			if (vis.binds.timeandweather.version) {
 				console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
@@ -153,18 +153,24 @@
             var s = today.getSeconds();
 
             // add a zero in front of numbers<10
-            m = (m < 10) ? ('0' + m) : m;
-            if (!hideSeconds) s = (s < 10) ? ('0' + s) : s;
-            h = (h < 10) ? ('0' + h) : h;
+            m = m < 10 ? ('0' + m) : m;
+            if (!hideSeconds) {
+                s = s < 10 ? ('0' + s) : s;
+            }
+            h = h < 10 ? ('0' + h) : h;
             var hl = document.getElementById(elem);
 
-            if (hideSeconds === 'false') hideSeconds = false;
+            if (hideSeconds === 'false') {
+                hideSeconds = false;
+            }
 
             if (!hl) {
                 $('#visview_' + view).append('<div class="vis-widget' + (noClass ? '' : ' clock') + '" id="' + elem + '" ></div>');
                 hl = document.getElementById(elem);
                 // View deleted
-                if (!hl) return;
+                if (!hl) {
+                    return;
+                }
                 hl.dashId = today.getTime();
             }
             if (hl && (timerId === undefined || hl.dashId == timerId)) {
@@ -177,7 +183,7 @@
                         r.html("");
                     }
                 } else {
-                    hl.innerHTML = h + ":" + m + ":" + s;
+                    hl.innerHTML = h + ':' + m + ':' + s;
                 }
                 hl.dashTimer = _setTimeout(vis.binds.timeandweather.startTime, 1000, view, elem, hideSeconds, blink, noClass, hl.dashId);
             }
@@ -222,21 +228,29 @@
             var y = today.getFullYear();
 
             var monthString = vis.binds.timeandweather.months[m][vis.language];
-            if (shortMonth) monthString = monthString.slice(0, 3);
+            if (shortMonth) {
+                monthString = monthString.slice(0, 3);
+            }
 
-            if (shortYear) y = y.toString().slice(2);
+            if (shortYear) {
+                y = y.toString().slice(2);
+            }
 
             // add a zero in front of numbers<10
-            if (prependZero) d = (d < 10) ? ('0' + d) : d;
-            if (prependZero) m = (m < 10) ? ('0' + m) : m;
+            if (prependZero) {
+                d = d < 10 ? ('0' + d) : d;
+                m = m < 10 ? ('0' + m) : m;
+            }
 
-            if (showWeekDay === 'false') showWeekDay = false;
+            if (showWeekDay === 'false') {
+                showWeekDay = false;
+            }
 
             var $hl = $('#' + elem);
             if (!$hl.length) {
                 $('#visview_' + view).append('<div class="vis-widget' + (noClass ? '' : ' date') + '" id="' + elem + '" ></div>');
                 $hl = $('#' + elem);
-                $hl.data('dashId', (new Date()).getTime());
+                $hl.data('dashId', Date.now());
             }
 
             if ($hl.length && (timerId === undefined || $hl.data('dashId') == timerId)) {
@@ -265,32 +279,47 @@
                             }
 
                             if (american) {
-                                dateString += monthString + " " + d + ", " + y;
+                                dateString += monthString + ' ' + d + ', ' + y;
                             } else {
-                                dateString += d + " " + monthString + ", " + y;
+                                dateString += d + ' ' + monthString + ', ' + y;
                             }
 
                             break;
                         default:
-                            dateString += d + ". " + monthString + " " + y;
+                            dateString += d + '. ' + monthString + ' ' + y;
                     }
                 } else {
                     switch (vis.language) {
                         case 'en':
                             if (american) {
-                                dateString += m + "/" + d + "/" + y;
+                                dateString += m + '/' + d + '/' + y;
                             } else {
-                                dateString += d + "/" + m + "/" + y;
+                                dateString += d + '/' + m + '/' + y;
                             }
 
                             break;
                         default:
-                            dateString += d + "." + m + "." + y;
+                            dateString += d + '.' + m + '.' + y;
                     }
                 }
 
                 $hl.html(dateString);
-                $hl.data('dashTimer', _setTimeout(vis.binds.timeandweather.startDate, (24 * 3600 - (today.getHours() * 60 * 60 + today.getMinutes() * 60 + today.getSeconds())) * 1000, view, elem, showWeekDay, noClass, $hl.data('dashId'), shortWeekDay, shortYear, prependZero, monthWord, shortMonth, american));
+                $hl.data('dashTimer',
+                    _setTimeout(vis.binds.timeandweather.startDate,
+                        (24 * 3600 - (today.getHours() * 60 * 60 + today.getMinutes() * 60 + today.getSeconds())) * 1000,
+                        view,
+                        elem,
+                        showWeekDay,
+                        noClass,
+                        $hl.data('dashId'),
+                        shortWeekDay,
+                        shortYear,
+                        prependZero,
+                        monthWord,
+                        shortMonth,
+                        american
+                    )
+                );
             }
         },
         tplTwCoolClock: function (view, data) {
@@ -298,8 +327,9 @@
             var style;
             var wid = data.attr('wid');
             if (vis.views[view] &&
-                    vis.views[view].widgets[wid] &&
-                    vis.views[view].widgets[wid].style) {
+                vis.views[view].widgets[wid] &&
+                vis.views[view].widgets[wid].style
+            ) {
                 style = vis.views[view].widgets[wid].style;
             }
             style = style || {};
@@ -325,7 +355,9 @@
                     var myClasses = myClass.split(':');
                     myClasses[2] = t.width();
 
-                    if (t.height() < myClasses[2]) myClasses[2] = t.height();
+                    if (t.height() < myClasses[2]) {
+                        myClasses[2] = t.height();
+                    }
 
                     myClasses[2] = Math.round(myClasses[2] / 2);
                     myClass = myClasses.join(':');
@@ -350,7 +382,7 @@
             var woeid = data.attr('woeid') || data.attr('weoid');
             if (woeid !== undefined && woeid !== null) {
                 var i = woeid.indexOf('[');
-                if (i != -1) {
+                if (i !== -1) {
                     woeid = woeid.substring(i + 1);
                     i     = woeid.indexOf(']');
                     woeid = woeid.substring(0, i);
@@ -380,7 +412,7 @@
             var woeid = data.attr('woeid') || data.attr('weoid');
             if (woeid !== undefined && woeid !== null) {
                 var i = woeid.indexOf('[');
-                if (i != -1) {
+                if (i !== -1) {
                     woeid = woeid.substring(i + 1);
                     i     = woeid.indexOf(']');
                     woeid = woeid.substring(0, i);
@@ -406,21 +438,24 @@
                 update:     updateInterval,
                 resizable:  false,
                 rendered:   function () {
-                    if (vis.editMode && vis.activeWidgets.indexOf(data.attr('wid')) != -1) {
+                    if (vis.editMode && vis.activeWidgets.indexOf(data.attr('wid')) !== -1) {
                         vis.resizable($('#' + data.attr('wid')).resizable('destroy'));
                     }
                 }
             });
         },
         getValue: function (oidOrBinding) {
-            if (!oidOrBinding) return '';
+            if (!oidOrBinding) {
+                return '';
+            }
 
             if (oidOrBinding[0] === '{') {
                 return vis.formatBinding(oidOrBinding);
             } else {
                 var val = vis.states.attr(oidOrBinding + '.val');
-                if (val === undefined || val === null) return '';
-                if (val === 'null') return '';
+                if (val === undefined || val === null || val === 'null') {
+                    return '';
+                }
                 return val;
             }
         },
@@ -436,8 +471,8 @@
                     city: data.city || ''
                 },
                 wind: {
-                    direction:  getValue(data['wind-dir-0-oid']),
-                    speed:      getValue(data['wind-speed-0-oid'])
+                    direction: getValue(data['wind-dir-0-oid']),
+                    speed:     getValue(data['wind-speed-0-oid'])
                 },
                 atmosphere: {
                     humidity: getValue(data['humidity-0-oid'])
@@ -505,13 +540,15 @@
             for (var i = 0; i < weather.item.forecast.length; i++) {
                 if (weather.item.forecast[i].high === null &&
                     weather.item.forecast[i].low  === null &&
-                    weather.item.forecast[i].text === null) {
+                    weather.item.forecast[i].text === null
+                ) {
                     weather.item.forecast.splice(i, weather.item.forecast.length - i);
                     break;
                 }
                 if (weather.item.forecast[i].high === '' &&
                     weather.item.forecast[i].low  === '' &&
-                    weather.item.forecast[i].text === '') {
+                    weather.item.forecast[i].text === ''
+                ) {
                     weather.item.forecast.splice(i, weather.item.forecast.length - i);
                     break;
                 }
@@ -692,30 +729,38 @@
                 }
             };
 
-            var NS_URI = 'http://www.w3.org/2000/svg',
-                    XLink_NS = 'http://www.w3.org/1999/xlink',
+            var NS_URI = 'http://www.w3.org/2000/svg';
+            var XLink_NS = 'http://www.w3.org/1999/xlink';
 
-                    ns = 60,
-                    mi = 5,
-                    qi = .25 * ns,
-                    r = ~~$el.find('.svg--cc')[0].getAttribute('r'),
-                    svg = $el.find('svg')[0],
-                    wrap = $el.find('.svg--ticks')[0],
-                    h_el = $el.find('.hand--h')[0],
-                    m_el = $el.find('.hand--m')[0],
-                    s_el = $el.find('.hand--s')[0],
-                    h_max = 12, h_deg = 360 / h_max,
-                    m_max = 60, m_deg = 360 / m_max,
-                    s_max = 60, s_deg = 360 / s_max,
-                    prev_s;
+            var ns = 60;
+            var mi = 5;
+            var qi = .25 * ns;
+            var r = ~~$el.find('.svg--cc')[0].getAttribute('r');
+            var svg = $el.find('svg')[0];
+            var wrap = $el.find('.svg--ticks')[0];
+            var h_el = $el.find('.hand--h')[0];
+            var m_el = $el.find('.hand--m')[0];
+            var s_el = $el.find('.hand--s')[0];
+            var h_max = 12, h_deg = 360 / h_max;
+            var m_max = 60, m_deg = 360 / m_max;
+            var s_max = 60, s_deg = 360 / s_max;
+            var prev_s;
 
             var init = function () {
-                var frag = document.createDocumentFragment(),
-                        curr_tick_group, curr_tick, text1, text2,
-                        is_major, is_quad, ref,
-                        curr_angle, base_angle = 360 / ns;
+                var frag = document.createDocumentFragment();
+                var curr_tick_group;
+                var curr_tick;
+                var text1;
+                var text2;
+                var is_major;
+                var is_quad;
+                var ref;
+                var curr_angle;
+                var base_angle = 360 / ns;
 
-                if (!isSeconds) s_el.setAttribute('style', 'display: none');
+                if (!isSeconds) {
+                    s_el.setAttribute('style', 'display: none');
+                }
                 for (var i = 0; i < ns; i++) {
                     is_major = (i % mi === 0);
                     is_quad = (i % qi === 0);
@@ -728,22 +773,22 @@
                     curr_tick.setAttributeNS(XLink_NS, 'xlink:href', ref);
 
                     curr_tick.setAttribute(
-                            'transform',
-                                    'rotate(' + curr_angle + ')' +
-                                    'translate(0 -' + r + ')'
+                        'transform',
+                        'rotate(' + curr_angle + ')' +
+                        'translate(0 -' + r + ')'
                     );
 
                     if (is_major) {
                         curr_tick.setAttribute('class', 'major');
 
                         text1 = document.createElementNS(NS_URI, 'text');
-                        text1.textContent = i;
+                        text1.textContent = i.toString();
 
                         text1.setAttribute(
-                                'transform',
-                                        'rotate(' + curr_angle + ')' +
-                                        'translate(0 -' + 1.05 * r + ')' +
-                                        'rotate(' + -curr_angle + ')'
+                            'transform',
+                            'rotate(' + curr_angle + ')' +
+                            'translate(0 -' + 1.05 * r + ')' +
+                            'rotate(' + -curr_angle + ')'
                         );
                         curr_tick_group.appendChild(text1);
                         text1.setAttribute('style', 'dominant-baseline: middle;text-anchor: middle;fill: ' + textColor + '; font: ' + textSize + 'px ' + textFont);
@@ -757,8 +802,8 @@
                             text2.setAttrs({
                                 'class': 'quad',
                                 'transform': 'rotate(' + curr_angle + ')' +
-                                        'translate(0 -' + .8 * r + ')' +
-                                        'rotate(' + -curr_angle + ')'
+                                'translate(0 -' + .8 * r + ')' +
+                                'rotate(' + -curr_angle + ')'
                             });
                             text2.setAttribute('style', 'dominant-baseline: middle;text-anchor: middle;fill: ' + quadColor + '; font: 700 ' + quadSize + 'px ' + textFont);
                             curr_tick_group.appendChild(text2);
@@ -779,10 +824,13 @@
             };
 
             var run = function () {
-                var t = new Date(),
-                        h = t.getHours(), curr_s_deg,
-                        m = t.getMinutes(), curr_m_deg,
-                        s = t.getSeconds(), curr_h_deg;
+                var t = new Date();
+                var h = t.getHours();
+                var curr_s_deg;
+                var m = t.getMinutes();
+                var curr_m_deg;
+                var s = t.getSeconds();
+                var curr_h_deg;
 
                 curr_s_deg = (s % s_max) * s_deg;
 
@@ -790,26 +838,25 @@
                     curr_s_deg = (s % s_max) * s_deg;
                     if (isSeconds) {
                         s_el.setAttribute(
-                                'transform',
-                                        'rotate(' + curr_s_deg + ')'
+                            'transform',
+                            'rotate(' + curr_s_deg + ')'
                         );
                     }
 
                     curr_m_deg = ((m % m_max) + s / s_max) * m_deg;
                     m_el.setAttribute(
-                            'transform',
-                                    'rotate(' + curr_m_deg + ')'
+                        'transform',
+                        'rotate(' + curr_m_deg + ')'
                     );
 
                     curr_h_deg = ((h % h_max) + m / m_max) * h_deg;
                     h_el.setAttribute(
-                            'transform',
-                                    'rotate(' + curr_h_deg + ')'
+                        'transform',
+                        'rotate(' + curr_h_deg + ')'
                     );
                 }
 
                 prev_s = s;
-
             };
 
             init();
@@ -833,18 +880,23 @@
                 var s = d.getSeconds();
                 if (s < 10) s = '0' + s;
                 var time = h + ':' + m;
-                if (data.seconds && data.seconds !== 'false') time += ':' + s;
+                if (data.seconds && data.seconds !== 'false') {
+                    time += ':' + s;
+                }
                 if (vis.editMode || _el.data('val') != time) {
                     _el.data('val', time);
                     display.setValue(time);
                 }
             }
+
             function runText(_el, _display, interval) {
-                var $display = $('#' + _display.displayId);
+                // var $display = $('#' + _display.displayId);
 
                 var val = _el.data('value');
                 var len = val.length;
-                if (!val) return;
+                if (!val) {
+                    return;
+                }
                 var step = _el.data('step') || 0;
 
                 if (step < 0) {
@@ -868,20 +920,24 @@
                             return;
                         }
                         runText(_el, _display, interval);
-                    }, interval)
+                    }, interval);
                     _el.data('timerId', timerId);
                 }
             }
+
             setTimeout(function () {
                 el.append('<canvas id="' + data.attr('wid') + '_clock" width="'  + el.width() + '" height="'  + el.height() + '"></canvas>');
                 var display = new SegmentDisplay(data.attr('wid') + '_clock');
-                display.pattern         = data.pattern || "##:##:##";
-                if (display.pattern == "##:##:##" && (!data.seconds || data.seconds === 'false')) display.pattern = "##:##";
+                display.pattern = data.pattern || '##:##:##';
+
+                if (display.pattern === '##:##:##' && (!data.seconds || data.seconds === 'false')) {
+                    display.pattern = '##:##';
+                }
                 display.segmentCount    = parseInt(data.segmentCount, 10) || 7;
-                display.displayAngle    = (data.displayAngle    === '' || data.displayAngle    === null || data.displayAngle === undefined) ? 9 : (parseInt(data.displayAngle, 10) || 0);
+                display.displayAngle    = (data.displayAngle    === '' || data.displayAngle    === null || data.displayAngle === undefined)    ? 9   : (parseInt(data.displayAngle, 10) || 0);
                 display.digitHeight     = parseInt(data.digitHeight, 10) || 20;
                 display.digitWidth      = parseInt(data.digitWidth, 10)  || 12;
-                display.digitDistance   = (data.digitDistance   === '' || data.digitDistance   === null || data.digitDistance === undefined) ? 2 : (parseInt(data.digitDistance, 10) || 0);
+                display.digitDistance   = (data.digitDistance   === '' || data.digitDistance   === null || data.digitDistance === undefined)   ? 2   : (parseInt(data.digitDistance, 10) || 0);
                 display.segmentWidth    = parseInt(data.segmentWidth, 10) || 3;
                 display.segmentDistance = (data.segmentDistance === '' || data.segmentDistance === null || data.segmentDistance === undefined) ? 0.5 : (parseFloat(data.segmentDistance) || 0);
                 switch (data.cornerType) {
@@ -901,12 +957,14 @@
                         display.cornerType = 0;
                     break;
                 }
-                display.colorOn         = data.colorOn  || 'rgba(0, 0, 0, 0.9)';
-                display.colorOff        = data.colorOff || 'rgba(0, 0, 0, 0.1)';
-                data.runStepInterval    = parseInt(data.runStepInterval, 10) || 0;
-                if (data.oid && data.oid != 'nothing_selected') {
+                display.colorOn      = data.colorOn  || 'rgba(0, 0, 0, 0.9)';
+                display.colorOff     = data.colorOff || 'rgba(0, 0, 0, 0.1)';
+                data.runStepInterval = parseInt(data.runStepInterval, 10) || 0;
+                if (data.oid && data.oid !== 'nothing_selected') {
                     var value = vis.states.attr(data.oid + '.val');
-                    if (value === null || value === undefined) value = '';
+                    if (value === null || value === undefined) {
+                        value = '';
+                    }
                     value = value.toString();
                     display.setValue(value);
                     el.data('value', value).data('step', 0);
@@ -936,7 +994,7 @@
                 } else {
                     display.setValue('no oid, no text, no clock');
                 }
-            });
+            }, 50);
         }
     };
     if (vis.editMode) {
@@ -984,7 +1042,6 @@
             };
             return line;
         };
-
     }
 </script>
 <!-- startDate: function (view, elem, showWeekDay, noClass, timerId, shortWeekDay, shortYear, prependZero, monthWord, shortMonth, american) {
@@ -1044,22 +1101,22 @@
         data-vis-set="timeandweather"
         data-vis-name="HtcWeather"
         data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru;updateInterval[180]/slider,0,1440,10;">
-    <% 
+    <%
         vis.binds.timeandweather.tplTwHtcWeather(this.view, this.data);
     %>
 </script>
 
-<script id="tplTwYahooWeather"
+<!--script id="tplTwYahooWeather"
         type="text/ejs"
         class="vis-tpl"
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_YahooWeather.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="YahooWeather"
         data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru;maxDays[7]/slider,0,8,1;updateInterval[180]/slider,0,1440,10;">
-    <% 
+    <%
         vis.binds.timeandweather.tplTwYahooWeather(this.view, this.data);
     %>
-</script>
+</script-->
 
 <script id="tplTwWeather"
         type="text/ejs"
@@ -1105,7 +1162,7 @@
         data-vis-attrs="oid;text;"
         data-vis-attrs0="group.clock;clock[true]/checkbox;seconds[true]/checkbox;"
         data-vis-attrs1="group.style;pattern[##:##:##];colorOn[rgba(0, 0, 0, 1)]/color;colorOff[rgba(0, 0, 0, 0.1)]/color;runStepInterval[0]/slider,0,5000,100;segmentCount[7]/nselect,7,14,16;displayAngle[9]/slider,0,30,1;digitHeight[20]/slider,0,60,1;digitWidth[12]/slider,0,60,1;digitDistance[2]/slider,0,60,1;segmentWidth[3]/slider,0,60,1;segmentDistance[0.5]/slider,0,5,0.1;cornerType[PointedCorner]/select,SymmetricCorner,FlattenedCorner,PointedCorner,RoundedCorner"
-        >
+>
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 100px; height: 30px;" id="<%= this.data.attr('wid') %>">
         <div class="vis-widget-body" <%= (el) -> vis.binds.timeandweather.tplSegmentClock(el, this.data) %> />
     </div>
