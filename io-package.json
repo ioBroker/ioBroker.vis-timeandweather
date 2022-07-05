@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "vis-timeandweather",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "news": {
+      "1.2.2": {
+        "en": "Refactoring of build process done",
+        "de": "Herstellung von Bauprozessen",
+        "ru": "Рефакторинг процесса строительства",
+        "pt": "Refactoring do processo de construção feito",
+        "nl": "Herstarten van bouwproces gedaan",
+        "fr": "Refactoring of build process done",
+        "it": "Refactoring del processo di costruzione fatto",
+        "es": "Refactoring of build process done",
+        "pl": "Zrezygnowanie procesu budowy dokonano",
+        "zh-cn": "完成的建设进程"
+      },
       "1.2.1": {
         "en": "Fixed the icon display in custom weather forecast\nRefactoring of build process done",
         "de": "Behoben der Icon-Anzeige in der benutzerdefinierten Wettervorhersage\nHerstellung von Bauprozessen",
@@ -39,11 +51,6 @@
         "en": "add weather custom widget",
         "de": "add weather custom widget",
         "ru": "add weather custom widget"
-      },
-      "1.1.1": {
-        "en": "fix the slide in htc weather",
-        "de": "fix the slide in htc weather",
-        "ru": "fix the slide in htc weather"
       }
     },
     "title": "Time and weather Widgets",

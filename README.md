@@ -25,7 +25,7 @@ Used following packages:
 -->
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 1.2.2 (2022-07-05)
 * (bluefox) Refactoring of build process done
 
 ### 1.2.1 (2022-07-05)
