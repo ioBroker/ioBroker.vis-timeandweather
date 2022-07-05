@@ -1,7 +1,7 @@
 {
   "name": "iobroker.vis-timeandweather",
   "description": "Time and weather widgets for ioBroker.vis",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "author": {
     "name": "bluefox",
     "email": "dogafox@gmail.com"
