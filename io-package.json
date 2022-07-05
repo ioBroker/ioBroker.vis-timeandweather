@@ -34,11 +34,30 @@
                 "ru": "fix the slide in htc weather"
             }
         },
-        "title": "ioBroker Visualisation - time and weather Widgets",
+        "title": "Time and weather Widgets",
+        "titleLang": {
+            "en": "Time and weather Widgets",
+            "de": "Zeit und Wetter Widgets",
+            "ru": "Виджеты времени и погоды",
+            "pt": "Tempo e tempo Widgets",
+            "nl": "Tijd en weer Widgets",
+            "fr": "Heure et temps Widgets",
+            "it": "Tempo e tempo",
+            "es": "Hora y tiempo Widgets",
+            "pl": "Czas i pogoda",
+            "zh-cn": "时间和天气目标"
+        },
         "desc": {
             "en": "Time and weather widgets for ioBroker.vis",
-            "de": "Zeit und Wetter Widgets für ioBroker.vis",
-            "ru": "Widgets времени и погоды для ioBroker.vis"
+            "de": "Zeit- und Wetterwidgets für ioBroker.vis",
+            "ru": "Виджеты времени и погоды для ioBroker.vis",
+            "pt": "Widgets de tempo para ioBroker.vis",
+            "nl": "Tijd en weer widgets voor ioBroker",
+            "fr": "Widgets temps et temps pour ioBroker.vis",
+            "it": "Tempo e widget meteo per ioBroker.vis",
+            "es": "Widgets de tiempo y tiempo para ioBroker.vis",
+            "pl": "Time and weather widgets for ioBrokervis (ang.)",
+            "zh-cn": "气布罗克的时间和天气目标。"
         },
         "platform": "Javascript/Node.js",
         "loglevel": "info",
@@ -65,10 +84,15 @@
         "onlyWWW": true,
         "singleton": true,
         "type": "visualization-widgets",
+        "adminUI": {
+            "config": "none"
+        },
         "noConfig": true,
         "restartAdapters": [
             "vis"
-        ]
+        ],
+        "connectionType": "local",
+        "dataSource": "push"
     },
     "native": {},
     "instanceObjects": []
