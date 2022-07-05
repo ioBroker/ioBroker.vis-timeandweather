@@ -25,7 +25,7 @@ Used following packages:
 -->
 
 ## Changelog
-### 1.2.0 (2022-07-05)
+### **WORK IN PROGRESS**
 * (HeadCrash78) Fixed the icon display in custom weather forecast
 * (bluefox) Refactoring of build process done
 
