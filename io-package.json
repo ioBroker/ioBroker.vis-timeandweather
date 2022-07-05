@@ -1,99 +1,111 @@
 {
-    "common": {
-        "name": "vis-timeandweather",
-        "version": "1.2.0",
-        "news": {
-            "1.1.7": {
-                "en": "add update interval for weather",
-                "de": "Updateintervalle für Wetter hinzugefügt",
-                "ru": "Добавлен интервал обновления для погоды"
-            },
-            "1.1.6": {
-                "en": "support of vis APP",
-                "de": "support of vis APP",
-                "ru": "support of vis APP"
-            },
-            "1.1.4": {
-                "en": "better translations",
-                "de": "better translations",
-                "ru": "better translations"
-            },
-            "1.1.3": {
-                "en": "enable widgets for https too",
-                "de": "enable widgets for https too",
-                "ru": "enable widgets for https too"
-            },
-            "1.1.2": {
-                "en": "add weather custom widget",
-                "de": "add weather custom widget",
-                "ru": "add weather custom widget"
-            },
-            "1.1.1": {
-                "en": "fix the slide in htc weather",
-                "de": "fix the slide in htc weather",
-                "ru": "fix the slide in htc weather"
-            }
-        },
-        "title": "Time and weather Widgets",
-        "titleLang": {
-            "en": "Time and weather Widgets",
-            "de": "Zeit und Wetter Widgets",
-            "ru": "Виджеты времени и погоды",
-            "pt": "Tempo e tempo Widgets",
-            "nl": "Tijd en weer Widgets",
-            "fr": "Heure et temps Widgets",
-            "it": "Tempo e tempo",
-            "es": "Hora y tiempo Widgets",
-            "pl": "Czas i pogoda",
-            "zh-cn": "时间和天气目标"
-        },
-        "desc": {
-            "en": "Time and weather widgets for ioBroker.vis",
-            "de": "Zeit- und Wetterwidgets für ioBroker.vis",
-            "ru": "Виджеты времени и погоды для ioBroker.vis",
-            "pt": "Widgets de tempo para ioBroker.vis",
-            "nl": "Tijd en weer widgets voor ioBroker",
-            "fr": "Widgets temps et temps pour ioBroker.vis",
-            "it": "Tempo e widget meteo per ioBroker.vis",
-            "es": "Widgets de tiempo y tiempo para ioBroker.vis",
-            "pl": "Time and weather widgets for ioBrokervis (ang.)",
-            "zh-cn": "气布罗克的时间和天气目标。"
-        },
-        "platform": "Javascript/Node.js",
-        "loglevel": "info",
-        "icon": "timeandweather.png",
-        "enabled": true,
-        "mode": "once",
-        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.png",
-        "keywords": [
-            "timeandweather",
-            "vis",
-            "GUI",
-            "graphical",
-            "scada"
-        ],
-        "readme": "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/README.md",
-        "authors": [
-            "bluefox <dogafox@gmail.com>"
-        ],
-        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
-        "license": "MIT",
-        "dependencies": [
-            "vis"
-        ],
-        "onlyWWW": true,
-        "singleton": true,
-        "type": "visualization-widgets",
-        "adminUI": {
-            "config": "none"
-        },
-        "noConfig": true,
-        "restartAdapters": [
-            "vis"
-        ],
-        "connectionType": "local",
-        "dataSource": "push"
+  "common": {
+    "name": "vis-timeandweather",
+    "version": "1.2.1",
+    "news": {
+      "1.2.1": {
+        "en": "Fixed the icon display in custom weather forecast\nRefactoring of build process done",
+        "de": "Behoben der Icon-Anzeige in der benutzerdefinierten Wettervorhersage\nHerstellung von Bauprozessen",
+        "ru": "Исправлен дисплей иконы в прогнозе погоды на заказ\nРефакторинг процесса строительства",
+        "pt": "Corrigido a exibição do ícone na previsão do tempo personalizado\nRefactoring do processo de construção feito",
+        "nl": "Vertaling:\nHerstarten van bouwproces gedaan",
+        "fr": "Fixer l'affichage de l'icône dans les prévisions météo personnalisées\nRefactoring of build process done",
+        "it": "Fisso il display icona in previsioni meteo personalizzate\nRefactoring del processo di costruzione fatto",
+        "es": "Arreglado la pantalla del icono en el pronóstico del tiempo personalizado\nRefactoring of build process done",
+        "pl": "Fixed ikony wyświetlają się w niestandardowej prognozy pogodowej\nZrezygnowanie procesu budowy dokonano",
+        "zh-cn": "固定在习惯天气预报中展示的图像\n完成的建设进程"
+      },
+      "1.1.7": {
+        "en": "add update interval for weather",
+        "de": "Updateintervalle für Wetter hinzugefügt",
+        "ru": "Добавлен интервал обновления для погоды"
+      },
+      "1.1.6": {
+        "en": "support of vis APP",
+        "de": "support of vis APP",
+        "ru": "support of vis APP"
+      },
+      "1.1.4": {
+        "en": "better translations",
+        "de": "better translations",
+        "ru": "better translations"
+      },
+      "1.1.3": {
+        "en": "enable widgets for https too",
+        "de": "enable widgets for https too",
+        "ru": "enable widgets for https too"
+      },
+      "1.1.2": {
+        "en": "add weather custom widget",
+        "de": "add weather custom widget",
+        "ru": "add weather custom widget"
+      },
+      "1.1.1": {
+        "en": "fix the slide in htc weather",
+        "de": "fix the slide in htc weather",
+        "ru": "fix the slide in htc weather"
+      }
     },
-    "native": {},
-    "instanceObjects": []
+    "title": "Time and weather Widgets",
+    "titleLang": {
+      "en": "Time and weather Widgets",
+      "de": "Zeit und Wetter Widgets",
+      "ru": "Виджеты времени и погоды",
+      "pt": "Tempo e tempo Widgets",
+      "nl": "Tijd en weer Widgets",
+      "fr": "Heure et temps Widgets",
+      "it": "Tempo e tempo",
+      "es": "Hora y tiempo Widgets",
+      "pl": "Czas i pogoda",
+      "zh-cn": "时间和天气目标"
+    },
+    "desc": {
+      "en": "Time and weather widgets for ioBroker.vis",
+      "de": "Zeit- und Wetterwidgets für ioBroker.vis",
+      "ru": "Виджеты времени и погоды для ioBroker.vis",
+      "pt": "Widgets de tempo para ioBroker.vis",
+      "nl": "Tijd en weer widgets voor ioBroker",
+      "fr": "Widgets temps et temps pour ioBroker.vis",
+      "it": "Tempo e widget meteo per ioBroker.vis",
+      "es": "Widgets de tiempo y tiempo para ioBroker.vis",
+      "pl": "Time and weather widgets for ioBrokervis (ang.)",
+      "zh-cn": "气布罗克的时间和天气目标。"
+    },
+    "platform": "Javascript/Node.js",
+    "loglevel": "info",
+    "icon": "timeandweather.png",
+    "enabled": true,
+    "mode": "once",
+    "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.png",
+    "keywords": [
+      "timeandweather",
+      "vis",
+      "GUI",
+      "graphical",
+      "scada"
+    ],
+    "readme": "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/README.md",
+    "authors": [
+      "bluefox <dogafox@gmail.com>"
+    ],
+    "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+    "license": "MIT",
+    "dependencies": [
+      "vis"
+    ],
+    "onlyWWW": true,
+    "singleton": true,
+    "type": "visualization-widgets",
+    "adminUI": {
+      "config": "none"
+    },
+    "noConfig": true,
+    "restartAdapters": [
+      "vis"
+    ],
+    "connectionType": "local",
+    "dataSource": "push"
+  },
+  "native": {},
+  "instanceObjects": []
 }
