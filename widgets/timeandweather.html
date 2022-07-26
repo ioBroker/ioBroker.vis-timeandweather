@@ -1015,9 +1015,6 @@
                 var $wid = $('#' + wid);
                 var oldClock = el.find('#' + wid + '_clock');
 
-                if (oldClock.length) {
-                    oldClock[0].remove();
-                }
                 if ($wid.data('timer')) {
                     clearInterval($wid.data('timer'));
                     $wid.data('timer', null);
@@ -1025,6 +1022,9 @@
                 if ($wid.data('interval')) {
                     clearInterval($wid.data('interval'));
                     $wid.data('interval', null);
+                }
+                if (oldClock.length) {
+                    oldClock[0].remove();
                 }
 
                 el.append('<canvas id="' + wid + '_clock" width="'  + el.width() + '" height="'  + el.height() + '"></canvas>');
