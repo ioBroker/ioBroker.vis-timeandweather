@@ -25,6 +25,9 @@ Used following packages:
 -->
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Made widgets to be compatible with vis2
+
 ### 1.2.2 (2022-07-05)
 * (bluefox) Refactoring of build process done
 

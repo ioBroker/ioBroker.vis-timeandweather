@@ -17,7 +17,22 @@ var jdigiclockCounter = 0;
     "use strict";
     $.fn.extend({
         jdigiclock: function (_options) {
-
+            if (_options === 'destroy') {
+                return this.each(function() {
+                    var $this = $(this);
+                    if ($this.data('weatherTimeout')) {
+                        clearTimeout($this.data('weatherTimeout'));
+                        $this.data('weatherTimeout', null);
+                    }
+                    if ($this.data('clockTimeout')) {
+                        clearTimeout($this.data('clockTimeout'));
+                        $this.data('clockTimeout', null);
+                    }
+                    if ($this.o) {
+                        $('#left_arrow' + $this.o.curID).unbind();
+                    }
+                });
+            }
             var defaults = {
                 clockImagesPath:     'images/clock/',
                 weatherImagesPath:   'images/weather/',
@@ -48,14 +63,13 @@ var jdigiclockCounter = 0;
             var options = $.extend(defaults, _options);
             options.curID = jdigiclockCounter++;
             var i = options.weatherLocationCode.indexOf('[');
-            if (i != -1) {
+            if (i !== -1) {
                 options.weatherLocationCode = options.weatherLocationCode.substring(i + 1);
                 i = options.weatherLocationCode.indexOf(']');
                 options.weatherLocationCode = options.weatherLocationCode.substring(0, i);
             }
 
             return this.each(function() {
-                
                 var $this               = $(this);
                 var o                   = options;
                 $this.o                 = o;
@@ -65,7 +79,7 @@ var jdigiclockCounter = 0;
 				$this.lang.lang         = o.lang;
                 $this.am_pm             = o.am_pm;
                 $this.weatherLocationCode = o.weatherLocationCode;
-                $this.weatherMetric     = o.weatherMetric == 'C' ? 1 : 0;
+                $this.weatherMetric     = o.weatherMetric === 'C' ? 1 : 0;
                 $this.weatherUpdate     = o.weatherUpdate;
                 $this.proxyType         = o.proxyType;
                 $this.currDate          = '';
@@ -86,7 +100,7 @@ var jdigiclockCounter = 0;
 
                 $this.displayClock($this);
 
-                $this.displayWeather($this);               
+                $this.displayWeather($this);
 
                 var panel_pos = ($('#plugin_cAntainer' + o.curID + ' > div').length - 1) * 500;
                 var next = function() {
@@ -98,12 +112,14 @@ var jdigiclockCounter = 0;
                                 $(this).appendTo('#plugin_cAntainer' + o.curID).css({'left': panel_pos + 'px'});
                             }
                             //$('#right_arrow').bind('click touchstart', next);
-                        });                        
+                        });
                     });
                 };
                 $('#right_arrow' + o.curID).bind('click touchstart', function (e) {
                     // Protect against two events
-                    if (vis.detectBounce(this)) return;
+                    if (vis.detectBounce(this)) {
+                        return;
+                    }
 
                     next(e);
                 });
@@ -124,25 +140,31 @@ var jdigiclockCounter = 0;
                 document.getElementById('forecast_cAntainer' + o.curID).o = o;
                 $('#left_arrow' + o.curID).bind('click touchstart', function (e) {
                     // Protect against two events
-                    if (vis.detectBounce(this)) return;
+                    if (vis.detectBounce(this)) {
+                        return;
+                    }
 
                     prev(e);
                 });
             });
         }
-    });  
+    });
 
     $.fn.displayClock = function(el) {
         $.fn.getTime(el);
-        setTimeout(function() {$.fn.displayClock(el)}, $.fn.delay());
+        el.data('clockTimeout', setTimeout(function() {
+            el.data('clockTimeout', null);
+            $.fn.displayClock(el);
+        }, $.fn.delay()));
     };
 
     $.fn.displayWeather = function(el) {
         $.fn.getWeather(el);
         if (el.weatherUpdate > 0) {
-            setTimeout(function () {
+            el.data('weatherTimeout', setTimeout(function () {
+                el.data('weatherTimeout', null);
                 $.fn.displayWeather(el);
-            }, (el.weatherUpdate * 60 * 1000));
+            }, (el.weatherUpdate * 60 * 1000)));
         }
     };
 
@@ -154,7 +176,7 @@ var jdigiclockCounter = 0;
         var now = new Date();
         var old = new Date();
         old.setTime(now.getTime() - 60000);
-        
+
         var now_hours, now_minutes, old_hours, old_minutes, timeOld = '';
         now_hours =  now.getHours();
         now_minutes = now.getMinutes();
@@ -165,7 +187,7 @@ var jdigiclockCounter = 0;
             var am_pm = now_hours > 11 ? 'pm' : 'am';
             now_hours = ((now_hours > 12) ? now_hours - 12 : now_hours);
             old_hours = ((old_hours > 12) ? old_hours - 12 : old_hours);
-        } 
+        }
 
         now_hours   = ((now_hours <  10) ? '0' : '') + now_hours;
         now_minutes = ((now_minutes <  10) ? '0' : '') + now_minutes;
@@ -180,7 +202,7 @@ var jdigiclockCounter = 0;
         var secondHourDigit = old_hours.substr(1,1);
         var firstMinuteDigit = old_minutes.substr(0,1);
         var secondMinuteDigit = old_minutes.substr(1,1);
-        
+
         timeOld += '<div id="hours'+el.o.curID+'" class="dc_hours"><div class="dc_line"></div>';
         timeOld += '<div id="hours_bg'+el.o.curID+'" class="dc_hours_bg"><img src="' + el.clockImagesPath + 'clockbg1.png" /></div>';
         timeOld += '<img src="' + el.clockImagesPath + firstHourDigit + '.png" id="fhd'+el.o.curID+'" class="dc_first_digit" />';
@@ -198,115 +220,115 @@ var jdigiclockCounter = 0;
         el.find('#clock'+el.o.curID).html(timeOld);
 
         // set minutes
-        if (secondMinuteDigit != '9') {
+        if (secondMinuteDigit !== '9') {
             firstMinuteDigit = firstMinuteDigit + '1';
         }
 
-        if (old_minutes == '59') {
+        if (old_minutes === '59') {
             firstMinuteDigit = '511';
         }
 
-        _setTimeout(function (el) {
+        setTimeout(function (el) {
             $('#fmd' + el.o.curID).attr('src', el.clockImagesPath + firstMinuteDigit + '-1.png');
             $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg2.png');
         }, 200, el);
-        _setTimeout(function (el) { $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
-        _setTimeout(function (el) {
+        setTimeout(function (el) { $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
+        setTimeout(function (el) {
             $('#fmd' + el.o.curID).attr('src', el.clockImagesPath + firstMinuteDigit + '-2.png');
             $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg4.png');
         }, 400, el);
-        _setTimeout(function (el) { $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
-        _setTimeout(function (el) {
+        setTimeout(function (el) { $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
+        setTimeout(function (el) {
             $('#fmd' + el.o.curID).attr('src', el.clockImagesPath + firstMinuteDigit + '-3.png');
             $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg6.png');
         }, 600, el);
 
-        _setTimeout(function(el) {
+        setTimeout(function(el) {
             $('#smd' + el.o.curID).attr('src', el.clockImagesPath + secondMinuteDigit + '-1.png');
             $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg2.png');
         }, 200, el);
-        _setTimeout(function(el) { $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
-        _setTimeout(function(el) {
+        setTimeout(function(el) { $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
+        setTimeout(function(el) {
             $('#smd' + el.o.curID).attr('src', el.clockImagesPath + secondMinuteDigit + '-2.png');
             $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg4.png');
         }, 400, el);
-        _setTimeout(function (el) { $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
-        _setTimeout(function (el) {
+        setTimeout(function (el) { $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
+        setTimeout(function (el) {
             $('#smd' + el.o.curID).attr('src', el.clockImagesPath + secondMinuteDigit + '-3.png');
             $('#minutes_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg6.png');
         }, 600, el);
 
-        _setTimeout(function (el) {$('#fmd' + el.o.curID).attr('src', el.clockImagesPath + now_minutes.substr(0,1) + '.png')}, 800, el);
-        _setTimeout(function (el) {$('#smd' + el.o.curID).attr('src', el.clockImagesPath + now_minutes.substr(1,1) + '.png')}, 800, el);
-        _setTimeout(function (el) { $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg1.png')}, 850, el);
+        setTimeout(function (el) {$('#fmd' + el.o.curID).attr('src', el.clockImagesPath + now_minutes.substr(0,1) + '.png')}, 800, el);
+        setTimeout(function (el) {$('#smd' + el.o.curID).attr('src', el.clockImagesPath + now_minutes.substr(1,1) + '.png')}, 800, el);
+        setTimeout(function (el) { $('#minutes_bg' + el.o.curID + ' img').attr('src', el.clockImagesPath + 'clockbg1.png')}, 850, el);
 
         // set hours
-        if (now_minutes == '00') {
-           
+        if (now_minutes === '00') {
+
             if (el.am_pm) {
-                if (now_hours == '00') {                   
+                if (now_hours === '00') {
                     firstHourDigit = firstHourDigit + '1';
                     now_hours = '12';
-                } else if (now_hours == '01') {
+                } else if (now_hours === '01') {
                     firstHourDigit = '001';
                     secondHourDigit = '111';
                 } else {
                     firstHourDigit = firstHourDigit + '1';
                 }
             } else {
-                if (now_hours != '10') {
+                if (now_hours !== '10') {
                     firstHourDigit = firstHourDigit + '1';
                 }
 
-                if (now_hours == '20') {
+                if (now_hours === '20') {
                     firstHourDigit = '1';
                 }
 
-                if (now_hours == '00') {
+                if (now_hours === '00') {
                     firstHourDigit = firstHourDigit + '1';
                     secondHourDigit = secondHourDigit + '11';
                 }
             }
 
-            _setTimeout(function(el) {
+            setTimeout(function(el) {
                 $('#fhd' + el.o.curID).attr('src', el.clockImagesPath + firstHourDigit + '-1.png');
                 $('#hours_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg2.png');
             },200, el);
-            _setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
-            _setTimeout(function(el) {
+            setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
+            setTimeout(function(el) {
                 $('#fhd' + el.o.curID).attr('src', el.clockImagesPath + firstHourDigit + '-2.png');
                 $('#hours_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg4.png');
             },400, el);
-            _setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
-            _setTimeout(function(el) {
+            setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
+            setTimeout(function(el) {
                 $('#fhd' + el.o.curID).attr('src', el.clockImagesPath + firstHourDigit + '-3.png');
                 $('#hours_bg' + el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg6.png');
             },600, el);
 
-            _setTimeout(function() {
+            setTimeout(function() {
             $('#shd'+el.o.curID).attr('src', el.clockImagesPath + secondHourDigit + '-1.png');
             $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg2.png');
             },200, el);
-            _setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
-            _setTimeout(function(el) {
+            setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg3.png')}, 250, el);
+            setTimeout(function(el) {
                 $('#shd'+el.o.curID).attr('src', el.clockImagesPath + secondHourDigit + '-2.png');
                 $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg4.png');
             },400, el);
-            _setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
-            _setTimeout(function(el) {
+            setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg5.png')}, 450, el);
+            setTimeout(function(el) {
                 $('#shd'+el.o.curID).attr('src', el.clockImagesPath + secondHourDigit + '-3.png');
                 $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg6.png');
             },600, el);
 
-            _setTimeout(function(el) {$('#fhd'+el.o.curID).attr('src', el.clockImagesPath + now_hours.substr(0,1) + '.png')},800, el);
-            _setTimeout(function(el) {$('#shd'+el.o.curID).attr('src', el.clockImagesPath + now_hours.substr(1,1) + '.png')},800, el);
-            _setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg1.png')},850, el);
+            setTimeout(function(el) {$('#fhd'+el.o.curID).attr('src', el.clockImagesPath + now_hours.substr(0,1) + '.png')},800, el);
+            setTimeout(function(el) {$('#shd'+el.o.curID).attr('src', el.clockImagesPath + now_hours.substr(1,1) + '.png')},800, el);
+            setTimeout(function(el) { $('#hours_bg'+el.o.curID+' img').attr('src', el.clockImagesPath + 'clockbg1.png')},850, el);
         }
     };
 
 	$.fn.processAnswer = function(el, data) {
         var metric = el.weatherMetric == 1 ? 'C' : 'F';
-		
+
 		el.find('#weather'+el.o.curID+' .dc_loading, #forecast_cAntainer'+el.o.curID+' .dc_loading').hide();
 
 		var curr_temp = '<p class="">' + data.curr_temp + '&deg;<span class="dc_metric">' + metric + '</span></p>';
@@ -326,15 +348,15 @@ var jdigiclockCounter = 0;
 		var curr_for = curr_temp + '<p class="dc_high_low">' + data.forecast[0].day_htemp + '&deg;&nbsp;/&nbsp;' + data.forecast[0].day_ltemp + '&deg;</p>';
 		curr_for    += '<p class="dc_city">' + data.city + '</p>';
 		curr_for    += '<p class="dc_text">' + data.forecast[0].day_text + '</p>';
-		
+
 		var curr_img = '';
 		if (data.forecast[0].day_icon.indexOf("http://") === -1 && data.forecast[0].day_icon.indexOf("https://") === -1)
 			curr_img = 'background: url(' + el.weatherImagesPath + data.forecast[0].day_icon + '.png) 50% 0 no-repeat';
 		else
 			curr_img = 'background: url('+data.forecast[0].day_icon + ') 100% 0 no-repeat; background-size: 80% auto';
 		curr_for += '<div class="dc_image" style="'+curr_img+'"></div>';
-		
-		
+
+
 		el.find('#current'+el.o.curID).append(curr_for);
 
 		el.find('#forecast_cAntainer'+el.o.curID).append('<ul id="forecast'+el.o.curID+'" class="dc_forecast" style="position: absolute; top:238px"></ul>');
@@ -345,12 +367,12 @@ var jdigiclockCounter = 0;
 			var forecast = '<li>';
 			forecast    += '<p>' + day_name + '</p>';
 			forecast    += '<img src="';
-			
+
 			if (data.forecast[i].day_icon.indexOf('http://') === -1 && data.forecast[i].day_icon.indexOf('https://') === -1)
 				forecast += el.weatherImagesPath + data.forecast[i].day_icon + '.png';
 			else
 				forecast += data.forecast[i].day_icon;
-				
+
 			forecast    += '" alt="' + data.forecast[i].day_text + '" title="' + data.forecast[i].day_text + '" />';
 			forecast    += '<p>' + data.forecast[i].day_htemp + '&deg;&nbsp;/&nbsp;' + data.forecast[i].day_ltemp + '&deg;</p>';
 			forecast    += '</li>';
@@ -368,18 +390,18 @@ var jdigiclockCounter = 0;
 			$.fn.getWeather(el);
 		});
 	};
-	
+
 	// Get time string as date
 	$.fn._getTimeAsDate = function (t) {
         return new Date((new Date()).toDateString() + ' ' + t);
-	};	
+	};
     $.fn.getWeather = function (el) {
 
         el.find('#weather' + el.o.curID).html('<p class="dc_loading">Update Weather ...</p>');
         el.find('#forecast_cAntainer'+el.o.curID).html('<p class="dc_loading">Update Weather ...</p>');
         var proxy = '';
 
-			
+
         switch (el.proxyType) {
             case 'php':
                 proxy = 'php/proxy.php';
@@ -492,9 +514,9 @@ var jdigiclockCounter = 0;
 								modData['forecast'][i]['day_icon']  = 'http://l.yimg.com/a/i/us/nws/weather/gr/' + feed.item.forecast[i].code + daynight.substring(0,1) + '.png';
 								modData['forecast'][i]['day_date']  = feed.item.forecast[i].date;
 							}
-							
+
 							$.fn.processAnswer(el, modData);
-						} 
+						}
 						else {
 							//if (options.showerror) $e.html('<p>Weather information unavailable</p>');
 						}
@@ -506,9 +528,8 @@ var jdigiclockCounter = 0;
             break;
         }
     };
-	
-	$.fn._getWeatherAddress = function (data) {
 
+	$.fn._getWeatherAddress = function (data) {
         if (data) {
             // Get address
             var address = data.name;

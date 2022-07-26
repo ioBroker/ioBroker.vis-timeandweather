@@ -1,11 +1,11 @@
 /**
  * Plugin: jquery.zWeatherFeed
- * 
+ *
  * Version: 1.2.1
  * (c) Copyright 2011-2013, Zazar Ltd
- * 
+ *
  * Description: jQuery plugin for display of Yahoo! Weather feeds
- * 
+ *
  * History:
  * 1.2.1 - Handle invalid locations
  * 1.2.0 - Added forecast data option
@@ -157,10 +157,10 @@
     }
 
     function _translate(word, lang) {
-        if (word === undefined || word == null || word == "")
+        if (word === undefined || word == null || word === "")
             return '';
 
-        if (lang == 'de') {
+        if (lang === 'de') {
             // If date
             if (word.length > 1 && word[0] >= '0' && word[0] <= '9') {
                 word = word.replace ('Jan', 'Januar');
@@ -178,44 +178,44 @@
                 return word;
             }
 
-            if (word == 'High')
+            if (word === 'High')
                 return 'H&ouml;chste';
-            if (word == 'Low')
+            if (word === 'Low')
                 return 'Niedrigste';
-            if (word == 'Wind')
+            if (word === 'Wind')
                 return 'Wind';
-            if (word == 'Humidity')
+            if (word === 'Humidity')
                 return 'Luftfeuchte';
-            if (word == 'Visibility')
+            if (word === 'Visibility')
                 return 'Sichtweite';
-            if (word == 'Sunrise')
+            if (word === 'Sunrise')
                 return 'Sonnenaufgang';
-            if (word == 'Sunset')
+            if (word === 'Sunset')
                 return 'Sonnenuntergang';
-            if (word == 'City not found')
+            if (word === 'City not found')
                 return 'Stadt nicht gefunden';
-            if (word == 'Full forecast')
+            if (word === 'Full forecast')
                 return 'Volle Vorhersage';
-            if (word == 'Read full forecast')
+            if (word === 'Read full forecast')
                 return 'Sehe volle Vorhersage';
-            if (word == 'Mon')
+            if (word === 'Mon')
                 return 'Montag';
-            if (word == 'Tue')
+            if (word === 'Tue')
                 return 'Dienstag';
-            if (word == 'Wed')
+            if (word === 'Wed')
                 return 'Mittwoch';
-            if (word == 'Thu')
+            if (word === 'Thu')
                 return 'Donnerstag';
-            if (word == 'Fri')
+            if (word === 'Fri')
                 return 'Freitag';
-            if (word == 'Sat')
+            if (word === 'Sat')
                 return 'Samstag';
-            if (word == 'Sun')
+            if (word === 'Sun')
                 return 'Sonntag';
-            if (word == 'Temperature')
+            if (word === 'Temperature')
                 return 'Temperatur';
         }
-        if (lang == 'ru') {
+        if (lang === 'ru') {
             // If date
             if (word.length > 1 && word[0] >= '0' && word[0] <= '9') {
                 word = word.replace ('Jan', 'Январь');
@@ -233,41 +233,41 @@
                 return word;
             }
 
-            if (word == 'High')
+            if (word === 'High')
                 return 'Макс.';
-            if (word == 'Temperature')
+            if (word === 'Temperature')
                 return 'Температура';
-            if (word == 'Low')
+            if (word === 'Low')
                 return 'Мин.';
-            if (word == 'Wind')
+            if (word === 'Wind')
                 return 'Ветер';
-            if (word == 'Humidity')
+            if (word === 'Humidity')
                 return 'Влажность';
-            if (word == 'Visibility')
+            if (word === 'Visibility')
                 return 'Видимость';
-            if (word == 'Sunrise')
+            if (word === 'Sunrise')
                 return 'Восход';
-            if (word == 'Sunset')
+            if (word === 'Sunset')
                 return 'Закат';
-            if (word == 'City not found')
+            if (word === 'City not found')
                 return 'Город не найден';
-            if (word == 'Full forecast')
+            if (word === 'Full forecast')
                 return 'Полный прогноз';
-            if (word == 'Read full forecast')
+            if (word === 'Read full forecast')
                 return 'См. полный прогноз';
-            if (word == 'Mon')
+            if (word === 'Mon')
                 return 'Понедельник';
-            if (word == 'Tue')
+            if (word === 'Tue')
                 return 'Вторник';
-            if (word == 'Wed')
+            if (word === 'Wed')
                 return 'Среда';
-            if (word == 'Thu')
+            if (word === 'Thu')
                 return 'Четверг';
-            if (word == 'Fri')
+            if (word === 'Fri')
                 return 'Пятница';
-            if (word == 'Sat')
+            if (word === 'Sat')
                 return 'Суббота';
-            if (word == 'Sun')
+            if (word === 'Sun')
                 return 'Воскресение';
         }
         return word;
@@ -282,11 +282,11 @@
                 return _tt[i].code !== undefined ? _tt[i].code : i;
             }
         }
-        for (var i = 0; i < _tt.length && i < 200; i++) {
-            if (!_tt[i]) continue;
-            var de = _tt[i].de.toLowerCase().replace(/&ouml;/, 'ö').replace(/&uuml;/, 'ü').replace(/&szlig;/, 'ß');
-            if (_tt[i].en.toLowerCase().indexOf(text) !== -1 || de.indexOf(text) !== -1 || _tt[i].ru.toLowerCase().indexOf(text) !== -1) {
-                return _tt[i].code !== undefined ? _tt[i].code : i;
+        for (var ii = 0; ii < _tt.length && ii < 200; ii++) {
+            if (!_tt[ii]) continue;
+            var _de = _tt[ii].de.toLowerCase().replace(/&ouml;/, 'ö').replace(/&uuml;/, 'ü').replace(/&szlig;/, 'ß');
+            if (_tt[ii].en.toLowerCase().indexOf(text) !== -1 || _de.indexOf(text) !== -1 || _tt[ii].ru.toLowerCase().indexOf(text) !== -1) {
+                return _tt[ii].code !== undefined ? _tt[ii].code : ii;
             }
         }
         return null;
@@ -391,9 +391,9 @@
                 } else if (feed.item.condition.icon) {
                     html += 'background-image: url(' + feed.item.condition.icon + '); background-repeat: no-repeat;';
                 } else {
-                    var code = findCode(feed.item.condition.text);
-                    if (code !== null) {
-                        html += 'background-image: url(http://l.yimg.com/a/i/us/nws/weather/gr/' + code + daynight.substring(0, 1) + '.png); background-repeat: no-repeat;';
+                    var _code = findCode(feed.item.condition.text);
+                    if (_code !== null) {
+                        html += 'background-image: url(http://l.yimg.com/a/i/us/nws/weather/gr/' + _code + daynight.substring(0, 1) + '.png); background-repeat: no-repeat;';
                     }
                 }
             }
@@ -407,8 +407,8 @@
             if (feed.item.condition.code !== null && _tt[feed.item.condition.code]) {
                 html += '<div class="weatherDesc">' + (_tt[feed.item.condition.code][options.lang] || _tt[feed.item.condition.code]['en']) + '</div>';
             } else if (feed.item.condition.text !== null) {
-                var code = findCode(feed.item.condition.text);
-                if (code !== null) feed.item.condition.text = _tt[code][options.lang] || _tt[code]['en'];
+                var __code = findCode(feed.item.condition.text);
+                if (__code !== null) feed.item.condition.text = _tt[__code][options.lang] || _tt[__code]['en'];
                 html += '<div class="weatherDesc">' + feed.item.condition.text + '</div>';
             }
 
@@ -432,7 +432,9 @@
                 var wfi = feed.item.forecast;
 
                 for (var i = 0; i < wfi.length; i++) {
-                    if (options.maxDays && (i + 1) > options.maxDays) break;
+                    if (options.maxDays && (i + 1) > options.maxDays) {
+                        break;
+                    }
 
                     if (!wfi[i].date) {
                         var now = new Date();
@@ -487,14 +489,16 @@
         html += '</div>';
 
         // Alternate row classes
-        if (row == 'odd') {
+        if (row === 'odd') {
             row = 'even';
         } else {
             row = 'odd';
         }
 
         $e.append(html);
-        if (typeof options.rendered === 'function') options.rendered();
+        if (typeof options.rendered === 'function') {
+            options.rendered();
+        }
 
         if (options.resizable && !$e.data('inited')) {
             $e.data('inited', true);
@@ -502,7 +506,7 @@
             $e.resizable().resize(function() {
                 var timer = $e.data('timer');
 
-                if (timer) clearTimeout(timer);
+                timer && clearTimeout(timer);
                 $e.data('timer', setTimeout ( function () {
                     $e.data('timer', null);
                     options.width  = $e.width();
@@ -547,20 +551,23 @@
 			woeid:      false,
 			lang:       'en',
 			update:     60 // minutes
-		};  		
+		};
 		var options = $.extend(defaults, _options);
 
 		// Functions
 		return this.each(function (i, e) {
 			var $e = $(e);
             $e.data('options', options);
-            console.log($e.attr('id'));
 
 			// Add feed class to user div
-			if (!$e.hasClass('weatherFeed')) $e.addClass('weatherFeed');
+			if (!$e.hasClass('weatherFeed')) {
+                $e.addClass('weatherFeed');
+            }
 
 			// Check and append locations
-			if (!options.custom && !$.isArray(locations)) return false;
+			if (!options.custom && !$.isArray(locations)) {
+                return false;
+            }
 
             if (!options.custom) {
                 var _requestData = function () {
@@ -582,7 +589,7 @@
 
                     // Create Yahoo Weather feed API address
                     var query = "select * from weather.forecast where " + queryType + " in (" + locationid + ") and u='" + options.unit + "'";
-                   
+
 					var protocol = window.location.protocol;
 					if (protocol !== 'http:' && protocol !== 'https:') protocol = 'https:';
                     var api = protocol + '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + '&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() +'&format=json&callback=?';
@@ -634,10 +641,9 @@
                         }, options.update * 60000);
                     }
                 };
-            }
 
-			if (this.startUpdater) this.startUpdater();
+                this.startUpdater();
+            }
 		});
 	};
-
 })(jQuery);

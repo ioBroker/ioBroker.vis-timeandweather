@@ -13,8 +13,8 @@
 <script type="text/javascript" src="widgets/timeandweather/js/jquery.jdigiclock.js"></script>
 <script type="text/javascript" src="widgets/timeandweather/js/jquery.zweatherfeed.js"></script>
 <script type="text/javascript" src="widgets/timeandweather/js/coolclock.js"></script>
-<script type="text/javascript" src="widgets/timeandweather/js/moreskins.js"></script>
 <script type="text/javascript" src="widgets/timeandweather/js/segment-display.js"></script>
+<script type="text/javascript" src="widgets/timeandweather/js/moreskins.js"></script>
 
 <script>
     'use strict';
@@ -146,48 +146,6 @@
 				vis.binds.timeandweather.version = null;
 			}
 		},
-		startTime: function (view, elem, hideSeconds, blink, noClass, timerId) {
-            var today = new Date();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-
-            // add a zero in front of numbers<10
-            m = m < 10 ? ('0' + m) : m;
-            if (!hideSeconds) {
-                s = s < 10 ? ('0' + s) : s;
-            }
-            h = h < 10 ? ('0' + h) : h;
-            var hl = document.getElementById(elem);
-
-            if (hideSeconds === 'false') {
-                hideSeconds = false;
-            }
-
-            if (!hl) {
-                $('#visview_' + view).append('<div class="vis-widget' + (noClass ? '' : ' clock') + '" id="' + elem + '" ></div>');
-                hl = document.getElementById(elem);
-                // View deleted
-                if (!hl) {
-                    return;
-                }
-                hl.dashId = today.getTime();
-            }
-            if (hl && (timerId === undefined || hl.dashId == timerId)) {
-                if (hideSeconds) {
-                    hl.innerHTML = h + '<span style="display: inline-block" id="' + elem + '_space">:</span>' + m;
-                    if (blink && (s % 2)) {
-                        var r = $('#' + elem + '_space');
-                        var w = r.width();
-                        r.css({width: w});
-                        r.html("");
-                    }
-                } else {
-                    hl.innerHTML = h + ':' + m + ':' + s;
-                }
-                hl.dashTimer = _setTimeout(vis.binds.timeandweather.startTime, 1000, view, elem, hideSeconds, blink, noClass, hl.dashId);
-            }
-        },
         weekdays: {
             0: {"en": "Sunday",   "de": "Sonntag",    "ru": "Воскресенье"},
             1: {"en": "Monday",   "de": "Montag",     "ru": "Понедельник"},
@@ -220,193 +178,281 @@
             11: {"en": "November",  "de": "November",   "ru": "Ноябрь"},
             12: {"en": "December",  "de": "Dezember",   "ru": "Декабрь"}
         },
-        startDate: function (view, elem, showWeekDay, noClass, timerId, shortWeekDay, shortYear, prependZero, monthWord, shortMonth, american) {
-            var today = new Date();
-            var d = today.getDate();
-            var dow = today.getDay();
-            var m = today.getMonth() + 1;
-            var y = today.getFullYear();
+		startTime: function (view, wid, hideSeconds, blink, noClass) {
+            setTimeout(function () {
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
 
-            var monthString = vis.binds.timeandweather.months[m][vis.language];
-            if (shortMonth) {
-                monthString = monthString.slice(0, 3);
-            }
-
-            if (shortYear) {
-                y = y.toString().slice(2);
-            }
-
-            // add a zero in front of numbers<10
-            if (prependZero) {
-                d = d < 10 ? ('0' + d) : d;
+                // add a zero in front of numbers<10
                 m = m < 10 ? ('0' + m) : m;
-            }
+                if (!hideSeconds) {
+                    s = s < 10 ? ('0' + s) : s;
+                }
+                h = h < 10 ? ('0' + h) : h;
+                var $wid = $('#' + wid);
 
-            if (showWeekDay === 'false') {
-                showWeekDay = false;
-            }
-
-            var $hl = $('#' + elem);
-            if (!$hl.length) {
-                $('#visview_' + view).append('<div class="vis-widget' + (noClass ? '' : ' date') + '" id="' + elem + '" ></div>');
-                $hl = $('#' + elem);
-                $hl.data('dashId', Date.now());
-            }
-
-            if ($hl.length && (timerId === undefined || $hl.data('dashId') == timerId)) {
-                var dateString = '';
-                if (showWeekDay && !shortWeekDay) {
-                    dateString += vis.binds.timeandweather.weekdays[dow][vis.language] + ', ';
-                } else if (showWeekDay && shortWeekDay) {
-                    dateString += vis.binds.timeandweather.weekdaysShort[dow][vis.language] + ', ';
+                if (hideSeconds === 'false') {
+                    hideSeconds = false;
                 }
 
-                if (monthWord) {
-                    switch (vis.language) {
-                        case 'en':
-                            switch (d) {
-                                case 1:
-                                    d += 'st';
-                                    break;
-                                case 2:
-                                    d += 'nd';
-                                    break;
-                                case 3:
-                                    d += 'rd';
-                                    break;
-                                default:
-                                    d += 'th';
-                            }
-
-                            if (american) {
-                                dateString += monthString + ' ' + d + ', ' + y;
-                            } else {
-                                dateString += d + ' ' + monthString + ', ' + y;
-                            }
-
-                            break;
-                        default:
-                            dateString += d + '. ' + monthString + ' ' + y;
+                if ($wid.length) {
+                    if (!noClass) {
+                        $wid.addClass('clock');
                     }
-                } else {
-                    switch (vis.language) {
-                        case 'en':
-                            if (american) {
-                                dateString += m + '/' + d + '/' + y;
-                            } else {
-                                dateString += d + '/' + m + '/' + y;
-                            }
+                    if (hideSeconds) {
+                        $wid.html(h + '<span style="display: inline-block" id="' + wid + '_space">:</span>' + m);
+                        if (blink && (s % 2)) {
+                            var r = $wid.find('#' + wid + '_space');
+                            var w = r.width();
+                            r.css({width: w});
+                            r.html('');
+                        }
+                    } else {
+                        $wid.html(h + ':' + m + ':' + s);
+                    }
+                    var timer = $wid.data('timer');
+                    timer && clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        $wid.data('timer', null);
+                        vis.binds.timeandweather.startTime(view, wid, hideSeconds, blink, noClass);
+                    }, 1000);
+                    $wid.data('timer', timer);
 
-                            break;
-                        default:
-                            dateString += d + '.' + m + '.' + y;
+                    if (!$wid.data('destroy')) {
+                        $wid.data('destroy', function (wid) {
+                            var timer = $('#' + wid).data('timer');
+                            if (timer) {
+                                timer && clearTimeout(timer);
+                                $('#' + wid).data('timer', null);
+                            }
+                        });
                     }
                 }
+            }, 110);
+        },
+        startDate: function (view, wid, showWeekDay, noClass, shortWeekDay, shortYear, prependZero, monthWord, shortMonth, american) {
+            setTimeout(function () {
+                var today = new Date();
+                var d = today.getDate();
+                var dow = today.getDay();
+                var m = today.getMonth() + 1;
+                var y = today.getFullYear();
 
-                $hl.html(dateString);
-                $hl.data('dashTimer',
-                    _setTimeout(vis.binds.timeandweather.startDate,
-                        (24 * 3600 - (today.getHours() * 60 * 60 + today.getMinutes() * 60 + today.getSeconds())) * 1000,
-                        view,
-                        elem,
-                        showWeekDay,
-                        noClass,
-                        $hl.data('dashId'),
-                        shortWeekDay,
-                        shortYear,
-                        prependZero,
-                        monthWord,
-                        shortMonth,
-                        american
-                    )
-                );
-            }
+                var monthString = vis.binds.timeandweather.months[m][vis.language];
+                if (shortMonth) {
+                    monthString = monthString.slice(0, 3);
+                }
+
+                if (shortYear) {
+                    y = y.toString().slice(2);
+                }
+
+                // add a zero in front of numbers<10
+                if (prependZero) {
+                    d = d < 10 ? ('0' + d) : d;
+                    m = m < 10 ? ('0' + m) : m;
+                }
+
+                if (showWeekDay === 'false') {
+                    showWeekDay = false;
+                }
+
+                var $wid = $('#' + wid);
+
+                if ($wid.length) {
+                    if (!noClass) {
+                        $wid.addClass('date');
+                    }
+                    var dateString = '';
+                    if (showWeekDay && !shortWeekDay) {
+                        dateString += vis.binds.timeandweather.weekdays[dow][vis.language] + ', ';
+                    } else if (showWeekDay && shortWeekDay) {
+                        dateString += vis.binds.timeandweather.weekdaysShort[dow][vis.language] + ', ';
+                    }
+
+                    if (monthWord) {
+                        switch (vis.language) {
+                            case 'en':
+                                switch (d) {
+                                    case 1:
+                                        d += 'st';
+                                        break;
+                                    case 2:
+                                        d += 'nd';
+                                        break;
+                                    case 3:
+                                        d += 'rd';
+                                        break;
+                                    default:
+                                        d += 'th';
+                                }
+
+                                if (american) {
+                                    dateString += monthString + ' ' + d + ', ' + y;
+                                } else {
+                                    dateString += d + ' ' + monthString + ', ' + y;
+                                }
+
+                                break;
+                            default:
+                                dateString += d + '. ' + monthString + ' ' + y;
+                        }
+                    } else {
+                        switch (vis.language) {
+                            case 'en':
+                                if (american) {
+                                    dateString += m + '/' + d + '/' + y;
+                                } else {
+                                    dateString += d + '/' + m + '/' + y;
+                                }
+
+                                break;
+                            default:
+                                dateString += d + '.' + m + '.' + y;
+                        }
+                    }
+
+                    $wid.html(dateString);
+                    var timeoutMs = (24 * 3600 - (today.getHours() * 60 * 60 + today.getMinutes() * 60 + today.getSeconds())) * 1000;
+                    var timer = $wid.data('dashTimer');
+                    timer && clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        $wid.data('dashTimer', null);
+                        vis.binds.timeandweather.startDate(
+                            view,
+                            wid,
+                            showWeekDay,
+                            noClass,
+                            shortWeekDay,
+                            shortYear,
+                            prependZero,
+                            monthWord,
+                            shortMonth,
+                            american
+                        );
+                    }, timeoutMs);
+                    $wid.data('dashTimer', timer);
+
+                    if (!$wid.data('destroy')) {
+                        $wid.data('destroy', function (wid) {
+                            var timer = $('#' + wid).data('dashTimer');
+                            if (timer) {
+                                timer && clearTimeout(timer);
+                                $('#' + wid).data('dashTimer', null);
+                            }
+                        });
+                    }
+                }
+            }, 110);
         },
         tplTwCoolClock: function (view, data) {
- 			vis.binds.timeandweather.showVersion();
-            var style;
-            var wid = data.attr('wid');
-            if (vis.views[view] &&
-                vis.views[view].widgets[wid] &&
-                vis.views[view].widgets[wid].style
-            ) {
-                style = vis.views[view].widgets[wid].style;
-            }
-            style = style || {};
-            style.width = parseInt(style.width) || 85;
-            style.height = parseInt(style.height) || 85;
-            var radius = parseInt(style.width) || 85;
-            if (vis.views[view].widgets[wid]) {
-                vis.views[view].widgets[wid].style = style;
-            }
+            setTimeout(function () {
+                var style;
+                var wid = data.attr('wid');
+                var $wid = $('#' + wid);
 
-            // Take the smallest value
-            if (style.height < radius) radius = style.height;
-            radius = Math.round(radius / 2);
-            var myClass = 'CoolClock:' + (data.attr('theme') || 'classic') + ':' + radius + ':' + (data.attr('noSeconds') ? 'noSeconds' : '') + '::' + (data.attr('showDigital') ? 'showDigital' : '') + '::' + (data.attr('showAmPm') ? 'showAmPm' : '');
+                if (vis.views[view] &&
+                    vis.views[view].widgets[wid] &&
+                    vis.views[view].widgets[wid].style
+                ) {
+                    style = vis.views[view].widgets[wid].style;
+                }
+                style = style || {};
+                style.width = parseInt(style.width) || 85;
+                style.height = parseInt(style.height) || 85;
+                var radius = parseInt(style.width) || 85;
+                if (vis.views[view].widgets[wid]) {
+                    vis.views[view].widgets[wid].style = style;
+                }
 
-            var text = '<div id="' + data.attr('wid') + '" data-myclass="' + myClass + '" style="width: ' + style.width + '; height: ' + style.height + 'px" class="vis-widget"><canvas width="' + style.width + '" height="' + style.height + '"class="' + myClass + '"></canvas></div>';
-            $('#visview_' + view).append(text);
+                // Take the smallest value
+                if (style.height < radius) {
+                    radius = style.height;
+                }
+                radius = Math.round(radius / 2);
+                var myClass = 'CoolClock:' + (data.attr('theme') || 'classic') + ':' + radius + ':' + (data.attr('noSeconds') ? 'noSeconds' : '') + '::' + (data.attr('showDigital') ? 'showDigital' : '') + '::' + (data.attr('showAmPm') ? 'showAmPm' : '');
 
-            if (vis.editMode) {
-                $('#' + data.attr('wid')).bind('resize', function () {
-                    var t = $(this);
-                    var myClass = t.attr('data-myclass');
-                    var myClasses = myClass.split(':');
-                    myClasses[2] = t.width();
-
-                    if (t.height() < myClasses[2]) {
-                        myClasses[2] = t.height();
-                    }
-
-                    myClasses[2] = Math.round(myClasses[2] / 2);
-                    myClass = myClasses.join(':');
-                    t.html('<canvas class="' + myClass + '"></canvas>');
-                    CoolClock.findAndCreateClocks();
-                });
-            }
-            CoolClock.findAndCreateClocks();
+                var $canvas = $wid.find('canvas');
+                $wid.data('myclass', myClass);
+                // $wid.css({width: style.width + 'px', height: style.height + 'px'});
+                $canvas.attr('width', style.width);
+                $canvas.attr('height', style.height);
+                $canvas.addClass(myClass);
+                CoolClock.findAndCreateClocks();
+            }, 110);
         },
         tplTwFlipClock: function (view, data) {
- 			vis.binds.timeandweather.showVersion();
-            var text = '<div class="vis-widget" style="width: 500px; height: 110px" id="' + data.attr('wid') + '" data-vis-resizable=';
-            text += "'" + '{"disabled":true}' + "'></div>";
-            $('#visview_' + view).append(text);
-            var clock = $('#' + data.attr('wid')).FlipClock({clockFace: 'TwentyFourHourClock'});
+            setTimeout(function () {
+                var possibleLanguages = ['en', 'de', 'es', 'fr', 'it', 'pt', 'ru', 'zh-cn'];
+                var widths = {
+                    TwentyFourHourClock: 500,
+                    TwelveHourClock: 600,
+                    MinuteCounter: 300,
+                    HourlyCounter: 500,
+                    DailyCounter: 550,
+                    Counter: 210
+                };
+                var language = vis.language;
+                if (possibleLanguages.indexOf(vis.language) === -1) {
+                    language = 'en';
+                }
+                var clockFace = data.attr('face') || 'TwentyFourHourClock';
+                var $wid = $('#' + data.attr('wid'));
+                $wid.css('width', widths[clockFace] + 'px');
+
+                // See possible options here: https://www.jqueryscript.net/time-clock/jQuery-Flip-Clock-Countdown-Timer-Plugin-FlipClock.html
+                var clock = $wid.FlipClock({clockFace: clockFace, language: language});
+
+
+                if ($wid.data('destroy')) {
+                    $wid.data('destroy', function (wid) {
+                        $('#' + wid).FlipClock('stop');
+                    });
+                }
+            }, 110);
         },
         tplTwHtcWeather: function (view, data) {
- 			vis.binds.timeandweather.showVersion();
-            var text = '<div class="vis-widget" style="width: 500px; height: 420px" id="' + data.attr('wid') + '" data-vis-resizable=';
-            text += "'" + '{"disabled":true}' + "'></div>";
-            $('#visview_' + view).append(text);
-            var woeid = data.attr('woeid') || data.attr('weoid');
-            if (woeid !== undefined && woeid !== null) {
-                var i = woeid.indexOf('[');
-                if (i !== -1) {
-                    woeid = woeid.substring(i + 1);
-                    i     = woeid.indexOf(']');
-                    woeid = woeid.substring(0, i);
-                }
-            } else {
-                woeid = '664942';
-            }
-            var updateInterval = data.attr('updateInterval');
-            if (updateInterval === '' || updateInterval === null || updateInterval === undefined) {
-                updateInterval = 180;
-            } else {
-                updateInterval = parseInt(data.attr('updateInterval'), 10);
-            }
+            setTimeout(function () {
+                var wid = data.attr('wid');
+                var $wid = $('#' + wid);
 
-            var clock = $('#' + data.attr('wid')).jdigiclock({
-                weatherLocationCode: woeid,
-                city:                data.attr('cityName'),
-                weatherUpdate:       updateInterval,
-                lang:                data.attr('language') || vis.language,
-                clockImagesPath:     'widgets/timeandweather/img/clock/'
-            });
+                $wid.jdigiclock('destroy');
+
+                var woeid = data.attr('woeid') || data.attr('weoid');
+                if (woeid !== undefined && woeid !== null) {
+                    var i = woeid.indexOf('[');
+                    if (i !== -1) {
+                        woeid = woeid.substring(i + 1);
+                        i     = woeid.indexOf(']');
+                        woeid = woeid.substring(0, i);
+                    }
+                } else {
+                    woeid = '664942';
+                }
+                var updateInterval = data.attr('updateInterval');
+                if (updateInterval === '' || updateInterval === null || updateInterval === undefined) {
+                    updateInterval = 180;
+                } else {
+                    updateInterval = parseInt(data.attr('updateInterval'), 10);
+                }
+
+                $wid.jdigiclock({
+                    weatherLocationCode: woeid,
+                    city:                data.attr('cityName'),
+                    weatherUpdate:       updateInterval,
+                    lang:                data.attr('language') || vis.language,
+                    clockImagesPath:     'widgets/timeandweather/img/clock/'
+                });
+                if (!$wid.data('destroy')) {
+                    $wid.data('destroy', function (wid) {
+                        $('#' + wid).jdigiclock('destroy');
+                    })
+                }
+            }, 110);
         },
         tplTwYahooWeather: function (view, data) {
- 			vis.binds.timeandweather.showVersion();
             var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width:250px; height: 500px; color: #ddd"></div>';
             $('#visview_' + view).append(text);
             var woeid = data.attr('woeid') || data.attr('weoid');
@@ -630,42 +676,72 @@
             });*/
         },
         tplTwCustomWeather: function (view, data) {
-            vis.binds.timeandweather.showVersion();
-            var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width: 250px; height: 500px; color: #ddd"></div>';
-            $('#visview_' + view).append(text);
+            setTimeout(function () {
+                var wid = data.attr('wid');
+                var $wid = $('#' + wid);
+                $wid.weatherfeed('', {
+                    lang:      data.attr('language') || vis.language,
+                    custom:    true,
+                    city:      data.attr('city'),
+                    humidity:  true,
+                    forecast:  true,
+                    link:      false,
+                    resizable: false
+                });
 
-            $('#' + data.attr('wid')).weatherfeed('', {
-                lang:       data.attr('language') || vis.language,
-                custom:     true,
-                city:       data.attr('city'),
-                humidity:   true,
-                forecast:   true,
-                link:       false,
-                resizable:  false
-            });
+                var handler = function () {
+                    vis.binds.timeandweather.updateCustomWeather(data);
+                };
 
-            for (var attr in data) {
-                if (data.hasOwnProperty(attr)) {
-                    if (attr.match(/-oid$/) && data[attr]) {
-                        if (data[attr][0] === '{') {
-                            var oids = vis.extractBinding(data[attr]);
-                            for (var oid = 0; oid < oids.length; oid++) {
-                                vis.states.bind(oids[oid].visOid + '.val', function () {
-                                    vis.binds.timeandweather.updateCustomWeather(data);
-                                });
+                $wid.data('handler', handler);
+                $wid.data('options', data);
+
+                for (var attr in data) {
+                    if (data.hasOwnProperty(attr)) {
+                        if (attr.match(/-oid$/) && data[attr] && data[attr] !== 'nothing_selected') {
+                            if (data[attr][0] === '{') {
+                                var oids = vis.extractBinding(data[attr]);
+                                for (var oid = 0; oid < oids.length; oid++) {
+                                    vis.states.bind(oids[oid].visOid + '.val', handler);
+                                }
+                            } else {
+                                vis.states.bind(data[attr] + '.val', handler);
                             }
-                        } else {
-                            vis.states.bind(data[attr] + '.val', function () {
-                                vis.binds.timeandweather.updateCustomWeather(data);
-                            });
                         }
                     }
                 }
-            }
 
-            vis.binds.timeandweather.updateCustomWeather(data);
+                vis.binds.timeandweather.updateCustomWeather(data);
+
+                if (!$wid.data('destroy')) {
+                    $wid.data('destroy', function (wid) {
+                        var $wid = $('#' + wid);
+                        var handler = $wid.data('handler');
+                        var data = $wid.data('options');
+
+                        if (data) {
+                            for (var attr in data) {
+                                if (data.hasOwnProperty(attr)) {
+                                    if (attr.match(/-oid$/) && data[attr] && data[attr] !== 'nothing_selected') {
+                                        if (data[attr][0] === '{') {
+                                            var oids = vis.extractBinding(data[attr]);
+                                            for (var oid = 0; oid < oids.length; oid++) {
+                                                vis.states.unbind(oids[oid].visOid + '.val', handler);
+                                            }
+                                        } else {
+                                            vis.states.unbind(data[attr] + '.val', handler);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }, 110);
         },
         createSvgClock: function (options, el) {
+            var wid            = options.wid;
+            var $wid           = $('#' + wid);
             var quadSize       = options.quadSize || 60;
             var quadColor      = options.quadColor || '#333';
             var quadTickColor  = options.quadTickColor || '#333';
@@ -678,6 +754,11 @@
             var handsSecColor  = options.handsSecColor || '#be5639';
             var textFont       = options.textFont || 'verdana, sans-serif';
             var $el            = $(el);
+
+            if ($wid.data('interval')) {
+                clearInterval($wid.data('interval'));
+                $wid.data('interval', null);
+            }
 
             var html = '<svg viewbox="-450 -450 900 900" class="svg--clock" style="display: block;min-width: 5em;min-height: 5em;width: 100%;height: 100%;">';
             html += '  <defs>';
@@ -746,7 +827,7 @@
             var s_max = 60, s_deg = 360 / s_max;
             var prev_s;
 
-            var init = function () {
+            var init = function ($_wid) {
                 var frag = document.createDocumentFragment();
                 var curr_tick_group;
                 var curr_tick;
@@ -817,10 +898,18 @@
                 wrap.appendChild(frag);
 
                 run();
-                setInterval(function () {
+                $_wid.data('interval', setInterval(function () {
                     requestAnimationFrame(run);
-                }, 500);
-
+                }, 500));
+                if (!$_wid.data('destroy')) {
+                    $_wid.data('destroy', function (wid) {
+                        var $wid = $('#' + wid);
+                        if ($wid.data('interval')) {
+                            clearInterval($wid.data('interval'));
+                            $wid.data('interval', null);
+                        }
+                    });
+                }
             };
 
             var run = function () {
@@ -834,7 +923,7 @@
 
                 curr_s_deg = (s % s_max) * s_deg;
 
-                if (s != prev_s) {
+                if (s !== prev_s) {
                     curr_s_deg = (s % s_max) * s_deg;
                     if (isSeconds) {
                         s_el.setAttribute(
@@ -859,37 +948,39 @@
                 prev_s = s;
             };
 
-            init();
+            init($wid);
         },
         tplSvgClock: function (el, data) {
- 			vis.binds.timeandweather.showVersion();
-
             setTimeout(function () {
                 vis.binds.timeandweather.createSvgClock(data, el[0]);
-            }, 100);
+            }, 110);
         },
         tplSegmentClock: function (el, data) {
- 			vis.binds.timeandweather.showVersion();
-
             function writeTime(_el, display) {
                 var d = new Date();
                 var h = d.getHours();
-                if (h < 10) h = '0' + h;
+                if (h < 10) {
+                    h = '0' + h;
+                }
                 var m = d.getMinutes();
-                if (m < 10) m = '0' + m;
+                if (m < 10) {
+                    m = '0' + m;
+                }
                 var s = d.getSeconds();
-                if (s < 10) s = '0' + s;
+                if (s < 10) {
+                    s = '0' + s;
+                }
                 var time = h + ':' + m;
                 if (data.seconds && data.seconds !== 'false') {
                     time += ':' + s;
                 }
-                if (vis.editMode || _el.data('val') != time) {
+                if (vis.editMode || _el.data('val') !== time) {
                     _el.data('val', time);
                     display.setValue(time);
                 }
             }
 
-            function runText(_el, _display, interval) {
+            function runText(_el, _display, interval, $wid) {
                 // var $display = $('#' + _display.displayId);
 
                 var val = _el.data('value');
@@ -912,22 +1003,32 @@
                 _el.data('step', step);
                 _display.setValue(val);
 
-                if (!_el.data('timerId')) {
-                    var timerId = Math.round(Math.random() * 100000) + 1;
-                    var timer = setInterval(function () {
-                        if (_el.data('timerId') != timerId) {
-                            clearInterval(timer);
-                            return;
-                        }
-                        runText(_el, _display, interval);
-                    }, interval);
-                    _el.data('timerId', timerId);
+                if (!$wid.data('timer')) {
+                    $wid.data('timer', setInterval(function () {
+                        runText(_el, _display, interval, $wid);
+                    }, interval));
                 }
             }
 
             setTimeout(function () {
-                el.append('<canvas id="' + data.attr('wid') + '_clock" width="'  + el.width() + '" height="'  + el.height() + '"></canvas>');
-                var display = new SegmentDisplay(data.attr('wid') + '_clock');
+                var wid = data.attr('wid');
+                var $wid = $('#' + wid);
+                var oldClock = el.find('#' + wid + '_clock');
+
+                if (oldClock.length) {
+                    oldClock[0].remove();
+                }
+                if ($wid.data('timer')) {
+                    clearInterval($wid.data('timer'));
+                    $wid.data('timer', null);
+                }
+                if ($wid.data('interval')) {
+                    clearInterval($wid.data('interval'));
+                    $wid.data('interval', null);
+                }
+
+                el.append('<canvas id="' + wid + '_clock" width="'  + el.width() + '" height="'  + el.height() + '"></canvas>');
+                var display = new SegmentDisplay(wid + '_clock');
                 display.pattern = data.pattern || '##:##:##';
 
                 if (display.pattern === '##:##:##' && (!data.seconds || data.seconds === 'false')) {
@@ -973,30 +1074,46 @@
                         display.setValue(newVal.toString());
                     });
                     if (data.runStepInterval) {
-                        runText(el, display, data.runStepInterval);
+                        runText(el, display, data.runStepInterval, $wid);
                     }
                 } else if (data.text) {
                     el.data('value', data.text.toString()).data('step', 0);
                     display.setValue(data.text.toString());
                     if (data.runStepInterval) {
-                        runText(el, display, data.runStepInterval);
+                        runText(el, display, data.runStepInterval, $wid);
                     }
                 } else if (data.clock) {
-                    var timerId = Math.round(Math.random() * 1000000);
-                    el.data('timer', timerId);
                     writeTime(el, display);
-                    var interval = setInterval(function () {
-                        if (el.data('timer') != timerId) {
-                            clearInterval(interval);
-                        }
-                        writeTime(el, display);
-                    }, 1000);
+                    if (!$wid.data('interval')) {
+                        $wid.data('interval', setInterval(function () {
+                            writeTime(el, display);
+                        }, 1000));
+                    }
                 } else {
                     display.setValue('no oid, no text, no clock');
                 }
-            }, 50);
+
+                $wid.data('destroy', function (id) {
+                    var $wid = $('#' + id);
+                    if ($wid.data('timer')) {
+                        clearInterval($wid.data('timer'));
+                        $wid.data('timer', null);
+                    }
+                    if ($wid.data('interval')) {
+                        clearInterval($wid.data('interval'));
+                        $wid.data('interval', null);
+                    }
+                    var oldClock = $wid.find('#' + id + '_clock');
+                    if (oldClock.length) {
+                        oldClock[0].remove();
+                    }
+                });
+            }, 110);
         }
     };
+
+    vis.binds.timeandweather.showVersion();
+
     if (vis.editMode) {
         vis.binds.timeandweather.editWeather = function (wid_attr, options) {
             var line = {
@@ -1044,8 +1161,7 @@
         };
     }
 </script>
-<!-- startDate: function (view, elem, showWeekDay, noClass, timerId, shortWeekDay, shortYear, prependZero, monthWord, shortMonth, american) {
-            -->
+
 <script id="tplTwSimpleDate"
         type="text/ejs"
         class="vis-tpl"
@@ -1053,9 +1169,12 @@
         data-vis-set="timeandweather"
         data-vis-name="SimpleDate"
         data-vis-attrs="showWeekDay/checkbox;shortWeekDay/checkbox;shortYear/checkbox;prependZero[true]/checkbox;monthWord/checkbox;shortMonth/checkbox;americanOrder/checkbox;noClass/checkbox">
-    <%
-		vis.binds.timeandweather.startDate(this.view, this.data.attr('wid'), this.data.attr('showWeekDay'), this.data.attr('noClass'), undefined, this.data.attr('shortWeekDay'), this.data.attr('shortYear'), this.data.attr('prependZero'), this.data.attr('monthWord'), this.data.attr('shortMonth'), this.data.attr('americanOrder'));
-    %>
+<div
+    id="<%= this.data.attr('wid') %>"
+    class="vis-widget <%== this.data.attr('class') %>"
+    style="width: 134px; height: 33px"
+    <%= (el) -> vis.binds.timeandweather.startDate(this.view, this.data.attr('wid'), this.data.attr('showWeekDay'), this.data.attr('noClass'), this.data.attr('shortWeekDay'), this.data.attr('shortYear'), this.data.attr('prependZero'), this.data.attr('monthWord'), this.data.attr('shortMonth'), this.data.attr('americanOrder')) %>
+></div>
 </script>
 
 <script id="tplTwSimpleClock"
@@ -1065,9 +1184,12 @@
         data-vis-set="timeandweather"
         data-vis-name="SimpleClock"
         data-vis-attrs="hideSeconds/checkbox;blink/checkbox;noClass/checkbox">
-    <%
-        vis.binds.timeandweather.startTime(this.view, this.data.attr('wid'), this.data.attr('hideSeconds'), this.data.attr('blink'), this.data.attr('noClass'));
-    %>
+<div
+    id="<%= this.data.attr('wid') %>"
+    class="vis-widget <%== this.data.attr('class') %>"
+    style="width: 316px; height: 92px"
+    <%= (el) -> vis.binds.timeandweather.startTime(this.view, this.data.attr('wid'), this.data.attr('hideSeconds'), this.data.attr('blink'), this.data.attr('noClass')) %>
+></div>
 </script>
 
 <script id="tplTwCoolClock"
@@ -1075,11 +1197,18 @@
         class="vis-tpl"
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_CoolClock.png"></img>'
         data-vis-set="timeandweather"
+        data-vis-update-style="true"
         data-vis-name="CoolClock"
+        data-vis-resize-locked="true"
         data-vis-attrs="theme/select,fancy,swissRail,chunkySwiss,machine,simonbaird_com,classic,classicWhite,modern,simple,securephp,Tes2,Lev,Sand,Sun,Tor,Cold,Babosa,Tumb,Stone,Disc,watermelon;noSeconds/checkbox;showDigital/checkbox;showAmPm/checkbox" >
-    <%
-        vis.binds.timeandweather.tplTwCoolClock(this.view, this.data);
-    %>
+<div
+    id="<%= this.data.attr('wid') %>"
+    class="vis-widget <%== this.data.attr('class') %>"
+    style="width: 150px; height: 150px"
+    <%= (el) -> vis.binds.timeandweather.tplTwCoolClock(this.view, this.data) %>
+>
+    <canvas></canvas>
+</div>
 </script>
 
 <script id="tplTwFlipClock"
@@ -1088,24 +1217,34 @@
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_FlipClock.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="FlipClock"
-        data-vis-attrs="">
-    <%
-        vis.binds.timeandweather.tplTwFlipClock(this.view, this.data);
-    %>
+        data-vis-attrs="face/nselect,TwentyFourHourClock,TwelveHourClock">
+<div
+    id="<%= this.data.attr('wid') %>"
+    class="vis-widget <%== this.data.attr('class') %>"
+    style="width: 500px; height: 110px"
+    data-vis-resizable='{"disabled":true}'
+    <%= (el) -> vis.binds.timeandweather.tplTwFlipClock(this.view, this.data) %>
+></div>
 </script>
 
-<script id="tplTwHtcWeather"
+<!-- it uses yahoo weather api and it is deprecated -->
+<!--script id="tplTwHtcWeather"
         type="text/ejs"
         class="vis-tpl"
         data-vis-prev='<img src="widgets/timeandweather/img/Prev_HTCWeather.png"></img>'
         data-vis-set="timeandweather"
         data-vis-name="HtcWeather"
         data-vis-attrs="woeid/custom,timeandweather.editWeather;cityName;language/select,,en,de,ru;updateInterval[180]/slider,0,1440,10;">
-    <%
-        vis.binds.timeandweather.tplTwHtcWeather(this.view, this.data);
-    %>
-</script>
+<div
+    id="<%= this.data.attr('wid') %>"
+    class="vis-widget <%== this.data.attr('class') %>"
+    style="width: 500px; height: 420px"
+    data-vis-resizable='{"disabled":true}'
+    <%= (el) -> vis.binds.timeandweather.tplTwHtcWeather(this.view, this.data) %>
+></div>
+</script-->
 
+<!-- it uses yahoo weather api and it is deprecated -->
 <!--script id="tplTwYahooWeather"
         type="text/ejs"
         class="vis-tpl"
@@ -1133,9 +1272,12 @@
         data-vis-attrs5="group.in4days;condition-5-oid/id;temperature-min-5-oid/id;temperature-max-5-oid/id;icon-5-oid/id;"
         data-vis-attrs6="group.in5days;condition-6-oid/id;temperature-min-6-oid/id;temperature-max-6-oid/id;icon-6-oid/id;"
     >
-    <%
-        vis.binds.timeandweather.tplTwCustomWeather(this.view, this.data);
-    %>
+<div
+    id="<%= this.data.attr('wid') %>"
+    class="vis-widget ui-widget-content <%== this.data.attr('class') %>"
+    style="width: 250px; height: 107px; color: #ddd"
+    <%= (el) -> vis.binds.timeandweather.tplTwCustomWeather(this.view, this.data) %>
+></div>
 </script>
 
 <script id="tplSvgClock"
