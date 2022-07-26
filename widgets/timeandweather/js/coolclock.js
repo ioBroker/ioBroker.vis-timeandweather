@@ -357,5 +357,5 @@ CoolClock.findAndCreateClocks = function() {
 };
 
 // If you don't have jQuery then you need a body onload like this: <body onload="CoolClock.findAndCreateClocks()">
-// If you do have jQuery and it's loaded already then we can do it right now
-if (window.jQuery) jQuery(document).ready(CoolClock.findAndCreateClocks);
+// If you do have jQuery, and it's loaded already then we can do it right now
+// if (window.jQuery) jQuery(document).ready(CoolClock.findAndCreateClocks);
