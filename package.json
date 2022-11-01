@@ -50,6 +50,6 @@
     "release-major": "release-script major --yes"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.6"
+    "@iobroker/adapter-core": "^2.6.7"
   }
 }
