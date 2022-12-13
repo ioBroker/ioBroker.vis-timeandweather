@@ -28,8 +28,8 @@
     "@alcalzone/release-script": "^3.5.9",
     "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
     "@alcalzone/release-script-plugin-license": "^3.5.9",
-    "mocha": "^10.0.0",
-    "chai": "^4.3.6"
+    "mocha": "^10.1.0",
+    "chai": "^4.3.7"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.vis-timeandweather/issues"
@@ -50,6 +50,6 @@
     "release-major": "release-script major --yes"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.0"
+    "@iobroker/adapter-core": "^2.6.7"
   }
 }
