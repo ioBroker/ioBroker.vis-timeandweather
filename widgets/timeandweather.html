@@ -5,155 +5,246 @@
 
     Copyright 2013-2022 bluefox<dogafox@gmail.com>
 -->
-<link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/flipclock.css" />
+<link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/flipclock.css"/>
 <!--link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/jquery.jdigiclock.css" /-->
-<link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/yahoo.css" />
-<link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/simpleclock.css" />
-<script type="text/javascript" src="widgets/timeandweather/js/flipclock/flipclock.min.js"></script>
-<!--script type="text/javascript" src="widgets/timeandweather/js/jquery.jdigiclock.js"></script-->
-<script type="text/javascript" src="widgets/timeandweather/js/jquery.zweatherfeed.js"></script>
-<script type="text/javascript" src="widgets/timeandweather/js/coolclock.js"></script>
-<script type="text/javascript" src="widgets/timeandweather/js/segment-display.js"></script>
-<script type="text/javascript" src="widgets/timeandweather/js/moreskins.js"></script>
+<link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/yahoo.css"/>
+<link rel="stylesheet" type="text/css" href="widgets/timeandweather/css/simpleclock.css"/>
 
 <script>
     'use strict';
 
-	// Add words for bars
+    // Add words for bars
     if (vis.editMode) {
         $.extend(systemDictionary, {
-            "hideSeconds"      : {"en": "Hide seconds",         "de": "Zeige keine Sekunden",   "ru": "Скрыть секунды"},
-            "blink"            : {"en": "Blink",                "de": "Blinken",                "ru": "Мигать"},
-            "blink_tooltip"    : {
-                "en" : "Used only if no seconds shown",
-                "de":  "Wird nur aktiv, falls keine Sekunden angezeigt sind",
-                "ru":  "Активно только если секунды не показываются"},
-            "showWeekDay"      : {"en": "Show day of week",     "de": "Wochentag",              "ru": "День недели"},
-            "noClass"          : {"en": "No style",             "de": "Kein Stil",              "ru": "Без стиля"},
-            "noClass_tooltip"  : {
-                "en" : "Activate it if you want to set own class or own style for clock with css settings",
-                "de":  "Aktiviere es, falls eigenen Stil oder Klasse wird angeandt",
-                "ru":  "Если установлены пользовательский класс или CSS свойства,\x0Aто нужно активировать, что бы они стали активными"
+            "hideSeconds": {"en": "Hide seconds", "de": "Zeige keine Sekunden", "ru": "Скрыть секунды"},
+            "blink": {"en": "Blink", "de": "Blinken", "ru": "Мигать"},
+            "blink_tooltip": {
+                "en": "Used only if no seconds shown",
+                "de": "Wird nur aktiv, falls keine Sekunden angezeigt sind",
+                "ru": "Активно только если секунды не показываются"
             },
-            "woeid"            : {"en": "City",                 "de": "Stadt",                  "ru": "Город"},
-            "shortWeekDay"     : {"en": "Short week day",       "de": "Kurzer Wochentag",       "ru": "Короткий день недели"},
-            "shortYear"        : {"en": "Short year",           "de": "Kurzes Jahr",            "ru": "Короткий год"},
-            "prependZero"      : {"en": "Prepend zero",         "de": "Null vorne",             "ru": "Ноль в начале"},
-            "monthWord"        : {"en": "Month as word",        "de": "Monat als text",         "ru": "Месяц словом"},
-            "shortMonth"       : {"en": "Short month",          "de": "Kurzer Monat",           "ru": "Короткий месяц"},
-            "americanOrder"    : {"en": "American format",      "de": "USA-Format",             "ru": "Формат USA"},
-            "City:"            : {"en": "City:",                "de": "Stadt:",                 "ru": "Город:"},
-            "noSeconds"        : {"en": "Hide seconds",         "de": "Zeige keine Sekunden",   "ru": "Скрыть секунды"},
-            "showDigital"      : {"en": "Digital clock",        "de": "Digitaluhr",             "ru": "Цифровые часы"},
-            "Select city"      : {"en": "Select city",          "de": "Stadt wählen",           "ru": "Выбрать город"},
-            "showAmPm"         : {"en": "Show am/pm",           "de": "Zeige am/pm",            "ru": "Показать am/pm"},
-            "quadSize"         : {"en": "Quarter text size",    "de": "Viertel-Text-Größe",     "ru": "Размер чисел часа"},
-            "quadColor"        : {"en": "Quarter text color",   "de": "Viertel-Text-Farbe",     "ru": "Цвет чисел часа"},
-            "quadTickColor"    : {"en": "Quarter tick color",   "de": "Viertel-Tickfarbe",      "ru": "Цвет часовых штрихов"},
-            "textSize"         : {"en": "Minutes text size",    "de": "Minutentextgroße",       "ru": "Размер минутных чисел"},
-            "textColor"        : {"en": "Minutes text color",   "de": "Minutentextfarbe",       "ru": "Цвет минутных чисел"},
-            "tickColor"        : {"en": "Small tick color",     "de": "Klein-Tickfarbe",        "ru": "Цвет минутных штрихов"},
-            "isSeconds"        : {"en": "Show second hand",     "de": "Zeige Sekunden",         "ru": "Показать секунды"},
-            "handsColor"       : {"en": "Hands color",          "de": "Zeigerfarbe",            "ru": "Цвет стрелок"},
-            "handsColorLine"   : {"en": "Hands color bulge",    "de": "Zeigerbeulefarbe",       "ru": "Цвет выемок на стрелках"},
-            "handsSecColor"    : {"en": "Seconds hand color",   "de": "Skeundenzeigerfarbe",    "ru": "Цвет секундной стрелки"},
-            "textFont"         : {"en": "Text font",            "de": "Textschrift",            "ru": "Шрифт"},
-            "cityName"         : {"en": "City name",            "de": "Stadtsname",             "ru": "Показывать имя города"},
-            "language"         : {"en": "Language",             "de": "Sprache",                "ru": "Язык"},
-            "SymmetricCorner"   : {"en": "symmetric",           "de": "symmetrisch",            "ru": "симметричные"},
-            "FlattenedCorner"   : {"en": "flattened",           "de": "abgeflacht",             "ru": "плоские"},
-            "PointedCorner"     : {"en": "pointed",             "de": "spitzig",                "ru": "заострённые"},
-            "RoundedCorner"     : {"en": "rounded",             "de": "gerundet",               "ru": "закруглённые"},
-            "group_clock"       : {"en": "Clock",               "de": "Uhr",                    "ru": "Часы"},
-            "clock"             : {"en": "Enable clock",        "de": "Aktiviere Uhr",          "ru": "Активировть часы "},
-            "clock_tooltip"     : {
+            "showWeekDay": {"en": "Show day of week", "de": "Wochentag", "ru": "День недели"},
+            "noClass": {"en": "No style", "de": "Kein Stil", "ru": "Без стиля"},
+            "noClass_tooltip": {
+                "en": "Activate it if you want to set own class or own style for clock with css settings",
+                "de": "Aktiviere es, falls eigenen Stil oder Klasse wird angeandt",
+                "ru": "Если установлены пользовательский класс или CSS свойства,\x0Aто нужно активировать, что бы они стали активными"
+            },
+            "woeid": {"en": "City", "de": "Stadt", "ru": "Город"},
+            "shortWeekDay": {"en": "Short week day", "de": "Kurzer Wochentag", "ru": "Короткий день недели"},
+            "shortYear": {"en": "Short year", "de": "Kurzes Jahr", "ru": "Короткий год"},
+            "prependZero": {"en": "Prepend zero", "de": "Null vorne", "ru": "Ноль в начале"},
+            "monthWord": {"en": "Month as word", "de": "Monat als text", "ru": "Месяц словом"},
+            "shortMonth": {"en": "Short month", "de": "Kurzer Monat", "ru": "Короткий месяц"},
+            "americanOrder": {"en": "American format", "de": "USA-Format", "ru": "Формат USA"},
+            "City:": {"en": "City:", "de": "Stadt:", "ru": "Город:"},
+            "noSeconds": {"en": "Hide seconds", "de": "Zeige keine Sekunden", "ru": "Скрыть секунды"},
+            "showDigital": {"en": "Digital clock", "de": "Digitaluhr", "ru": "Цифровые часы"},
+            "Select city": {"en": "Select city", "de": "Stadt wählen", "ru": "Выбрать город"},
+            "showAmPm": {"en": "Show am/pm", "de": "Zeige am/pm", "ru": "Показать am/pm"},
+            "quadSize": {"en": "Quarter text size", "de": "Viertel-Text-Größe", "ru": "Размер чисел часа"},
+            "quadColor": {"en": "Quarter text color", "de": "Viertel-Text-Farbe", "ru": "Цвет чисел часа"},
+            "quadTickColor": {"en": "Quarter tick color", "de": "Viertel-Tickfarbe", "ru": "Цвет часовых штрихов"},
+            "textSize": {"en": "Minutes text size", "de": "Minutentextgroße", "ru": "Размер минутных чисел"},
+            "textColor": {"en": "Minutes text color", "de": "Minutentextfarbe", "ru": "Цвет минутных чисел"},
+            "tickColor": {"en": "Small tick color", "de": "Klein-Tickfarbe", "ru": "Цвет минутных штрихов"},
+            "isSeconds": {"en": "Show second hand", "de": "Zeige Sekunden", "ru": "Показать секунды"},
+            "handsColor": {"en": "Hands color", "de": "Zeigerfarbe", "ru": "Цвет стрелок"},
+            "handsColorLine": {"en": "Hands color bulge", "de": "Zeigerbeulefarbe", "ru": "Цвет выемок на стрелках"},
+            "handsSecColor": {"en": "Seconds hand color", "de": "Skeundenzeigerfarbe", "ru": "Цвет секундной стрелки"},
+            "textFont": {"en": "Text font", "de": "Textschrift", "ru": "Шрифт"},
+            "cityName": {"en": "City name", "de": "Stadtsname", "ru": "Показывать имя города"},
+            "language": {"en": "Language", "de": "Sprache", "ru": "Язык"},
+            "SymmetricCorner": {"en": "symmetric", "de": "symmetrisch", "ru": "симметричные"},
+            "FlattenedCorner": {"en": "flattened", "de": "abgeflacht", "ru": "плоские"},
+            "PointedCorner": {"en": "pointed", "de": "spitzig", "ru": "заострённые"},
+            "RoundedCorner": {"en": "rounded", "de": "gerundet", "ru": "закруглённые"},
+            "group_clock": {"en": "Clock", "de": "Uhr", "ru": "Часы"},
+            "clock": {"en": "Enable clock", "de": "Aktiviere Uhr", "ru": "Активировть часы "},
+            "clock_tooltip": {
                 "en": "Clock is enabled only if no ObjectID and not text used.",
                 "de": "Uhr sind nur dann aktiv, falls kein Objekt ID und kein Text definiert sind.",
                 "ru": "Активно только,\x0Aесли не используется объект и текст"
             },
-            "seconds"           : {"en": "Show seconds",        "de": "Sekunden",               "ru": "Показать секунды"},
-            "pattern"           : {"en": "Pattern",             "de": "Vorlage",                "ru": "Шаблон"},
-            "pattern_tooltip"   : {
+            "seconds": {"en": "Show seconds", "de": "Sekunden", "ru": "Показать секунды"},
+            "pattern": {"en": "Pattern", "de": "Vorlage", "ru": "Шаблон"},
+            "pattern_tooltip": {
                 "en": "Use # as placeholder.\x0AAdditionally dot and semicolon canbe used.",
                 "de": "Benutze # als Platzhalter.\x0APunkt und Semikolon können als Trennzeichen benutz werden.",
                 "ru": "Используйте # там, где должен быть символ.\x0AЕщё можно использовать точку и двоеточие."
             },
-            "colorOn"           : {"en": "Segment color ON",    "de": "Segmentfarbe AN",        "ru": "Цвет вкл. секции"},
-            "colorOff"          : {"en": "Segment color OFF",   "de": "Segmentfarbe AUS",       "ru": "Цвет выкл. секции"},
-            "runStepInterval"   : {"en": "Running text intervall(ms)", "de": "Interval für laufendem Text(ms)", "ru": "Интервал бегущего текста(мс)"},
-            "segmentCount"      : {"en": "Segment count",       "de": "Anzahl Segmenten",       "ru": "Число секций"},
-            "displayAngle"      : {"en": "Display angle",       "de": "Zeichenwinkel",          "ru": "Наклон °"},
-            "digitHeight"       : {"en": "Digit height",        "de": "Zeichenhöhe",            "ru": "Высота числа"},
-            "digitWidth"        : {"en": "Digit width",         "de": "Zeichebreite",           "ru": "Ширина числа"},
-            "digitDistance"     : {"en": "Digit distance",      "de": "Zeichenabstand",         "ru": "Расстояние между числами"},
-            "segmentWidth"      : {"en": "Segment width",       "de": "Segmentbreite",          "ru": "Ширина секции"},
-            "segmentDistance"   : {"en": "Segment distance",    "de": "Segmentdistanz",         "ru": "Расстояние между секциями"},
-            "cornerType"        : {"en": "Corners type",        "de": "Ecktyp",                 "ru": "Тип закруглений"},
-            "en"                : {"en": "english",             "de": "englisch",               "ru": "английский"},
-            "de"                : {"en": "german",              "de": "deutsch",                "ru": "немецкий"},
-            "ru"                : {"en": "russian",             "de": "russisch",               "ru": "русский"},
-            "city":               {"en": "City",                "de": "Stadt",                  "ru": "Город"},
-            "group_now":             {"en": "Now",                "de": "Jetzt",                "ru": "Сейчас"},
-            "updateInterval":        {"en": "Update interval[min]", "de": "Updateintervalle[min]", "ru": "Обновление в минутах"},
-            "temperature-0-oid":     {"en": "Temperature ID",     "de": "Temperature ID",       "ru": "Температура ID"},
-            "condition-0-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "humidity-0-oid":        {"en": "Humidity ID",        "de": "Luftfeutigkeit ID",    "ru": "Влажность ID"},
-            "temperature-min-0-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура ID"},
-            "temperature-max-0-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура ID"},
-            "wind-speed-0-oid":      {"en": "Wind speed ID",      "de": "Windgeschwindigkeit",  "ru": "Скорсть ветра ID"},
-            "wind-dir-0-oid":        {"en": "Wind direction ID",  "de": "Windrichting",         "ru": "Направление ветра ID"},
-            "icon-0-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки"},
-            "group_tomorrow":        {"en": "Tomorrow",           "de": "Morgen",               "ru": "Завтра"},
-            "condition-1-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "temperature-max-1-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура ID"},
-            "temperature-min-1-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура ID"},
-            "icon-1-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки ID"},
-            "group_aftertomorrow":   {"en": "group_aftertomorrow", "de": "Übermorgen",          "ru": "Послезавтра"},
-            "condition-2-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "temperature-max-2-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура ID"},
-            "temperature-min-2-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура ID"},
-            "icon-2-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки ID"},
-            "group_in2days":         {"en": "In 2 days",          "de": "In 2 Tagen",           "ru": "Через 2 дня"},
-            "condition-3-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "temperature-max-3-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура"},
-            "temperature-min-3-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура"},
-            "icon-3-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки"},
-            "group_in3days":         {"en": "In 3 days",          "de": "In 3 Tagen",           "ru": "Через 3 дня"},
-            "condition-4-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "temperature-max-4-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура ID"},
-            "temperature-min-4-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура ID"},
-            "icon-4-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки ID"},
-            "group_in4days":         {"en": "In 4 days",          "de": "In 4 Tagen",           "ru": "Через 4 дня"},
-            "condition-5-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "temperature-max-5-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура ID"},
-            "temperature-min-5-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура ID"},
-            "icon-5-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки ID"},
-            "group_in5days":         {"en": "In 5 days",          "de": "In 5 Tagen",           "ru": "Через 5 дней"},
-            "condition-6-oid":       {"en": "Condition ID",       "de": "Text ID",              "ru": "Текст ID"},
-            "temperature-max-6-oid": {"en": "Max temperature ID", "de": "Max Temperature ID",   "ru": "Макс. температура ID"},
-            "temperature-min-6-oid": {"en": "Min temperature ID", "de": "Min Temperature ID",   "ru": "Мин. температура ID"},
-            "icon-6-oid":            {"en": "Icon URL ID",        "de": "Bild-URL ID",          "ru": "URL картинки ID"},
-            "units_speed":           {"en": "Speed units",        "de": "Geschw.Einheit",       "ru": "Единицы изм. скорости"},
-            "maxDays":               {"en": "Show max. days",     "de": "Max. Tagesanzahl",     "ru": "Макс. кол-во дней"}
+            "colorOn": {"en": "Segment color ON", "de": "Segmentfarbe AN", "ru": "Цвет вкл. секции"},
+            "colorOff": {"en": "Segment color OFF", "de": "Segmentfarbe AUS", "ru": "Цвет выкл. секции"},
+            "runStepInterval": {
+                "en": "Running text intervall(ms)",
+                "de": "Interval für laufendem Text(ms)",
+                "ru": "Интервал бегущего текста(мс)"
+            },
+            "segmentCount": {"en": "Segment count", "de": "Anzahl Segmenten", "ru": "Число секций"},
+            "displayAngle": {"en": "Display angle", "de": "Zeichenwinkel", "ru": "Наклон °"},
+            "digitHeight": {"en": "Digit height", "de": "Zeichenhöhe", "ru": "Высота числа"},
+            "digitWidth": {"en": "Digit width", "de": "Zeichebreite", "ru": "Ширина числа"},
+            "digitDistance": {"en": "Digit distance", "de": "Zeichenabstand", "ru": "Расстояние между числами"},
+            "segmentWidth": {"en": "Segment width", "de": "Segmentbreite", "ru": "Ширина секции"},
+            "segmentDistance": {"en": "Segment distance", "de": "Segmentdistanz", "ru": "Расстояние между секциями"},
+            "cornerType": {"en": "Corners type", "de": "Ecktyp", "ru": "Тип закруглений"},
+            "en": {"en": "english", "de": "englisch", "ru": "английский"},
+            "de": {"en": "german", "de": "deutsch", "ru": "немецкий"},
+            "ru": {"en": "russian", "de": "russisch", "ru": "русский"},
+            "city": {"en": "City", "de": "Stadt", "ru": "Город"},
+            "group_now": {"en": "Now", "de": "Jetzt", "ru": "Сейчас"},
+            "updateInterval": {
+                "en": "Update interval[min]",
+                "de": "Updateintervalle[min]",
+                "ru": "Обновление в минутах"
+            },
+            "temperature-0-oid": {"en": "Temperature ID", "de": "Temperature ID", "ru": "Температура ID"},
+            "condition-0-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "humidity-0-oid": {"en": "Humidity ID", "de": "Luftfeutigkeit ID", "ru": "Влажность ID"},
+            "temperature-min-0-oid": {
+                "en": "Min temperature ID",
+                "de": "Min Temperature ID",
+                "ru": "Мин. температура ID"
+            },
+            "temperature-max-0-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура ID"
+            },
+            "wind-speed-0-oid": {"en": "Wind speed ID", "de": "Windgeschwindigkeit", "ru": "Скорсть ветра ID"},
+            "wind-dir-0-oid": {"en": "Wind direction ID", "de": "Windrichting", "ru": "Направление ветра ID"},
+            "icon-0-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки"},
+            "group_tomorrow": {"en": "Tomorrow", "de": "Morgen", "ru": "Завтра"},
+            "condition-1-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "temperature-max-1-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура ID"
+            },
+            "temperature-min-1-oid": {
+                "en": "Min temperature ID",
+                "de": "Min Temperature ID",
+                "ru": "Мин. температура ID"
+            },
+            "icon-1-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки ID"},
+            "group_aftertomorrow": {"en": "group_aftertomorrow", "de": "Übermorgen", "ru": "Послезавтра"},
+            "condition-2-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "temperature-max-2-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура ID"
+            },
+            "temperature-min-2-oid": {
+                "en": "Min temperature ID",
+                "de": "Min Temperature ID",
+                "ru": "Мин. температура ID"
+            },
+            "icon-2-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки ID"},
+            "group_in2days": {"en": "In 2 days", "de": "In 2 Tagen", "ru": "Через 2 дня"},
+            "condition-3-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "temperature-max-3-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура"
+            },
+            "temperature-min-3-oid": {"en": "Min temperature ID", "de": "Min Temperature ID", "ru": "Мин. температура"},
+            "icon-3-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки"},
+            "group_in3days": {"en": "In 3 days", "de": "In 3 Tagen", "ru": "Через 3 дня"},
+            "condition-4-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "temperature-max-4-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура ID"
+            },
+            "temperature-min-4-oid": {
+                "en": "Min temperature ID",
+                "de": "Min Temperature ID",
+                "ru": "Мин. температура ID"
+            },
+            "icon-4-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки ID"},
+            "group_in4days": {"en": "In 4 days", "de": "In 4 Tagen", "ru": "Через 4 дня"},
+            "condition-5-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "temperature-max-5-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура ID"
+            },
+            "temperature-min-5-oid": {
+                "en": "Min temperature ID",
+                "de": "Min Temperature ID",
+                "ru": "Мин. температура ID"
+            },
+            "icon-5-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки ID"},
+            "group_in5days": {"en": "In 5 days", "de": "In 5 Tagen", "ru": "Через 5 дней"},
+            "condition-6-oid": {"en": "Condition ID", "de": "Text ID", "ru": "Текст ID"},
+            "temperature-max-6-oid": {
+                "en": "Max temperature ID",
+                "de": "Max Temperature ID",
+                "ru": "Макс. температура ID"
+            },
+            "temperature-min-6-oid": {
+                "en": "Min temperature ID",
+                "de": "Min Temperature ID",
+                "ru": "Мин. температура ID"
+            },
+            "icon-6-oid": {"en": "Icon URL ID", "de": "Bild-URL ID", "ru": "URL картинки ID"},
+            "units_speed": {"en": "Speed units", "de": "Geschw.Einheit", "ru": "Единицы изм. скорости"},
+            "maxDays": {"en": "Show max. days", "de": "Max. Tagesanzahl", "ru": "Макс. кол-во дней"}
         });
     }
 
     vis.binds.timeandweather = {
- 	    version: "1.2.1",
-		showVersion: function () {
-			if (vis.binds.timeandweather.version) {
-				console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
-				vis.binds.timeandweather.version = null;
-			}
-		},
+        version: "1.2.1",
+        showVersion: function () {
+            if (vis.binds.timeandweather.version) {
+                console.log('Version vis-timeandweather: ' + vis.binds.timeandweather.version);
+                vis.binds.timeandweather.version = null;
+            }
+        },
+        loadedJS: {},
+        loadJS: function (url, cb) {
+            if (vis.binds.timeandweather.loadedJS[url]) {
+                if (vis.binds.timeandweather.loadedJS[url] === true) {
+                    cb && cb();
+                } else {
+                    vis.binds.timeandweather.loadedJS[url].push(cb);
+                }
+                return;
+            }
+            vis.binds.timeandweather.loadedJS[url] = [cb];
+
+            let scriptEle = document.createElement('script');
+
+            scriptEle.setAttribute('src', url);
+            scriptEle.setAttribute('type', 'text/javascript');
+
+            document.body.appendChild(scriptEle);
+
+            // success event
+            scriptEle.addEventListener('load', function () {
+                vis.binds.timeandweather.loadedJS[url].forEach(function (cb) {
+                    try {
+                        cb && cb();
+                    } catch (e) {
+                        console.error('Error on loading "' + url + '" file', e);
+                    }
+                });
+                vis.binds.timeandweather.loadedJS[url] = true;
+            });
+            // error event
+            scriptEle.addEventListener('error', function (ev) {
+                console.log('Error on loading "' + url + '" file', ev);
+            });
+        },
+
         weekdays: {
-            0: {"en": "Sunday",   "de": "Sonntag",    "ru": "Воскресенье"},
-            1: {"en": "Monday",   "de": "Montag",     "ru": "Понедельник"},
-            2: {"en": "Tuesday",  "de": "Dienstag",   "ru": "Вторник"},
-            3: {"en": "Wednesday","de": "Mittwoch",   "ru": "Среда"},
+            0: {"en": "Sunday", "de": "Sonntag", "ru": "Воскресенье"},
+            1: {"en": "Monday", "de": "Montag", "ru": "Понедельник"},
+            2: {"en": "Tuesday", "de": "Dienstag", "ru": "Вторник"},
+            3: {"en": "Wednesday", "de": "Mittwoch", "ru": "Среда"},
             4: {"en": "Thursday", "de": "Donnerstag", "ru": "Четверг"},
-            5: {"en": "Friday",   "de": "Freitag",    "ru": "Пятница"},
-            6: {"en": "Saturday", "de": "Samstag",    "ru": "Суббота"}
+            5: {"en": "Friday", "de": "Freitag", "ru": "Пятница"},
+            6: {"en": "Saturday", "de": "Samstag", "ru": "Суббота"}
         },
         weekdaysShort: {
             0: {"en": "Sun", "de": "So", "ru": "Вс"},
@@ -165,20 +256,20 @@
             6: {"en": "Sat", "de": "Sa", "ru": "Сб"}
         },
         months: {
-            1: {"en": "January",    "de": "Januar",     "ru": "Январь"},
-            2: {"en": "February",   "de": "Februar",    "ru": "Февраль"},
-            3: {"en": "March",      "de": "März",       "ru": "Март"},
-            4: {"en": "April",      "de": "April",      "ru": "Апрель"},
-            5: {"en": "May",        "de": "Mai",        "ru": "Май"},
-            6: {"en": "June",       "de": "Juni",       "ru": "Июнь"},
-            7: {"en": "July",       "de": "Juli",       "ru": "Июль"},
-            8: {"en": "August",     "de": "August",     "ru": "Август"},
-            9: {"en": "September",  "de": "September",  "ru": "Сентябрь"},
-            10: {"en": "October",   "de": "Oktober",    "ru": "Октябрь"},
-            11: {"en": "November",  "de": "November",   "ru": "Ноябрь"},
-            12: {"en": "December",  "de": "Dezember",   "ru": "Декабрь"}
+            1: {"en": "January", "de": "Januar", "ru": "Январь"},
+            2: {"en": "February", "de": "Februar", "ru": "Февраль"},
+            3: {"en": "March", "de": "März", "ru": "Март"},
+            4: {"en": "April", "de": "April", "ru": "Апрель"},
+            5: {"en": "May", "de": "Mai", "ru": "Май"},
+            6: {"en": "June", "de": "Juni", "ru": "Июнь"},
+            7: {"en": "July", "de": "Juli", "ru": "Июль"},
+            8: {"en": "August", "de": "August", "ru": "Август"},
+            9: {"en": "September", "de": "September", "ru": "Сентябрь"},
+            10: {"en": "October", "de": "Oktober", "ru": "Октябрь"},
+            11: {"en": "November", "de": "November", "ru": "Ноябрь"},
+            12: {"en": "December", "de": "Dezember", "ru": "Декабрь"}
         },
-		startTime: function (view, wid, hideSeconds, blink, noClass) {
+        startTime: function (view, wid, hideSeconds, blink, noClass) {
             setTimeout(function () {
                 var today = new Date();
                 var h = today.getHours();
@@ -348,84 +439,127 @@
             }, 110);
         },
         tplTwCoolClock: function (view, data) {
-            setTimeout(function () {
-                var style;
-                var wid = data.attr('wid');
-                var $wid = $('#' + wid);
+            vis.binds.timeandweather.loadJS('widgets/timeandweather/js/coolclock.js', function () {
+                vis.binds.timeandweather.loadJS('widgets/timeandweather/js/moreskins.js', function () {
+                    setTimeout(function () {
+                        var style;
+                        var wid = data.attr('wid');
+                        var $wid = $('#' + wid);
 
-                if (vis.views[view] &&
-                    vis.views[view].widgets[wid] &&
-                    vis.views[view].widgets[wid].style
-                ) {
-                    style = vis.views[view].widgets[wid].style;
-                }
-                style = style || {};
-                style.width = parseInt(style.width) || 85;
-                style.height = parseInt(style.height) || 85;
-                var radius = parseInt(style.width) || 85;
-                if (vis.views[view].widgets[wid]) {
-                    vis.views[view].widgets[wid].style = style;
-                }
+                        if (vis.views[view] &&
+                            vis.views[view].widgets[wid] &&
+                            vis.views[view].widgets[wid].style
+                        ) {
+                            style = vis.views[view].widgets[wid].style;
+                        }
+                        style = style || {};
+                        style.width = parseInt(style.width) || 85;
+                        style.height = parseInt(style.height) || 85;
+                        var radius = parseInt(style.width) || 85;
+                        if (vis.views[view].widgets[wid]) {
+                            vis.views[view].widgets[wid].style = style;
+                        }
 
-                // Take the smallest value
-                if (style.height < radius) {
-                    radius = style.height;
-                }
-                radius = Math.round(radius / 2);
-                var myClass = 'CoolClock:' + (data.attr('theme') || 'classic') + ':' + radius + ':' + (data.attr('noSeconds') ? 'noSeconds' : '') + '::' + (data.attr('showDigital') ? 'showDigital' : '') + '::' + (data.attr('showAmPm') ? 'showAmPm' : '');
+                        // Take the smallest value
+                        if (style.height < radius) {
+                            radius = style.height;
+                        }
+                        radius = Math.round(radius / 2);
+                        var myClass = 'CoolClock:' + (data.attr('theme') || 'classic') + ':' + radius + ':' + (data.attr('noSeconds') ? 'noSeconds' : '') + '::' + (data.attr('showDigital') ? 'showDigital' : '') + '::' + (data.attr('showAmPm') ? 'showAmPm' : '');
 
-                var $canvas = $wid.find('canvas');
-                $wid.data('myclass', myClass);
-                // $wid.css({width: style.width + 'px', height: style.height + 'px'});
-                $canvas.attr('width', style.width);
-                $canvas.attr('height', style.height);
-                $canvas.addClass(myClass);
-                CoolClock.findAndCreateClocks();
-            }, 110);
+                        var $canvas = $wid.find('canvas');
+                        $wid.data('myclass', myClass);
+                        // $wid.css({width: style.width + 'px', height: style.height + 'px'});
+                        $canvas.attr('width', style.width);
+                        $canvas.attr('height', style.height);
+                        $canvas.addClass(myClass);
+                        CoolClock.findAndCreateClocks();
+                    }, 110);
+                });
+            });
         },
         tplTwFlipClock: function (view, data) {
-            setTimeout(function () {
-                var possibleLanguages = ['en', 'de', 'es', 'fr', 'it', 'pt', 'ru', 'zh-cn'];
-                var widths = {
-                    TwentyFourHourClock: 500,
-                    TwelveHourClock: 600,
-                    MinuteCounter: 300,
-                    HourlyCounter: 500,
-                    DailyCounter: 550,
-                    Counter: 210
-                };
-                var language = vis.language;
-                if (possibleLanguages.indexOf(vis.language) === -1) {
-                    language = 'en';
-                }
-                var clockFace = data.attr('face') || 'TwentyFourHourClock';
-                var $wid = $('#' + data.attr('wid'));
-                $wid.css('width', widths[clockFace] + 'px');
+            vis.binds.timeandweather.loadJS('widgets/timeandweather/js/flipclock/flipclock.min.js', function () {
+                setTimeout(function () {
+                    var possibleLanguages = ['en', 'de', 'es', 'fr', 'it', 'pt', 'ru', 'zh-cn'];
+                    var widths = {
+                        TwentyFourHourClock: 500,
+                        TwelveHourClock: 600,
+                        MinuteCounter: 300,
+                        HourlyCounter: 500,
+                        DailyCounter: 550,
+                        Counter: 210
+                    };
+                    var language = vis.language;
+                    if (possibleLanguages.indexOf(vis.language) === -1) {
+                        language = 'en';
+                    }
+                    var clockFace = data.attr('face') || 'TwentyFourHourClock';
+                    var $wid = $('#' + data.attr('wid'));
+                    $wid.css('width', widths[clockFace] + 'px');
 
-                // See possible options here: https://www.jqueryscript.net/time-clock/jQuery-Flip-Clock-Countdown-Timer-Plugin-FlipClock.html
-                var clock = $wid.FlipClock({clockFace: clockFace, language: language});
+                    // See possible options here: https://www.jqueryscript.net/time-clock/jQuery-Flip-Clock-Countdown-Timer-Plugin-FlipClock.html
+                    $wid.FlipClock({clockFace: clockFace, language: language});
 
-
-                if ($wid.data('destroy')) {
-                    $wid.data('destroy', function (wid) {
-                        $('#' + wid).FlipClock('stop');
-                    });
-                }
-            }, 110);
+                    if ($wid.data('destroy')) {
+                        $wid.data('destroy', function (wid) {
+                            $('#' + wid).FlipClock('stop');
+                        });
+                    }
+                }, 110);
+            });
         },
         tplTwHtcWeather: function (view, data) {
-            setTimeout(function () {
-                var wid = data.attr('wid');
-                var $wid = $('#' + wid);
+            vis.binds.timeandweather.loadJS('widgets/timeandweather/js/jquery.jdigiclock.js', function () {
+                setTimeout(function () {
+                    var wid = data.attr('wid');
+                    var $wid = $('#' + wid);
 
-                $wid.jdigiclock('destroy');
+                    $wid.jdigiclock('destroy');
 
+                    var woeid = data.attr('woeid') || data.attr('weoid');
+                    if (woeid !== undefined && woeid !== null) {
+                        var i = woeid.indexOf('[');
+                        if (i !== -1) {
+                            woeid = woeid.substring(i + 1);
+                            i = woeid.indexOf(']');
+                            woeid = woeid.substring(0, i);
+                        }
+                    } else {
+                        woeid = '664942';
+                    }
+                    var updateInterval = data.attr('updateInterval');
+                    if (updateInterval === '' || updateInterval === null || updateInterval === undefined) {
+                        updateInterval = 180;
+                    } else {
+                        updateInterval = parseInt(data.attr('updateInterval'), 10);
+                    }
+
+                    $wid.jdigiclock({
+                        weatherLocationCode: woeid,
+                        city: data.attr('cityName'),
+                        weatherUpdate: updateInterval,
+                        lang: data.attr('language') || vis.language,
+                        clockImagesPath: 'widgets/timeandweather/img/clock/'
+                    });
+                    if (!$wid.data('destroy')) {
+                        $wid.data('destroy', function (wid) {
+                            $('#' + wid).jdigiclock('destroy');
+                        })
+                    }
+                }, 110);
+            });
+        },
+        tplTwYahooWeather: function (view, data) {
+            vis.binds.timeandweather.loadJS('widgets/timeandweather/js/jquery.zweatherfeed.js', function () {
+                var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width:250px; height: 500px; color: #ddd"></div>';
+                $('#visview_' + view).append(text);
                 var woeid = data.attr('woeid') || data.attr('weoid');
                 if (woeid !== undefined && woeid !== null) {
                     var i = woeid.indexOf('[');
                     if (i !== -1) {
                         woeid = woeid.substring(i + 1);
-                        i     = woeid.indexOf(']');
+                        i = woeid.indexOf(']');
                         woeid = woeid.substring(0, i);
                     }
                 } else {
@@ -437,57 +571,22 @@
                 } else {
                     updateInterval = parseInt(data.attr('updateInterval'), 10);
                 }
-
-                $wid.jdigiclock({
-                    weatherLocationCode: woeid,
-                    city:                data.attr('cityName'),
-                    weatherUpdate:       updateInterval,
-                    lang:                data.attr('language') || vis.language,
-                    clockImagesPath:     'widgets/timeandweather/img/clock/'
-                });
-                if (!$wid.data('destroy')) {
-                    $wid.data('destroy', function (wid) {
-                        $('#' + wid).jdigiclock('destroy');
-                    })
-                }
-            }, 110);
-        },
-        tplTwYahooWeather: function (view, data) {
-            var text = '<div class="vis-widget ui-widget-content" id="' + data.attr('wid') + '" style="width:250px; height: 500px; color: #ddd"></div>';
-            $('#visview_' + view).append(text);
-            var woeid = data.attr('woeid') || data.attr('weoid');
-            if (woeid !== undefined && woeid !== null) {
-                var i = woeid.indexOf('[');
-                if (i !== -1) {
-                    woeid = woeid.substring(i + 1);
-                    i     = woeid.indexOf(']');
-                    woeid = woeid.substring(0, i);
-                }
-            }
-            else {
-                woeid = '664942';
-            }
-            var updateInterval = data.attr('updateInterval');
-            if (updateInterval === '' || updateInterval === null || updateInterval === undefined) {
-                updateInterval = 180;
-            } else {
-                updateInterval = parseInt(data.attr('updateInterval'), 10);
-            }
-            $('#' + data.attr('wid')).weatherfeed([woeid], {
-                lang:       data.attr('language') || vis.language,
-                woeid:      true,
-                city:       data.attr('cityName'),
-                humidity:   true,
-                forecast:   true,
-                link:       false,
-                maxDays:    data.attr('maxDays'),
-                update:     updateInterval,
-                resizable:  false,
-                rendered:   function () {
-                    if (vis.editMode && vis.activeWidgets.indexOf(data.attr('wid')) !== -1) {
-                        vis.resizable($('#' + data.attr('wid')).resizable('destroy'));
+                $('#' + data.attr('wid')).weatherfeed([woeid], {
+                    lang: data.attr('language') || vis.language,
+                    woeid: true,
+                    city: data.attr('cityName'),
+                    humidity: true,
+                    forecast: true,
+                    link: false,
+                    maxDays: data.attr('maxDays'),
+                    update: updateInterval,
+                    resizable: false,
+                    rendered: function () {
+                        if (vis.editMode && vis.activeWidgets.indexOf(data.attr('wid')) !== -1) {
+                            vis.resizable($('#' + data.attr('wid')).resizable('destroy'));
+                        }
                     }
-                }
+                });
             });
         },
         getValue: function (oidOrBinding) {
@@ -506,186 +605,188 @@
             }
         },
         updateCustomWeather: function (data) {
-            var getValue = vis.binds.timeandweather.getValue;
-            var weather = {
-                units: {
-                    pressure:     data.units_pressure   || 'mb',
-                    speed:        data.units_speed      || 'km/h',
-                    temperature:  data.units_temp       || 'C'
-                },
-                location: {
-                    city: data.city || ''
-                },
-                wind: {
-                    direction: getValue(data['wind-dir-0-oid']),
-                    speed:     getValue(data['wind-speed-0-oid'])
-                },
-                atmosphere: {
-                    humidity: getValue(data['humidity-0-oid'])
-                },
-                image: {
-                    url: 'http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif'
-                },
-                item: {
-                    condition: {
-                        temp: getValue(data['temperature-0-oid']),
-                        text: getValue(data['condition-0-oid']),
-                        icon: getValue(data['icon-0-oid'])
+            vis.binds.timeandweather.loadJS('widgets/timeandweather/js/jquery.zweatherfeed.js', function () {
+                var getValue = vis.binds.timeandweather.getValue;
+                var weather = {
+                    units: {
+                        pressure: data.units_pressure || 'mb',
+                        speed: data.units_speed || 'km/h',
+                        temperature: data.units_temp || 'C'
                     },
-                    forecast: [
-                        {
-                            high: getValue(data['temperature-max-0-oid']),
-                            low:  getValue(data['temperature-min-0-oid']),
+                    location: {
+                        city: data.city || ''
+                    },
+                    wind: {
+                        direction: getValue(data['wind-dir-0-oid']),
+                        speed: getValue(data['wind-speed-0-oid'])
+                    },
+                    atmosphere: {
+                        humidity: getValue(data['humidity-0-oid'])
+                    },
+                    image: {
+                        url: 'http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif'
+                    },
+                    item: {
+                        condition: {
+                            temp: getValue(data['temperature-0-oid']),
                             text: getValue(data['condition-0-oid']),
                             icon: getValue(data['icon-0-oid'])
                         },
-                        {
-                            high: getValue(data['temperature-max-1-oid']),
-                            low:  getValue(data['temperature-min-1-oid']),
-                            text: getValue(data['condition-1-oid']),
-                            icon: getValue(data['icon-1-oid'])
-                        },
-                        {
-                            high: getValue(data['temperature-max-2-oid']),
-                            low:  getValue(data['temperature-min-2-oid']),
-                            text: getValue(data['condition-2-oid']),
-                            icon: getValue(data['icon-2-oid'])
-                        },
-                        {
-                            high: getValue(data['temperature-max-3-oid']),
-                            low:  getValue(data['temperature-min-3-oid']),
-                            text: getValue(data['condition-3-oid']),
-                            icon: getValue(data['icon-3-oid'])
-                        },
-                        {
-                            high: getValue(data['temperature-max-4-oid']),
-                            low:  getValue(data['temperature-min-4-oid']),
-                            text: getValue(data['condition-4-oid']),
-                            icon: getValue(data['icon-4-oid'])
-                        },
-                        {
-                            high: getValue(data['temperature-max-5-oid']),
-                            low:  getValue(data['temperature-min-5-oid']),
-                            text: getValue(data['condition-5-oid']),
-                            icon: getValue(data['icon-5-oid'])
-                        },
-                        {
-                            high: getValue(data['temperature-max-6-oid']),
-                            low:  getValue(data['temperature-min-6-oid']),
-                            text: getValue(data['condition-6-oid']),
-                            icon: getValue(data['icon-6-oid'])
-                        }
-                    ]
-                }
-            };
+                        forecast: [
+                            {
+                                high: getValue(data['temperature-max-0-oid']),
+                                low: getValue(data['temperature-min-0-oid']),
+                                text: getValue(data['condition-0-oid']),
+                                icon: getValue(data['icon-0-oid'])
+                            },
+                            {
+                                high: getValue(data['temperature-max-1-oid']),
+                                low: getValue(data['temperature-min-1-oid']),
+                                text: getValue(data['condition-1-oid']),
+                                icon: getValue(data['icon-1-oid'])
+                            },
+                            {
+                                high: getValue(data['temperature-max-2-oid']),
+                                low: getValue(data['temperature-min-2-oid']),
+                                text: getValue(data['condition-2-oid']),
+                                icon: getValue(data['icon-2-oid'])
+                            },
+                            {
+                                high: getValue(data['temperature-max-3-oid']),
+                                low: getValue(data['temperature-min-3-oid']),
+                                text: getValue(data['condition-3-oid']),
+                                icon: getValue(data['icon-3-oid'])
+                            },
+                            {
+                                high: getValue(data['temperature-max-4-oid']),
+                                low: getValue(data['temperature-min-4-oid']),
+                                text: getValue(data['condition-4-oid']),
+                                icon: getValue(data['icon-4-oid'])
+                            },
+                            {
+                                high: getValue(data['temperature-max-5-oid']),
+                                low: getValue(data['temperature-min-5-oid']),
+                                text: getValue(data['condition-5-oid']),
+                                icon: getValue(data['icon-5-oid'])
+                            },
+                            {
+                                high: getValue(data['temperature-max-6-oid']),
+                                low: getValue(data['temperature-min-6-oid']),
+                                text: getValue(data['condition-6-oid']),
+                                icon: getValue(data['icon-6-oid'])
+                            }
+                        ]
+                    }
+                };
 
-            if (weather.atmosphere.humidity === '' || weather.atmosphere.humidity === 'null') weather.atmosphere.humidity = null;
-            if (weather.wind.direction      === '' || weather.wind.direction      === 'null') weather.wind.direction      = null;
-            if (weather.wind.speed          === '' || weather.wind.speed          === 'null') weather.wind.speed          = null;
+                if (weather.atmosphere.humidity === '' || weather.atmosphere.humidity === 'null') weather.atmosphere.humidity = null;
+                if (weather.wind.direction === '' || weather.wind.direction === 'null') weather.wind.direction = null;
+                if (weather.wind.speed === '' || weather.wind.speed === 'null') weather.wind.speed = null;
 
-            for (var i = 0; i < weather.item.forecast.length; i++) {
-                if (weather.item.forecast[i].high === null &&
-                    weather.item.forecast[i].low  === null &&
-                    weather.item.forecast[i].text === null
-                ) {
-                    weather.item.forecast.splice(i, weather.item.forecast.length - i);
-                    break;
+                for (var i = 0; i < weather.item.forecast.length; i++) {
+                    if (weather.item.forecast[i].high === null &&
+                        weather.item.forecast[i].low === null &&
+                        weather.item.forecast[i].text === null
+                    ) {
+                        weather.item.forecast.splice(i, weather.item.forecast.length - i);
+                        break;
+                    }
+                    if (weather.item.forecast[i].high === '' &&
+                        weather.item.forecast[i].low === '' &&
+                        weather.item.forecast[i].text === ''
+                    ) {
+                        weather.item.forecast.splice(i, weather.item.forecast.length - i);
+                        break;
+                    }
                 }
-                if (weather.item.forecast[i].high === '' &&
-                    weather.item.forecast[i].low  === '' &&
-                    weather.item.forecast[i].text === ''
-                ) {
-                    weather.item.forecast.splice(i, weather.item.forecast.length - i);
-                    break;
-                }
-            }
 
-            $('#' + data.wid).weatherfeed('', 'update', weather);
-            /*$('#' + data.wid).weatherfeed('', 'update', {
-                "units": {
-                    "distance": "km",
-                            "pressure": "mb",
-                            "speed": "km/h",
-                            "temperature": "C"
-                },
-                "location": {
-                    "city": "Karlsruhe"
-                },
-                "wind": {
-                    "chill": "66",
-                    "direction": "255",
-                    "speed": "11.27"
-                },
-                "atmosphere": {
-                    "humidity": "71"
-                },
-                "image": {
-                    "url": "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
-                },
-                "item": {
-                    "condition": {
-                        "code": "26",
-                                "temp": "19",
-                                "text": "Cloudy"
+                $('#' + data.wid).weatherfeed('', 'update', weather);
+                /*$('#' + data.wid).weatherfeed('', 'update', {
+                    "units": {
+                        "distance": "km",
+                                "pressure": "mb",
+                                "speed": "km/h",
+                                "temperature": "C"
                     },
-                    "forecast": [
-                        {
-                            "code": "12",
-                            "high": "20",
-                            "low": "14",
-                            "text": "Rain"
+                    "location": {
+                        "city": "Karlsruhe"
+                    },
+                    "wind": {
+                        "chill": "66",
+                        "direction": "255",
+                        "speed": "11.27"
+                    },
+                    "atmosphere": {
+                        "humidity": "71"
+                    },
+                    "image": {
+                        "url": "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
+                    },
+                    "item": {
+                        "condition": {
+                            "code": "26",
+                                    "temp": "19",
+                                    "text": "Cloudy"
                         },
-                        {
-                            "code": "39",
-                            "high": "21",
-                            "low": "13",
-                            "text": "Scattered Showers"
-                        },
-                        {
-                            "code": "4",
-                            "high": "22",
-                            "low": "15",
-                            "text": "Thunderstorms"
-                        },
-                        {
-                            "code": "28",
-                            "high": "23",
-                            "low": "13",
-                            "text": "Mostly Cloudy"
-                        },
-                        {
-                            "code": "4",
-                            "high": "24",
-                            "low": "15",
-                            "text": "Thunderstorms"
-                        },
-                        {
-                            "code": "47",
-                            "high": "23",
-                            "low": "16",
-                            "text": "Scattered Thunderstorms"
-                        },
-                        {
-                            "code": "30",
-                            "high": "23",
-                            "low": "16",
-                            "text": "Partly Cloudy"
-                        }
-                    ]
-                }
-            });*/
+                        "forecast": [
+                            {
+                                "code": "12",
+                                "high": "20",
+                                "low": "14",
+                                "text": "Rain"
+                            },
+                            {
+                                "code": "39",
+                                "high": "21",
+                                "low": "13",
+                                "text": "Scattered Showers"
+                            },
+                            {
+                                "code": "4",
+                                "high": "22",
+                                "low": "15",
+                                "text": "Thunderstorms"
+                            },
+                            {
+                                "code": "28",
+                                "high": "23",
+                                "low": "13",
+                                "text": "Mostly Cloudy"
+                            },
+                            {
+                                "code": "4",
+                                "high": "24",
+                                "low": "15",
+                                "text": "Thunderstorms"
+                            },
+                            {
+                                "code": "47",
+                                "high": "23",
+                                "low": "16",
+                                "text": "Scattered Thunderstorms"
+                            },
+                            {
+                                "code": "30",
+                                "high": "23",
+                                "low": "16",
+                                "text": "Partly Cloudy"
+                            }
+                        ]
+                    }
+                });*/
+            });
         },
         tplTwCustomWeather: function (view, data) {
             setTimeout(function () {
                 var wid = data.attr('wid');
                 var $wid = $('#' + wid);
                 $wid.weatherfeed('', {
-                    lang:      data.attr('language') || vis.language,
-                    custom:    true,
-                    city:      data.attr('city'),
-                    humidity:  true,
-                    forecast:  true,
-                    link:      false,
+                    lang: data.attr('language') || vis.language,
+                    custom: true,
+                    city: data.attr('city'),
+                    humidity: true,
+                    forecast: true,
+                    link: false,
                     resizable: false
                 });
 
@@ -740,20 +841,20 @@
             }, 110);
         },
         createSvgClock: function (options, el) {
-            var wid            = options.wid;
-            var $wid           = $('#' + wid);
-            var quadSize       = options.quadSize || 60;
-            var quadColor      = options.quadColor || '#333';
-            var quadTickColor  = options.quadTickColor || '#333';
-            var textSize       = options.textSize || 30;
-            var textColor      = options.textColor || '#555';
-            var tickColor      = options.tickColor || '#555';
-            var isSeconds      = options.isSeconds || false;
-            var handsColor     = options.handsColor || '#111';
+            var wid = options.wid;
+            var $wid = $('#' + wid);
+            var quadSize = options.quadSize || 60;
+            var quadColor = options.quadColor || '#333';
+            var quadTickColor = options.quadTickColor || '#333';
+            var textSize = options.textSize || 30;
+            var textColor = options.textColor || '#555';
+            var tickColor = options.tickColor || '#555';
+            var isSeconds = options.isSeconds || false;
+            var handsColor = options.handsColor || '#111';
             var handsColorLine = options.handsColorLine || '#666';
-            var handsSecColor  = options.handsSecColor || '#be5639';
-            var textFont       = options.textFont || 'verdana, sans-serif';
-            var $el            = $(el);
+            var handsSecColor = options.handsSecColor || '#be5639';
+            var textFont = options.textFont || 'verdana, sans-serif';
+            var $el = $(el);
 
             if ($wid.data('interval')) {
                 clearInterval($wid.data('interval'));
@@ -883,8 +984,8 @@
                             text2.setAttrs({
                                 'class': 'quad',
                                 'transform': 'rotate(' + curr_angle + ')' +
-                                'translate(0 -' + .8 * r + ')' +
-                                'rotate(' + -curr_angle + ')'
+                                    'translate(0 -' + .8 * r + ')' +
+                                    'rotate(' + -curr_angle + ')'
                             });
                             text2.setAttribute('style', 'dominant-baseline: middle;text-anchor: middle;fill: ' + quadColor + '; font: 700 ' + quadSize + 'px ' + textFont);
                             curr_tick_group.appendChild(text2);
@@ -1010,91 +1111,12 @@
                 }
             }
 
-            setTimeout(function () {
-                var wid = data.attr('wid');
-                var $wid = $('#' + wid);
-                var oldClock = el.find('#' + wid + '_clock');
+            vis.binds.timeandweather.loadJS('widgets/timeandweather/js/segment-display.js', function () {
+                setTimeout(function () {
+                    var wid = data.attr('wid');
+                    var $wid = $('#' + wid);
+                    var oldClock = el.find('#' + wid + '_clock');
 
-                if ($wid.data('timer')) {
-                    clearInterval($wid.data('timer'));
-                    $wid.data('timer', null);
-                }
-                if ($wid.data('interval')) {
-                    clearInterval($wid.data('interval'));
-                    $wid.data('interval', null);
-                }
-                if (oldClock.length) {
-                    oldClock[0].remove();
-                }
-
-                el.append('<canvas id="' + wid + '_clock" width="'  + el.width() + '" height="'  + el.height() + '"></canvas>');
-                var display = new SegmentDisplay(wid + '_clock');
-                display.pattern = data.pattern || '##:##:##';
-
-                if (display.pattern === '##:##:##' && (!data.seconds || data.seconds === 'false')) {
-                    display.pattern = '##:##';
-                }
-                display.segmentCount    = parseInt(data.segmentCount, 10) || 7;
-                display.displayAngle    = (data.displayAngle    === '' || data.displayAngle    === null || data.displayAngle === undefined)    ? 9   : (parseInt(data.displayAngle, 10) || 0);
-                display.digitHeight     = parseInt(data.digitHeight, 10) || 20;
-                display.digitWidth      = parseInt(data.digitWidth, 10)  || 12;
-                display.digitDistance   = (data.digitDistance   === '' || data.digitDistance   === null || data.digitDistance === undefined)   ? 2   : (parseInt(data.digitDistance, 10) || 0);
-                display.segmentWidth    = parseInt(data.segmentWidth, 10) || 3;
-                display.segmentDistance = (data.segmentDistance === '' || data.segmentDistance === null || data.segmentDistance === undefined) ? 0.5 : (parseFloat(data.segmentDistance) || 0);
-                switch (data.cornerType) {
-                    case 'SymmetricCorner':
-                        display.cornerType = 0;
-                        break;
-                    case 'FlattenedCorner':
-                        display.cornerType = 1;
-                        break;
-                    case 'PointedCorner':
-                        display.cornerType = 2;
-                        break;
-                    case 'RoundedCorner':
-                        display.cornerType = 0;
-                        break;
-                    default:
-                        display.cornerType = 0;
-                    break;
-                }
-                display.colorOn      = data.colorOn  || 'rgba(0, 0, 0, 0.9)';
-                display.colorOff     = data.colorOff || 'rgba(0, 0, 0, 0.1)';
-                data.runStepInterval = parseInt(data.runStepInterval, 10) || 0;
-                if (data.oid && data.oid !== 'nothing_selected') {
-                    var value = vis.states.attr(data.oid + '.val');
-                    if (value === null || value === undefined) {
-                        value = '';
-                    }
-                    value = value.toString();
-                    display.setValue(value);
-                    el.data('value', value).data('step', 0);
-                    vis.states.bind(data.oid + '.val', function (e, newVal) {
-                        el.data('value', newVal).data('step', 0);
-                        display.setValue(newVal.toString());
-                    });
-                    if (data.runStepInterval) {
-                        runText(el, display, data.runStepInterval, $wid);
-                    }
-                } else if (data.text) {
-                    el.data('value', data.text.toString()).data('step', 0);
-                    display.setValue(data.text.toString());
-                    if (data.runStepInterval) {
-                        runText(el, display, data.runStepInterval, $wid);
-                    }
-                } else if (data.clock) {
-                    writeTime(el, display);
-                    if (!$wid.data('interval')) {
-                        $wid.data('interval', setInterval(function () {
-                            writeTime(el, display);
-                        }, 1000));
-                    }
-                } else {
-                    display.setValue('no oid, no text, no clock');
-                }
-
-                $wid.data('destroy', function (id) {
-                    var $wid = $('#' + id);
                     if ($wid.data('timer')) {
                         clearInterval($wid.data('timer'));
                         $wid.data('timer', null);
@@ -1103,12 +1125,93 @@
                         clearInterval($wid.data('interval'));
                         $wid.data('interval', null);
                     }
-                    var oldClock = $wid.find('#' + id + '_clock');
                     if (oldClock.length) {
                         oldClock[0].remove();
                     }
-                });
-            }, 110);
+
+                    el.append('<canvas id="' + wid + '_clock" width="' + el.width() + '" height="' + el.height() + '"></canvas>');
+                    var display = new SegmentDisplay(wid + '_clock');
+                    display.pattern = data.pattern || '##:##:##';
+
+                    if (display.pattern === '##:##:##' && (!data.seconds || data.seconds === 'false')) {
+                        display.pattern = '##:##';
+                    }
+                    display.segmentCount = parseInt(data.segmentCount, 10) || 7;
+                    display.displayAngle = (data.displayAngle === '' || data.displayAngle === null || data.displayAngle === undefined) ? 9 : (parseInt(data.displayAngle, 10) || 0);
+                    display.digitHeight = parseInt(data.digitHeight, 10) || 20;
+                    display.digitWidth = parseInt(data.digitWidth, 10) || 12;
+                    display.digitDistance = (data.digitDistance === '' || data.digitDistance === null || data.digitDistance === undefined) ? 2 : (parseInt(data.digitDistance, 10) || 0);
+                    display.segmentWidth = parseInt(data.segmentWidth, 10) || 3;
+                    display.segmentDistance = (data.segmentDistance === '' || data.segmentDistance === null || data.segmentDistance === undefined) ? 0.5 : (parseFloat(data.segmentDistance) || 0);
+                    switch (data.cornerType) {
+                        case 'SymmetricCorner':
+                            display.cornerType = 0;
+                            break;
+                        case 'FlattenedCorner':
+                            display.cornerType = 1;
+                            break;
+                        case 'PointedCorner':
+                            display.cornerType = 2;
+                            break;
+                        case 'RoundedCorner':
+                            display.cornerType = 0;
+                            break;
+                        default:
+                            display.cornerType = 0;
+                            break;
+                    }
+                    display.colorOn = data.colorOn || 'rgba(0, 0, 0, 0.9)';
+                    display.colorOff = data.colorOff || 'rgba(0, 0, 0, 0.1)';
+                    data.runStepInterval = parseInt(data.runStepInterval, 10) || 0;
+                    if (data.oid && data.oid !== 'nothing_selected') {
+                        var value = vis.states.attr(data.oid + '.val');
+                        if (value === null || value === undefined) {
+                            value = '';
+                        }
+                        value = value.toString();
+                        display.setValue(value);
+                        el.data('value', value).data('step', 0);
+                        vis.states.bind(data.oid + '.val', function (e, newVal) {
+                            el.data('value', newVal).data('step', 0);
+                            display.setValue(newVal.toString());
+                        });
+                        if (data.runStepInterval) {
+                            runText(el, display, data.runStepInterval, $wid);
+                        }
+                    } else if (data.text) {
+                        el.data('value', data.text.toString()).data('step', 0);
+                        display.setValue(data.text.toString());
+                        if (data.runStepInterval) {
+                            runText(el, display, data.runStepInterval, $wid);
+                        }
+                    } else if (data.clock) {
+                        writeTime(el, display);
+                        if (!$wid.data('interval')) {
+                            $wid.data('interval', setInterval(function () {
+                                writeTime(el, display);
+                            }, 1000));
+                        }
+                    } else {
+                        display.setValue('no oid, no text, no clock');
+                    }
+
+                    $wid.data('destroy', function (id) {
+                        var $wid = $('#' + id);
+                        if ($wid.data('timer')) {
+                            clearInterval($wid.data('timer'));
+                            $wid.data('timer', null);
+                        }
+                        if ($wid.data('interval')) {
+                            clearInterval($wid.data('interval'));
+                            $wid.data('interval', null);
+                        }
+                        var oldClock = $wid.find('#' + id + '_clock');
+                        if (oldClock.length) {
+                            oldClock[0].remove();
+                        }
+                    });
+                }, 110);
+            });
         }
     };
 
@@ -1175,6 +1278,7 @@
     style="width: 134px; height: 33px"
     <%= (el) -> vis.binds.timeandweather.startDate(this.view, this.data.attr('wid'), this.data.attr('showWeekDay'), this.data.attr('noClass'), this.data.attr('shortWeekDay'), this.data.attr('shortYear'), this.data.attr('prependZero'), this.data.attr('monthWord'), this.data.attr('shortMonth'), this.data.attr('americanOrder')) %>
 ></div>
+
 </script>
 
 <script id="tplTwSimpleClock"
@@ -1190,6 +1294,7 @@
     style="width: 316px; height: 92px"
     <%= (el) -> vis.binds.timeandweather.startTime(this.view, this.data.attr('wid'), this.data.attr('hideSeconds'), this.data.attr('blink'), this.data.attr('noClass')) %>
 ></div>
+
 </script>
 
 <script id="tplTwCoolClock"
@@ -1200,7 +1305,7 @@
         data-vis-update-style="true"
         data-vis-name="CoolClock"
         data-vis-resize-locked="true"
-        data-vis-attrs="theme/select,fancy,swissRail,chunkySwiss,machine,simonbaird_com,classic,classicWhite,modern,simple,securephp,Tes2,Lev,Sand,Sun,Tor,Cold,Babosa,Tumb,Stone,Disc,watermelon;noSeconds/checkbox;showDigital/checkbox;showAmPm/checkbox" >
+        data-vis-attrs="theme/select,fancy,swissRail,chunkySwiss,machine,simonbaird_com,classic,classicWhite,modern,simple,securephp,Tes2,Lev,Sand,Sun,Tor,Cold,Babosa,Tumb,Stone,Disc,watermelon;noSeconds/checkbox;showDigital/checkbox;showAmPm/checkbox">
 <div
     id="<%= this.data.attr('wid') %>"
     class="vis-widget <%== this.data.attr('class') %>"
@@ -1209,6 +1314,7 @@
 >
     <canvas></canvas>
 </div>
+
 </script>
 
 <script id="tplTwFlipClock"
@@ -1225,6 +1331,7 @@
     data-vis-resizable='{"disabled":true}'
     <%= (el) -> vis.binds.timeandweather.tplTwFlipClock(this.view, this.data) %>
 ></div>
+
 </script>
 
 <!-- it uses yahoo weather api and it is deprecated -->
@@ -1271,13 +1378,14 @@
         data-vis-attrs4="group.in3days;condition-4-oid/id;temperature-min-4-oid/id;temperature-max-4-oid/id;icon-4-oid/id;"
         data-vis-attrs5="group.in4days;condition-5-oid/id;temperature-min-5-oid/id;temperature-max-5-oid/id;icon-5-oid/id;"
         data-vis-attrs6="group.in5days;condition-6-oid/id;temperature-min-6-oid/id;temperature-max-6-oid/id;icon-6-oid/id;"
-    >
+>
 <div
     id="<%= this.data.attr('wid') %>"
     class="vis-widget ui-widget-content <%== this.data.attr('class') %>"
     style="width: 250px; height: 107px; color: #ddd"
     <%= (el) -> vis.binds.timeandweather.tplTwCustomWeather(this.view, this.data) %>
 ></div>
+
 </script>
 
 <script id="tplSvgClock"
@@ -1289,10 +1397,11 @@
         data-vis-update-style="true"
         data-vis-resize-locked="true"
         data-vis-attrs="quadSize/slider,10,200,1;quadColor/color;quadTickColor/color;textSize/slider,10,200,1;textColor/color;tickColor/color;isSeconds/checkbox;handsColor/color;handsColorLine/color;handsSecColor/color;textFont/fontname"
-        >
+>
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 100px; height: 100px;" id="<%= this.data.attr('wid') %>">
         <div class="vis-widget-body" <%= (el) -> vis.binds.timeandweather.tplSvgClock(el, this.data) %> />
     </div>
+
 </script>
 
 <script id="tplSegmentClock"
@@ -1309,5 +1418,6 @@
     <div class="vis-widget <%== this.data.attr('class') %>" style="width: 100px; height: 30px;" id="<%= this.data.attr('wid') %>">
         <div class="vis-widget-body" <%= (el) -> vis.binds.timeandweather.tplSegmentClock(el, this.data) %> />
     </div>
+
 </script>
 
