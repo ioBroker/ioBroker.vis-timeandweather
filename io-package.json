@@ -96,7 +96,10 @@
       "bluefox <dogafox@gmail.com>"
     ],
     "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
-    "license": "MIT",
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
     "dependencies": [
       "vis"
     ],
