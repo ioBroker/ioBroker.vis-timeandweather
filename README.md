@@ -62,6 +62,8 @@ Used following packages:
 ### 0.0.1 (2015-10-04)
 * (bluefox) initial checkin
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
  Copyright (c) 2013-2022 bluefox https://github.com/GermanBluefox
  MIT
