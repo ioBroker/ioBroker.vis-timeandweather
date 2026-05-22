@@ -106,7 +106,6 @@
     "adminUI": {
       "config": "none"
     },
-    "noConfig": true,
     "restartAdapters": [
       "vis"
     ],
