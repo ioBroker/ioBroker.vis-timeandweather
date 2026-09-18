@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40">
+  <defs>
+    <filter id="s" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="1.5" dy="1.5" stdDeviation="1" flood-color="#000" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+  <text x="4" y="30" font-family="Trebuchet MS, sans-serif" font-weight="bold" font-size="30" letter-spacing="-2" fill="#969696" filter="url(#s)">11:01:57</text>
+</svg>

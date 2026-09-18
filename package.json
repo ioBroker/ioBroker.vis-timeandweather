@@ -1,6 +1,6 @@
 {
   "name": "iobroker.vis-timeandweather",
-  "description": "Time and weather widgets for ioBroker.vis",
+  "description": "Time and weather widgets for ioBroker.vis and vis-2",
   "version": "1.2.2",
   "author": {
     "name": "bluefox",
@@ -22,14 +22,16 @@
     "web interface",
     "home automation",
     "SCADA",
-    "timeandweather GUI"
+    "timeandweather GUI",
+    "vis-2"
   ],
   "devDependencies": {
-    "@alcalzone/release-script": "^3.8.0",
-    "@alcalzone/release-script-plugin-iobroker": "^3.7.2",
-    "@alcalzone/release-script-plugin-license": "^3.7.0",
-    "mocha": "^10.8.2",
-    "chai": "^4.3.10"
+    "@alcalzone/release-script": "^5.2.1",
+    "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
+    "@alcalzone/release-script-plugin-license": "^5.2.2",
+    "@iobroker/build-tools": "^3.0.3",
+    "@iobroker/eslint-config": "^2.3.4",
+    "@iobroker/testing": "^6.2.2"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.vis-timeandweather/issues"
@@ -43,13 +45,22 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha --exit",
+    "prepublishOnly": "npm run build",
+    "build": "node tasks",
+    "copy-files": "node tasks --copy-files",
+    "tsc": "cd src-widgets && npx tsc",
+    "check-widgets": "cd src-widgets && node checkWidgets.mjs",
+    "preview": "cd src-widgets && npm run preview",
+    "screenshots": "cd src-widgets && node preview/screenshots.mjs",
+    "lint": "eslint -c eslint.config.mjs",
+    "test": "mocha --exit",
+    "test:integration": "mocha --exit",
+    "test:package": "mocha test/testPackageFiles --exit",
+    "npm": "npm i && cd src-widgets && npm i",
+    "update-packages": "npx -y npm-check-updates --upgrade && cd src-widgets && npx -y npm-check-updates --upgrade",
     "release": "release-script",
-    "release-patch": "release-script patch --yes",
-    "release-minor": "release-script minor --yes",
-    "release-major": "release-script major --yes"
-  },
-  "dependencies": {
-    "@iobroker/adapter-core": "^2.6.8"
+    "release-patch": "release-script patch --yes --no-update-lockfile",
+    "release-minor": "release-script minor --yes --no-update-lockfile",
+    "release-major": "release-script major --yes --no-update-lockfile"
   }
 }

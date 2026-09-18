@@ -1,0 +1,393 @@
+/*
+ * Time and weather widgets for vis-2.
+ *
+ * The class names are the ones of the vis-1 widget set (`clock`, `date`, `weatherItem`, `flip-clock-wrapper`, ...),
+ * and so is the specificity of the rules: the CSS of a project (`vis-user.css`, `vis-common-user.css`) is added to
+ * the page after this stylesheet, so a rule a user wrote for vis-1, like `.weatherForecastItem { ... }` or
+ * `.flip-clock-wrapper ul li a div div.inn { ... }`, still wins. Please keep it that way - no extra scoping class in
+ * front of these selectors. The names are unique to this widget set, and in vis-2 the React widget always replaces
+ * the vis-1 widget of the same id.
+ *
+ * Scoped (`.tw-rx*`) are only the rules of the widget roots and what follows the theme of vis-2. `:where()` would
+ * have been the tool to scope without specificity, but it drops the whole rule on the old browsers of wall tablets
+ * (Chrome < 88).
+ *
+ * The rules are the ones of the vis-1 stylesheets, minus vendor prefixes and IE hacks.
+ */
+
+.tw-rx {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    /* What lies on the view and therefore follows the vis-2 theme: the dots and the AM/PM of the flip clock */
+    --tw-flip-on-view: #323434;
+    --tw-flip-meridium: #313333;
+}
+
+/* Set by the widgets when `context.themeType` is `dark` */
+.tw-rx.tw-rx-dark {
+    --tw-flip-on-view: #b8bcc0;
+    --tw-flip-meridium: #d0d4d8;
+}
+
+/* ------------------------------------------------------------------ SimpleClock / SimpleDate (simpleclock.css) */
+
+/* On the widget itself, like in vis-1: the CSS of the widget and the CSS of the project win over these */
+.tw-rx-clock {
+    text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.9);
+    font-weight: bold;
+    color: #969696;
+    letter-spacing: -3pt;
+    word-spacing: -10pt;
+    text-align: left;
+    font-family:
+        trebuchet MS,
+        sans-serif;
+    font-size: 80px;
+    overflow: visible;
+}
+
+.tw-rx-date {
+    text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.9);
+    font-weight: bold;
+    color: #969696;
+    letter-spacing: -1pt;
+    text-align: left;
+    font-family:
+        trebuchet MS,
+        sans-serif;
+    font-size: 26px;
+    overflow: visible;
+}
+
+/* ------------------------------------------------------------------------------ WeatherCustom (yahoo.css) */
+
+.tw-rx-weather {
+    color: #ddd;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 90%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.weatherItem {
+    box-sizing: border-box;
+    min-height: 100%;
+    padding: 0.8em;
+    text-align: right;
+    /* vis-1 copied the radius of the widget onto the box */
+    border-radius: inherit;
+}
+
+.weatherItem.day,
+.weatherItem.night {
+    border: 4px solid #555;
+    background-color: #222;
+    color: #fff;
+}
+
+.weatherCity {
+    text-transform: uppercase;
+}
+
+.weatherTemp {
+    font-size: 2.8em;
+    font-weight: bold;
+}
+
+.weatherDesc,
+.weatherCity,
+.weatherForecastDay {
+    font-weight: bold;
+}
+
+.weatherDesc {
+    margin-bottom: 0.4em;
+}
+
+.weatherRange,
+.weatherWind,
+.weatherForecastItem {
+    font-size: 0.8em;
+}
+
+.weatherForecastItem {
+    margin-top: 0.5em;
+    text-align: left;
+    padding: 0.5em 0.5em 0.5em 60px;
+    background-color: #000;
+    background-position: left center;
+    border-radius: 5px;
+}
+
+.weatherForecastDay {
+    font-size: 1.1em;
+}
+
+/* ------------------------------------------------------------------------------ FlipClock (flipclock.css) */
+
+.tw-rx.flip-clock-wrapper {
+    width: 100%;
+    height: auto;
+    margin: 1em;
+    text-align: center;
+    font: normal 11px 'Helvetica Neue', Helvetica, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.tw-rx.flip-clock-wrapper::before,
+.tw-rx.flip-clock-wrapper::after {
+    content: ' ';
+    display: table;
+}
+
+.tw-rx.flip-clock-wrapper::after {
+    clear: both;
+}
+
+.flip-clock-wrapper * {
+    box-sizing: border-box;
+    backface-visibility: hidden;
+}
+
+.flip-clock-wrapper a {
+    text-decoration: none;
+    color: #ccc;
+}
+
+.flip-clock-wrapper ul {
+    list-style: none;
+    position: relative;
+    float: left;
+    margin: 5px;
+    padding: 0;
+    width: 60px;
+    height: 90px;
+    font-size: 80px;
+    font-weight: bold;
+    line-height: 87px;
+    border-radius: 6px;
+    background: #000;
+}
+
+.flip-clock-wrapper ul li {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 87px;
+    text-decoration: none !important;
+}
+
+.flip-clock-wrapper ul li:first-child {
+    z-index: 2;
+}
+
+.flip-clock-wrapper ul li a {
+    display: block;
+    height: 100%;
+    perspective: 200px;
+    margin: 0 !important;
+    overflow: visible !important;
+    cursor: default !important;
+}
+
+.flip-clock-wrapper ul li a div {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    font-size: 80px;
+    overflow: hidden;
+    outline: 1px solid transparent;
+}
+
+.flip-clock-wrapper ul li a div .shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.flip-clock-wrapper ul li a div.up {
+    transform-origin: 50% 100%;
+    top: 0;
+}
+
+.flip-clock-wrapper ul li a div.up::after {
+    content: '';
+    position: absolute;
+    top: 44px;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.flip-clock-wrapper ul li a div.down {
+    transform-origin: 50% 0;
+    bottom: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 200%;
+    color: #ccc;
+    text-shadow: 0 1px 2px #000;
+    text-align: center;
+    background-color: #333;
+    border-radius: 6px;
+    font-size: 70px;
+}
+
+.flip-clock-wrapper ul li a div.up div.inn {
+    top: 0;
+}
+
+.flip-clock-wrapper ul li a div.down div.inn {
+    bottom: 0;
+}
+
+.flip-clock-wrapper .flip {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.flip-clock-wrapper ul li.flip-clock-active {
+    z-index: 3;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-before {
+    z-index: 3;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-active {
+    animation: tw-flip-z 0.5s 0.5s linear both;
+    z-index: 5;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-active .down {
+    z-index: 2;
+    animation: tw-flip-turn 0.5s 0.5s linear both;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-before .up {
+    z-index: 2;
+    animation: tw-flip-turn2 0.5s linear both;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-before .up .shadow {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, #000 100%);
+    animation: tw-flip-show 0.5s linear both;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-active .up .shadow {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, #000 100%);
+    animation: tw-flip-hide 0.5s 0.3s linear both;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-before .down .shadow {
+    background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.1) 100%);
+    animation: tw-flip-show 0.5s linear both;
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-active .down .shadow {
+    background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.1) 100%);
+    animation: tw-flip-hide 0.5s 0.2s linear both;
+}
+
+.flip-clock-wrapper .flip-clock-divider {
+    float: left;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 100px;
+}
+
+.tw-rx.flip-clock-wrapper .flip-clock-dot {
+    display: block;
+    background: var(--tw-flip-on-view);
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    left: 5px;
+}
+
+.flip-clock-wrapper .flip-clock-dot.top {
+    top: 30px;
+}
+
+.flip-clock-wrapper .flip-clock-dot.bottom {
+    bottom: 30px;
+}
+
+.flip-clock-wrapper ul.flip-clock-meridium {
+    background: none !important;
+    box-shadow: none !important;
+    font-size: 36px !important;
+}
+
+.tw-rx.flip-clock-wrapper ul.flip-clock-meridium a {
+    color: var(--tw-flip-meridium);
+}
+
+@keyframes tw-flip-z {
+    0% {
+        z-index: 2;
+    }
+    20% {
+        z-index: 4;
+    }
+    100% {
+        z-index: 4;
+    }
+}
+
+@keyframes tw-flip-turn {
+    0% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes tw-flip-turn2 {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(-90deg);
+    }
+}
+
+@keyframes tw-flip-show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes tw-flip-hide {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

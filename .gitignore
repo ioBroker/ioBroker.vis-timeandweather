@@ -1,3 +1,17 @@
 /node_modules
-package-lock.json
+/src-widgets/node_modules
+/src-widgets/build
+/src-widgets/preview/dist
+/src-widgets/preview/.vite
+/src-widgets/.__mf__temp
+/src-widgets/.check
+/widgets/vis-2-widgets-timeandweather
 /.idea
+/tmp
+*.tgz
+
+#ignore .commitinfo created by ioBroker release script
+.commitinfo
+
+# ioBroker dev-server
+.dev-server/

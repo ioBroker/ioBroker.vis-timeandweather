@@ -53,65 +53,165 @@
         "ru": "add weather custom widget"
       }
     },
-    "title": "Time and weather Widgets",
     "titleLang": {
       "en": "Time and weather Widgets",
       "de": "Zeit und Wetter Widgets",
       "ru": "Виджеты времени и погоды",
-      "pt": "Tempo e tempo Widgets",
+      "pt": "Widgets de hora e tempo",
       "nl": "Tijd en weer Widgets",
-      "fr": "Heure et temps Widgets",
-      "it": "Tempo e tempo",
-      "es": "Hora y tiempo Widgets",
-      "pl": "Czas i pogoda",
-      "zh-cn": "时间和天气目标"
+      "fr": "Widgets heure et météo",
+      "it": "Widget ora e meteo",
+      "es": "Widgets de hora y tiempo",
+      "pl": "Widżety czasu i pogody",
+      "uk": "Віджети часу та погоди",
+      "zh-cn": "时间和天气小部件"
     },
     "desc": {
-      "en": "Time and weather widgets for ioBroker.vis",
-      "de": "Zeit- und Wetterwidgets für ioBroker.vis",
-      "ru": "Виджеты времени и погоды для ioBroker.vis",
-      "pt": "Widgets de tempo para ioBroker.vis",
-      "nl": "Tijd en weer widgets voor ioBroker",
-      "fr": "Widgets temps et temps pour ioBroker.vis",
-      "it": "Tempo e widget meteo per ioBroker.vis",
-      "es": "Widgets de tiempo y tiempo para ioBroker.vis",
-      "pl": "Time and weather widgets for ioBrokervis (ang.)",
-      "zh-cn": "气布罗克的时间和天气目标。"
+      "en": "Time and weather widgets for ioBroker.vis and vis-2",
+      "de": "Zeit- und Wetter-Widgets für ioBroker.vis und vis-2",
+      "ru": "Виджеты времени и погоды для ioBroker.vis и vis-2",
+      "pt": "Widgets de hora e tempo para ioBroker.vis e vis-2",
+      "nl": "Tijd- en weerwidgets voor ioBroker.vis en vis-2",
+      "fr": "Widgets heure et météo pour ioBroker.vis et vis-2",
+      "it": "Widget di ora e meteo per ioBroker.vis e vis-2",
+      "es": "Widgets de hora y tiempo para ioBroker.vis y vis-2",
+      "pl": "Widżety czasu i pogody dla ioBroker.vis i vis-2",
+      "uk": "Віджети часу та погоди для ioBroker.vis і vis-2",
+      "zh-cn": "用于 ioBroker.vis 和 vis-2 的时间和天气小部件"
     },
     "platform": "Javascript/Node.js",
     "loglevel": "info",
-    "icon": "timeandweather.png",
+    "icon": "timeandweather.svg",
     "enabled": true,
-    "mode": "once",
-    "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.png",
+    "mode": "none",
+    "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-timeandweather/master/admin/timeandweather.svg",
     "keywords": [
       "timeandweather",
       "vis",
+      "vis-2",
       "GUI",
       "graphical",
-      "scada"
+      "scada",
+      "clock",
+      "weather"
     ],
     "readme": "https://github.com/ioBroker/ioBroker.vis-timeandweather/blob/master/README.md",
     "authors": [
       "bluefox <dogafox@gmail.com>"
     ],
-    "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
-    "license": "MIT",
-    "dependencies": [
-      "vis"
-    ],
     "onlyWWW": true,
     "singleton": true,
     "type": "visualization-widgets",
+    "restartAdapters": [
+      "vis",
+      "vis-2"
+    ],
+    "noConfig": true,
     "adminUI": {
       "config": "none"
     },
-    "noConfig": true,
-    "restartAdapters": [
-      "vis"
+    "tier": 3,
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "!vis",
+            "!vis-2"
+          ]
+        },
+        "title": {
+          "en": "No vis adapter found",
+          "de": "Kein vis-Adapter gefunden",
+          "ru": "Адаптер vis не найден",
+          "pt": "Nenhum adaptador vis encontrado",
+          "nl": "Geen vis-adapter gevonden",
+          "fr": "Aucun adaptateur vis trouvé",
+          "it": "Nessun adattatore vis trovato",
+          "es": "No se encontró ningún adaptador vis",
+          "pl": "Nie znaleziono adaptera vis",
+          "uk": "Адаптер vis не знайдено",
+          "zh-cn": "找不到vis适配器"
+        },
+        "text": {
+          "en": "This adapter requires the vis or vis-2 adapter to be installed and running. Install it, if you want to use this widgets.",
+          "de": "Dieser Adapter benötigt den vis- oder vis-2-Adapter, der installiert und ausgeführt wird. Installieren Sie es, wenn Sie diese Widgets verwenden möchten.",
+          "ru": "Этот адаптер требует установки и запуска адаптера vis или vis-2. Установите его, если хотите использовать эти виджеты.",
+          "pt": "Este adaptador requer que o adaptador vis ou vis-2 seja instalado e executado. Instale-o, se quiser usar esses widgets.",
+          "nl": "Deze adapter vereist dat de vis- of vis-2-adapter is geïnstalleerd en wordt uitgevoerd. Installeer het als u deze widgets wilt gebruiken.",
+          "fr": "Cet adaptateur nécessite que l'adaptateur vis ou vis-2 soit installé et en cours d'exécution. Installez-le si vous souhaitez utiliser ces widgets.",
+          "it": "Questo adattatore richiede che l'adattatore vis o vis-2 sia installato ed in esecuzione. Installalo se vuoi utilizzare questi widget.",
+          "es": "Este adaptador requiere que el adaptador vis o vis-2 esté instalado y en funcionamiento. Instálalo si quieres usar estos widgets.",
+          "pl": "Ten adapter wymaga zainstalowania i uruchomienia adaptera vis lub vis-2. Zainstaluj go, jeśli chcesz używać tych widżetów.",
+          "uk": "Цей адаптер потребує встановлення та запуску адаптера vis або vis-2. Встановіть його, якщо хочете використовувати ці віджети.",
+          "zh-cn": "此适配器需要安装和运行vis或vis-2适配器。如果要使用这些小部件，请安装它。"
+        },
+        "level": "info",
+        "buttons": [
+          "ok",
+          "cancel"
+        ]
+      },
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "vis-2<2.12.8"
+          ]
+        },
+        "title": {
+          "en": "vis-2 is too old",
+          "de": "vis-2 ist zu alt",
+          "ru": "vis-2 слишком старый",
+          "pt": "vis-2 é demasiado antigo",
+          "nl": "vis-2 is te oud",
+          "fr": "vis-2 est trop ancien",
+          "it": "vis-2 è troppo vecchio",
+          "es": "vis-2 es demasiado antiguo",
+          "pl": "vis-2 jest zbyt stary",
+          "uk": "vis-2 застарий",
+          "zh-cn": "vis-2 版本过旧"
+        },
+        "text": {
+          "en": "The React widgets require vis-2 2.12.8 or newer. With an older vis-2 the widgets of vis-1 are used.",
+          "de": "Die React-Widgets benötigen vis-2 2.12.8 oder neuer. Mit einem älteren vis-2 werden die Widgets von vis-1 verwendet.",
+          "ru": "React-виджеты требуют vis-2 2.12.8 или новее. Со старым vis-2 используются виджеты vis-1.",
+          "pt": "Os widgets React requerem vis-2 2.12.8 ou mais recente. Com um vis-2 mais antigo são usados os widgets do vis-1.",
+          "nl": "De React-widgets vereisen vis-2 2.12.8 of nieuwer. Met een oudere vis-2 worden de vis-1-widgets gebruikt.",
+          "fr": "Les widgets React nécessitent vis-2 2.12.8 ou plus récent. Avec un vis-2 plus ancien, les widgets de vis-1 sont utilisés.",
+          "it": "I widget React richiedono vis-2 2.12.8 o successivo. Con un vis-2 più vecchio vengono usati i widget di vis-1.",
+          "es": "Los widgets de React requieren vis-2 2.12.8 o superior. Con un vis-2 más antiguo se usan los widgets de vis-1.",
+          "pl": "Widgety React wymagają vis-2 2.12.8 lub nowszego. Ze starszym vis-2 używane są widgety vis-1.",
+          "uk": "React-віджети потребують vis-2 2.12.8 або новіше. Зі старішим vis-2 використовуються віджети vis-1.",
+          "zh-cn": "React 小部件需要 vis-2 2.12.8 或更高版本。使用较旧的 vis-2 时将使用 vis-1 的小部件。"
+        },
+        "level": "warn",
+        "buttons": [
+          "ok"
+        ]
+      }
     ],
-    "connectionType": "local",
-    "dataSource": "push"
+    "visWidgets": {
+      "visTimeAndWeather": {
+        "i18n": "component",
+        "name": "visTimeAndWeather",
+        "url": "vis-2-widgets-timeandweather/customWidgets.js",
+        "bundlerType": "module",
+        "components": [
+          "TwSimpleDate",
+          "TwSimpleClock",
+          "TwCoolClock",
+          "TwFlipClock",
+          "TwWeather",
+          "TwSvgClock",
+          "TwSegmentClock"
+        ]
+      }
+    }
   },
   "native": {},
   "instanceObjects": []
