@@ -142,8 +142,10 @@ export default class TwSegmentClock extends Generic<TwSegmentClockRxData, TwSegm
             id: 'tplSegmentClock',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'Segment Clock',
             visWidgetLabel: 'segment_clock',
+            visHelp: 'help_segment_clock',
             visAttrs: [
                 {
                     name: 'common',

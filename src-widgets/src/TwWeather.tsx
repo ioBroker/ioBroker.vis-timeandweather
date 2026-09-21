@@ -108,8 +108,10 @@ export default class TwWeather extends Generic<TwWeatherRxData, TwWeatherState> 
             id: 'tplTwWeather',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'WeatherCustom',
             visWidgetLabel: 'weather_custom',
+            visHelp: 'help_weather_custom',
             visAttrs: [
                 {
                     name: 'common',

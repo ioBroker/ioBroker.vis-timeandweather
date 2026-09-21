@@ -95,8 +95,10 @@ export default class TwSimpleDate extends Generic<TwSimpleDateRxData, TwSimpleDa
             id: 'tplTwSimpleDate',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'SimpleDate',
             visWidgetLabel: 'simple_date',
+            visHelp: 'help_simple_date',
             visAttrs: [
                 {
                     name: 'common',

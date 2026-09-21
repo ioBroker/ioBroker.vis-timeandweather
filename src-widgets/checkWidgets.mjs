@@ -9,7 +9,7 @@
  * Run with `npm run check-widgets` in the root, or `node checkWidgets.mjs` in this folder.
  */
 import { build } from 'vite';
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -93,8 +93,21 @@ function legacyAttrs(tpl) {
     return names;
 }
 
+/**
+ * The file behind an image URL of the widget info. Such URLs are relative to the vis root: the React build lands in
+ * `widgets/vis-2-widgets-timeandweather/` and comes from `public/`, everything else under `widgets/` is the vis-1 set.
+ */
+function imageFile(url) {
+    const own = 'widgets/vis-2-widgets-timeandweather/';
+    if (url.startsWith(own)) {
+        return path.join(HERE, 'public', url.substring(own.length));
+    }
+    return path.join(HERE, '..', url);
+}
+
 let problems = 0;
 const ids = new Set();
+const setIcons = new Set();
 const en = JSON.parse(readFileSync(path.join(SRC, 'i18n', 'en.json'), 'utf8'));
 const missingLabels = new Set();
 const usedLabels = new Set();
@@ -129,7 +142,21 @@ for (const name of WIDGETS) {
         }
     };
 
+    // the description in the tooltip of the palette
+    if (!info.visHelp) {
+        console.log(`ERROR ${prefix}: no visHelp - the palette shows no description`);
+        problems++;
+    }
+    setIcons.add(info.visSetIcon);
+    for (const url of [info.visPrev, info.visSetIcon]) {
+        if (url && !existsSync(imageFile(url))) {
+            console.log(`ERROR ${prefix}: image "${url}" does not exist`);
+            problems++;
+        }
+    }
+
     checkLabel(info.visWidgetLabel);
+    checkLabel(info.visHelp);
     checkLabel(info.visSetLabel);
     for (const group of info.visAttrs) {
         checkLabel(group.label);
@@ -162,6 +189,12 @@ for (const name of WIDGETS) {
         `OK    ${prefix}: ${info.visAttrs.length} groups, ${own.size} fields` +
             (added.length ? ` | new: ${added.join(', ')}` : ''),
     );
+}
+
+// the palette takes the icon of the set from any of its widgets, so all have to name the same one
+if (setIcons.size !== 1 || setIcons.has(undefined)) {
+    console.log(`\nERROR every widget needs the same visSetIcon, found: ${[...setIcons].join(', ')}`);
+    problems++;
 }
 
 // '' is the "not set" entry of a select and needs no translation

@@ -62,8 +62,10 @@ export default class TwSvgClock extends Generic<TwSvgClockRxData, TwSvgClockStat
             id: 'tplSvgClock',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'Svg Clock',
             visWidgetLabel: 'svg_clock',
+            visHelp: 'help_svg_clock',
             visAttrs: [
                 {
                     name: 'common',

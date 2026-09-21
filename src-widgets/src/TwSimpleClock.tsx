@@ -36,8 +36,10 @@ export default class TwSimpleClock extends Generic<TwSimpleClockRxData, TwSimple
             id: 'tplTwSimpleClock',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'SimpleClock',
             visWidgetLabel: 'simple_clock',
+            visHelp: 'help_simple_clock',
             visAttrs: [
                 {
                     name: 'common',

@@ -66,8 +66,10 @@ export default class TwCoolClock extends Generic<TwCoolClockRxData, TwCoolClockS
             id: 'tplTwCoolClock',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'CoolClock',
             visWidgetLabel: 'cool_clock',
+            visHelp: 'help_cool_clock',
             visAttrs: [
                 {
                     name: 'common',

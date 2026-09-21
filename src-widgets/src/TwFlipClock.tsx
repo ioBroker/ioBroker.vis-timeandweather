@@ -52,8 +52,10 @@ export default class TwFlipClock extends Generic<TwFlipClockRxData, TwFlipClockS
             id: 'tplTwFlipClock',
             visSet: 'timeandweather',
             visSetLabel: 'set_label',
+            visSetIcon: 'widgets/vis-2-widgets-timeandweather/img/timeandweather.svg',
             visName: 'FlipClock',
             visWidgetLabel: 'flip_clock',
+            visHelp: 'help_flip_clock',
             visAttrs: [
                 {
                     name: 'common',

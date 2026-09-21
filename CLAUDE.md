@@ -54,8 +54,10 @@ rewrites both (`version: "x.y.z"`) from `package.json` on every build (`node tas
 ### `npm run check-widgets`
 
 `src-widgets/checkWidgets.mjs` bundles the widget sources for node, stubs `window.visRxWidget`, calls every
-`getWidgetInfo()` and checks the three migration invariants above, that every `label`/`tooltip`/select option exists
-in `src-widgets/src/i18n/en.json` and that every other language file has all keys of `en.json`. The commented-out
+`getWidgetInfo()` and checks the three migration invariants above, that every widget has a `visHelp` (the
+description in the palette tooltip), that all widgets name the same `visSetIcon` and that it and every `visPrev`
+exist, that every `label`/`tooltip`/select option/`visHelp` exists in `src-widgets/src/i18n/en.json` and that every
+other language file has all keys of `en.json`. The commented-out
 templates of the vis-1 set (`tplTwHtcWeather`, `tplTwYahooWeather`) are ignored. Attributes the vis-1 template
 offered but never used would go into its `DROPPED` map - it is empty today.
 
@@ -119,6 +121,8 @@ are not in `i18n/`, because the weather widget has a `language` attribute of its
   package ships (backgrounds, palette previews).
 - The adapter icon `admin/timeandweather.svg` is the Svg Clock at 4:35, drawn with the geometry of `TwSvgClock`
   and a white dial, so it stays visible in the dark admin theme. `admin/timeandweather.png` is the old icon.
+  `src-widgets/public/img/timeandweather.svg` is a copy of it: the `visSetIcon` of every widget, which the vis-2
+  palette shows in front of the set name. Change both together.
 
 ### `src-widgets/preview/` - the development page and the screenshots
 
